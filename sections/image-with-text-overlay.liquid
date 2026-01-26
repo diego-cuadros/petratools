@@ -35,7 +35,7 @@
   {% endif -%}
 </style>
 <div class="section image-with-text-overlay section--padding">
-  <div class="section__container page-width page-width--{{ container }}">
+  <div class="section__container page-width page-width--{{ container }} dc_main">
     <div class="relative overflow-hidden{% unless container == 'full' %} blocks-radius{% endunless %}">
       <parallax-element
         class="block w-full h-full overflow-hidden"
@@ -80,10 +80,56 @@
       </parallax-element>
       <div class="image-with-text-ovelay__content card-media--large">
         <div class="image-with-text-ovelay__content-wrapper content-overlay content-overlay--{{ section.settings.content_position_mobile }} content-overlay--{{ section.settings.content_position }} color-{{ section.settings.color_scheme }}{% if container == 'full' %} page-width{% endif %}">
-          <div class="relative z-1 rich-text text-{{ section.settings.content_alignment_mobile }} md:text-{{ section.settings.content_alignment }}">
+          <div
+            class="relative z-1 rich-text text-{{ section.settings.content_alignment_mobile }} md:text-{{ section.settings.content_alignment }} dc_wrapper"
+            {% if section.settings.container_visible == true %}
+              style="background-color:{{ section.settings.container_color }}"
+            {% endif %}
+          >
             {%- assign motion_delay = 50 -%}
             {% for block in section.blocks %}
               {% case block.type %}
+                {% when 'score_block' %}
+                  <div class="dc_score-container">
+                    <div class="dc_score-stars">
+                      {% for i in (1..block.settings.star_count) %}
+                        {% render 'icon-star',
+                          star_color: block.settings.star_color,
+                          star_size: block.settings.star_size
+                        %}
+                      {% endfor %}
+                    </div>
+                    <div
+                      class="dc_score-text"
+                      style="
+                        color: {{ block.settings.text_color }};
+                        font-size: {{ block.settings.text_size }}px;
+                      "
+                    >
+                      {{ block.settings.score_text }}
+                    </div>
+                  </div>
+                {% when 'custom_tag' %}
+                  {% assign bg = block.settings.background_color
+                    | color_to_rgb
+                    | replace: 'rgb(', ''
+                    | replace: ')', ''
+                    | replace: ' ', ''
+                  %}
+                  {% assign opacity = block.settings.background_opacity | divided_by: 100.0 %}
+
+                  <div class="dc_tag-line">
+                    <p
+                      class="dc_tag-line_text"
+                      style="
+                        background-color: rgba({{ bg }}, {{ opacity }});
+                        color: {{ block.settings.text_color }};
+                        font-size: {{ block.settings.font_size }}px;
+                      "
+                    >
+                      {{ block.settings.custom_tag_text }}
+                    </p>
+                  </div>
                 {% when 'subheading' %}
                   <motion-element
                     data-motion="fade-up"
@@ -95,7 +141,7 @@
                   </motion-element>
                   {%- assign motion_delay = motion_delay | plus: 50 -%}
                 {% when 'heading' %}
-                  <h2 class="rich-text__heading {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
+                  <h2 class="rich-text__heading {{ block.settings.heading_size }} dc_h2" {{ block.shopify_attributes }}>
                     <motion-element data-motion="fade-up" data-motion-delay="{{ motion_delay }}" class="block">
                       {% render 'highlight-text',
                         hl_text: block.settings.heading,
@@ -111,7 +157,7 @@
                   <motion-element
                     data-motion="fade-up"
                     data-motion-delay="{{ motion_delay }}"
-                    class="block rich-text__text rte {{ block.settings.text_size }}"
+                    class="block rich-text__text rte {{ block.settings.text_size }} dc_p"
                     {{ block.shopify_attributes }}
                   >
                     {{- block.settings.text -}}
@@ -248,6 +294,18 @@
       "id": "color_scheme",
       "label": "t:general.colors.label",
       "default": "scheme-inverse"
+    },
+    {
+      "type": "checkbox",
+      "id": "container_visible",
+      "label": "Container visible",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "container_color",
+      "label": "Container color",
+      "default": "#ffffff"
     },
     {
       "type": "select",
@@ -439,6 +497,105 @@
           "id": "subheading",
           "default": "Add a tagline",
           "label": "t:general.subheading.label"
+        }
+      ]
+    },
+    {
+      "type": "custom_tag",
+      "name": "🔥 Custom Tag",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "custom_tag_text",
+          "default": "Add a tagline",
+          "label": "Tagline text"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#FFA500"
+        },
+        {
+          "type": "range",
+          "id": "background_opacity",
+          "label": "Background opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 100,
+          "unit": "%"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "font_size",
+          "label": "Font size",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "default": 16,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "type": "score_block",
+      "name": "🔥Score Block",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "star_count",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Number of stars"
+        },
+        {
+          "type": "color",
+          "id": "star_color",
+          "label": "Star color",
+          "default": "#FFD700"
+        },
+        {
+          "type": "range",
+          "id": "star_size",
+          "label": "Star size",
+          "min": 10,
+          "max": 40,
+          "step": 2,
+          "default": 16,
+          "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "score_text",
+          "label": "Text",
+          "default": "2,000,000+ Happy Customers"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "label": "Text size",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "default": 16,
+          "unit": "px"
         }
       ]
     },

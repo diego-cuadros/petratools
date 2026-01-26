@@ -289,79 +289,312 @@
           {%- endif -%}
         </div>
       {%- endif -%}
+      {% if block.settings.use_custom_quantity_selector_style and product.has_only_default_variant == false %}
+        <style>
+          .main-product-form {
+            gap: 10px !important;
+          }
 
-      <div class="product-form__buttons flex flex-wrap items-end gap-x-2 gap-y-4" id="QuantityForm-{{ section_id }}">
-        {%- if product.quantity_price_breaks_configured? != true -%}
-          {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
-          <div class="product-form__quantity{% unless block.settings.show_quantity_selector %} hidden{% endunless %}">
-            <label class="quantity__label form__label visually-hidden" for="Quantity-{{ section.id }}">
-              <span class="font-body-bolder">{{ 'products.product.quantity.label' | t }}</span>
-            </label>
-            <quantity-input
-              class="quantity"
-              data-section-id="{{ section_id }}"
-              data-product-id="{{ product_id }}"
-            >
-              <button class="quantity__button" name="minus" type="button">
-                <span class="visually-hidden">
-                  {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
-                </span>
-                {% render 'icon-minus' %}
-              </button>
-              <input
-                class="quantity__input"
-                type="number"
-                name="quantity"
-                id="Quantity-{{ section.id }}"
-                data-cart-quantity="{{ cart_qty }}"
-                step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
-                value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                data-quantity-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
-                  data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                  max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                {% endif %}
-                inputmode="numeric"
-                autocomplete="off"
-                form="{{ product_form_id }}"
-              >
-              <button class="quantity__button" name="plus" type="button">
-                <span class="visually-hidden">
-                  {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
-                </span>
-                {% render 'icon-plus' %}
-              </button>
-            </quantity-input>
-          </div>
-        {%- endif -%}
-        <button
-          id="ProductSubmitButton-{{ section_id }}"
-          type="submit"
-          name="add"
-          class="product-form__submit btn{% if show_dynamic_checkout %} btn--secondary{% else %} btn--primary{% endif %}"
-          {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout or product.selected_or_first_available_variant == nil %}
-            disabled
-          {% endif %}
+          .dc_custom-product-form_buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          .dc_product-form__quantity {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            border: 1px solid #ccd2d6;
+            justify-content: space-between;
+            height: auto;
+            align-items: center;
+            padding: 10px 16px 10px 16px;
+            border-radius: 4px;
+          }
+
+          .quantity__button {
+            height: 28px !important;
+            width: 28px !important;
+          }
+
+          .quantity__input {
+            padding: 0px 30px !important;
+            margin: 0px !important;
+            height: 28px !important;
+            width: 28px !important;
+          }
+
+          .quantity {
+            min-height: 32px !important;
+            width: 93px !important;
+          }
+
+          .quantity__button {
+            background-color: #222 !important;
+            color: #fff;
+          }
+
+          .quantity__input {
+            border: none !important;
+            margin: auto;
+            box-shadow: none !important;
+          }
+
+          .dc_quantity-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+          }
+
+          .dc_quantity-label {
+            font-size: 16px;
+            font-weight: 600;
+          }
+
+          .dc_quantity-info__image {
+            width: 48px;
+            height: 48px;
+          }
+
+          .dc_quantity-info_text {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+          }
+
+          .dc_quantity-info_text p {
+            margin: 0px;
+            font-size: 16px;
+          }
+
+          .dc_quantity-info_text span {
+            margin: 0px;
+            font-size: 12px;
+          }
+
+          .dc_custom-product-form_buttons .btn {
+            width: 100% !important;
+          }
+
+          .dc_custom-product-form_buttons .btn--primary {
+            border-radius: 4px !important;
+            font-size: 16px !important;
+            height: 54px !important;
+          }
+        </style>
+        <span class="dc_quantity-label">Quantity</span>
+        <div
+          class="dc_custom-product-form_buttons product-form__buttons flex flex-wrap items-end gap-x-2 gap-y-4"
+          id="QuantityForm-{{ section_id }}"
         >
-          <span class="btn__text">
-            {%- if product.selected_or_first_available_variant == nil -%}
-              {{ 'products.product.unavailable' | t }}
-            {%- elsif product.selected_or_first_available_variant.available == false
+          {%- if product.quantity_price_breaks_configured? != true -%}
+            {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
+            <div class="dc_product-form__quantity product-form__quantity{% unless block.settings.show_quantity_selector %} hidden{% endunless %}">
+              <div class="dc_quantity-info">
+                <img
+                  class="dc_quantity-info__image"
+                  src=""
+                  width="48"
+                  height="48"
+                >
+                <div class="dc_quantity-info_text"></div>
+              </div>
+              <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                  function updateQuantityInfo() {
+                    const checkedInput = document.querySelector(
+                      '.product-form__input--button.js input[type="radio"]:checked'
+                    );
+
+                    if (!checkedInput) return;
+
+                    const labelElement = document.querySelector(
+                      `.product-form__input--button.js label[for="${checkedInput.id}"]`
+                    );
+
+                    if (!labelElement) return;
+
+                    const imageElement = document.querySelector('.dc_quantity-info__image');
+                    const textContainer = document.querySelector('.dc_quantity-info_text');
+
+                    if (!imageElement || !textContainer) return;
+
+                    const variantImage = labelElement.querySelector('.variant-image');
+                    const variantLabel = labelElement.querySelector('.variant-label');
+
+                    if (variantImage?.src) {
+                      imageElement.src = variantImage.src;
+                      imageElement.alt = variantImage.alt || '';
+                    }
+
+                    if (variantLabel) {
+                      textContainer.innerHTML = `<p>${variantLabel.textContent.trim()}</p><span class="variant-metafield-message">We need a variant metafield here</span>`;
+                    }
+                  }
+
+                  /* ---------- INITIAL LOAD ---------- */
+                  updateQuantityInfo();
+
+                  /* ---------- CONTINUOUS UPDATES ---------- */
+                  document.addEventListener('change', (event) => {
+                    if (event.target.matches('.product-form__input--button.js input[type="radio"]')) {
+                      updateQuantityInfo();
+                    }
+                  });
+                });
+              </script>
+
+              <label class="quantity__label form__label visually-hidden" for="Quantity-{{ section.id }}">
+                <span class="font-body-bolder">{{ 'products.product.quantity.label' | t }}</span>
+              </label>
+              <quantity-input
+                class="quantity"
+                data-section-id="{{ section_id }}"
+                data-product-id="{{ product_id }}"
+              >
+                <button class="quantity__button" name="minus" type="button">
+                  <span class="visually-hidden">
+                    {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
+                  </span>
+                  {% render 'icon-minus' %}
+                </button>
+                <input
+                  class="quantity__input"
+                  type="number"
+                  name="quantity"
+                  id="Quantity-{{ section.id }}"
+                  data-cart-quantity="{{ cart_qty }}"
+                  step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                  value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  data-quantity-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                    data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                    max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                  {% endif %}
+                  inputmode="numeric"
+                  autocomplete="off"
+                  form="{{ product_form_id }}"
+                >
+                <button class="quantity__button" name="plus" type="button">
+                  <span class="visually-hidden">
+                    {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
+                  </span>
+                  {% render 'icon-plus' %}
+                </button>
+              </quantity-input>
+            </div>
+          {%- endif -%}
+          {% if block.settings.show_calculator %}
+            {%- render 'custom-calculator', block: block -%}
+          {% endif %}
+
+          <button
+            id="ProductSubmitButton-{{ section_id }}"
+            type="submit"
+            name="add"
+            class="product-form__submit btn{% if show_dynamic_checkout %} btn--secondary{% else %} btn--primary{% endif %}"
+            {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
-            -%}
-              {{ 'products.product.sold_out' | t }}
-            {%- else -%}
-              {{ 'products.product.add_to_cart' | t }}
-            {%- endif -%}
-          </span>
-          {%- render 'loading-spinner' -%}
-        </button>
-        {%- if show_dynamic_checkout -%}
-          {{ form | payment_button }}
-        {%- endif -%}
-      </div>
+              or product.selected_or_first_available_variant == null
+            %}
+              disabled
+            {% endif %}
+          >
+            <span class="btn__text">
+              {%- if product.selected_or_first_available_variant == null -%}
+                {{ 'products.product.unavailable' | t }}
+              {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- else -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- endif -%}
+            </span>
+            {%- render 'loading-spinner' -%}
+          </button>
+          {%- if show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+        </div>
+      {% else %}
+        <div class="product-form__buttons flex flex-wrap items-end gap-x-2 gap-y-4" id="QuantityForm-{{ section_id }}">
+          {%- if product.quantity_price_breaks_configured? != true -%}
+            {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
+            <div class="product-form__quantity{% unless block.settings.show_quantity_selector %} hidden{% endunless %}">
+              <label class="quantity__label form__label visually-hidden" for="Quantity-{{ section.id }}">
+                <span class="font-body-bolder">{{ 'products.product.quantity.label' | t }}</span>
+              </label>
+              <quantity-input
+                class="quantity"
+                data-section-id="{{ section_id }}"
+                data-product-id="{{ product_id }}"
+              >
+                <button class="quantity__button" name="minus" type="button">
+                  <span class="visually-hidden">
+                    {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
+                  </span>
+                  {% render 'icon-minus' %}
+                </button>
+                <input
+                  class="quantity__input"
+                  type="number"
+                  name="quantity"
+                  id="Quantity-{{ section.id }}"
+                  data-cart-quantity="{{ cart_qty }}"
+                  step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                  value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  data-quantity-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                  {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                    data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                    max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                  {% endif %}
+                  inputmode="numeric"
+                  autocomplete="off"
+                  form="{{ product_form_id }}"
+                >
+                <button class="quantity__button" name="plus" type="button">
+                  <span class="visually-hidden">
+                    {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
+                  </span>
+                  {% render 'icon-plus' %}
+                </button>
+              </quantity-input>
+            </div>
+          {%- endif -%}
+          <button
+            id="ProductSubmitButton-{{ section_id }}"
+            type="submit"
+            name="add"
+            class="product-form__submit btn{% if show_dynamic_checkout %} btn--secondary{% else %} btn--primary{% endif %}"
+            {% if product.selected_or_first_available_variant.available == false
+              or quantity_rule_soldout
+              or product.selected_or_first_available_variant == null
+            %}
+              disabled
+            {% endif %}
+          >
+            <span class="btn__text">
+              {%- if product.selected_or_first_available_variant == null -%}
+                {{ 'products.product.unavailable' | t }}
+              {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- else -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- endif -%}
+            </span>
+            {%- render 'loading-spinner' -%}
+          </button>
+          {%- if show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+        </div>
+      {% endif %}
       <div class="product-form__error-message blocks-radius-md alert alert--error" role="alert" hidden></div>
     {%- endform -%}
   </div>

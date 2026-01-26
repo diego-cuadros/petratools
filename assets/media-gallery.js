@@ -17,7 +17,7 @@ if (!customElements.get('media-gallery')) {
       }
 
       connectedCallback() {
-        FoxTheme.Motion.inView(this, this.init.bind(this));
+        this.init();
       }
 
       init() {
@@ -47,7 +47,7 @@ if (!customElements.get('media-gallery')) {
           init: false,
           slidesPerView: this.enableMobileThumbnails ? 1 : 'auto',
           spaceBetween: mediaItemGapMobile,
-          loop: false,
+          loop: true,
           grabCursor: true,
           allowTouchMove: true,
           autoHeight: true,
@@ -243,30 +243,11 @@ if (!customElements.get('media-gallery')) {
 
         this.lightbox.on('change', () => {
           window.pauseAllMedia(this);
-        });
-
-        // Store the current index before closing
-        let lastLightboxIndex = null;
-        this.lightbox.on('close', () => {
-          if (this.lightbox.pswp) {
-            lastLightboxIndex = this.lightbox.pswp.currIndex;
-          }
-        });
-
-        // Update slider after lightbox is destroyed
-        this.lightbox.on('destroy', () => {
-          if (this.sliderInstance && this.sliderInstance.slider && lastLightboxIndex !== null) {
-            const slider = this.sliderInstance.slider;
-            const targetIndex = lastLightboxIndex;
-            // currIndex from lightbox is the index in dataSource array
-            // which should match the slider index since both are created from the same media items in the same order
-            if (targetIndex >= 0 && targetIndex < slider.slides.length && slider.activeIndex !== targetIndex) {
-              // Use requestAnimationFrame to ensure DOM is ready
-              requestAnimationFrame(() => {
-                slider.slideTo(targetIndex, 0);
-              });
+          if (this.sliderInstance && this.sliderInstance.slider) {
+            const { currIndex } = this.lightbox.pswp;
+            if (this.sliderInstance.slider.realIndex !== currIndex) {
+              this.sliderInstance.slider.slideToLoop(currIndex, 100, false);
             }
-            lastLightboxIndex = null;
           }
         });
 
@@ -365,43 +346,17 @@ if (!customElements.get('media-gallery')) {
       }
 
       setActiveMedia(variant) {
-        if (!variant) return;
-
-        let featuredMedia = variant.featured_media;
-
-        if (!featuredMedia && variant.featured_image) {
-          featuredMedia = {
-            id: variant.featured_image.id,
-            position: variant.featured_image.position || 0,
-            media_type: 'image',
-          };
-        }
-
-        if (!featuredMedia) return;
+        if (!variant || !variant.hasOwnProperty('featured_media') || !variant.featured_media) return;
 
         if (this.sliderInstance.slider) {
-          const slideIndex = featuredMedia.position || 0;
-          this.sliderInstance.slider.slideTo(slideIndex - 1, 0, false);
+          const slideIndex = variant.featured_media.position || 0;
+          this.sliderInstance.slider.slideToLoop(slideIndex - 1);
         } else {
-          this.sortMediaItems(variant, featuredMedia);
+          this.sortMediaItems(variant);
         }
       }
 
-      sortMediaItems(variant, featuredMedia) {
-        if (!featuredMedia) {
-          featuredMedia =
-            variant.featured_media ||
-            (variant.featured_image
-              ? {
-                  id: variant.featured_image.id,
-                  position: variant.featured_image.position || 0,
-                  media_type: 'image',
-                }
-              : null);
-        }
-
-        if (!featuredMedia) return;
-
+      sortMediaItems(variant) {
         let newMedias = this.elements.mediaItems;
 
         // Reset ordering.
@@ -410,7 +365,7 @@ if (!customElements.get('media-gallery')) {
         });
 
         newMedias.some((media, index) => {
-          if (media.dataset.mediaId == featuredMedia.id) {
+          if (media.dataset.mediaId == variant.featured_media.id) {
             const [element] = newMedias.splice(index, 1);
             newMedias.unshift(element);
             return true;
@@ -423,7 +378,7 @@ if (!customElements.get('media-gallery')) {
         });
 
         if (!FoxTheme.config.mqlMobile && this.context !== 'quickview') {
-          const selectedMedia = this.querySelector(`[data-media-id="${featuredMedia.id}"]`);
+          const selectedMedia = this.querySelector(`[data-media-id="${variant.featured_media.id}"]`);
           if (selectedMedia) {
             window.scrollTo({ top: selectedMedia.offsetTop, behavior: 'smooth' });
           }

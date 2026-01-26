@@ -79,7 +79,7 @@
         "apply_error_message": "The discount code cannot be applied to your cart."
       },
       "free_shipping": {
-        "remaining_html": "Spend {{ remaining_amount }} more to reach free shipping!",
+        "remaining_html": "You're <strong>{{ remaining_amount }}</strong> away from <strong>FREE SHIPPING!</strong>",
         "congratulations_html": "You are eligible for free shipping."
       },
       "shipping_calculator": {
@@ -181,6 +181,7 @@
       "add_to_cart": "Add to cart",
       "add_to_cart_short": "Add",
       "add_all_to_cart": "Add all to cart",
+      "best_seller":"Best Seller",
       "buy_it_now": "Buy it now",
       "choose_options": "Choose options",
       "choose_options_short": "View",
@@ -284,7 +285,7 @@
       "clear": "Clear",
       "clear_all": "Clear all",
       "from": "From",
-      "filter_button": "Filter",
+      "filter_button": "Filters",
       "filters_selected": {
         "one": "{{ count }} selected",
         "other": "{{ count }} selected"

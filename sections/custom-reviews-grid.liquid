@@ -1,0 +1,187 @@
+{{ 'custom-reviews-grid.css' | asset_url | stylesheet_tag }}
+
+<section class="dc_reviews-section" style="background-color:{{ section.settings.background_color }};">
+  <div class="dc_reviews-section_inner-container">
+    <div
+      class="dc_reviews-title"
+    >
+      <h2>
+        <span class="dc_review-stars" style="color:{{ section.settings.color_for_stars }};">★★★★★</span><br>
+        {{ section.settings.section_title }}
+      </h2>
+    </div>
+    <div
+      class="dc_reviews-title-mobile"
+      style="background-color:{{ section.settings.background_color_for_title_on_mobile }};"
+    >
+      <h2 style="color:{{  section.settings.background_color_for_title_text_on_mobile }};">
+        <span class="dc_review-stars" style="color:{{ section.settings.color_for_stars }};">★★★★★</span><br>
+        {{ section.settings.section_title }}
+      </h2>
+    </div>
+
+    <div class="dc_review_mansory">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'review' %}
+            <div class="dc_review_card">
+              <div class="dc_review_inner-card" style="background-color:{{section.settings.card_background_color}};">
+                <div class="dc_review-header">
+                  <span class="dc_review-stars" style="color:{{ section.settings.color_for_stars }};">
+                    {{- block.settings.stars -}}
+                  </span>
+                  <span class="dc_review-date">{{ block.settings.date }}</span>
+                </div>
+
+                {% if block.settings.review != blank %}
+                  <p>{{ block.settings.review }}</p>
+                {% endif %}
+
+                <div class="dc_review-buyer">
+                  <strong>{{ block.settings.buyer_name }}</strong><br>
+                  {% if block.settings.verified %}
+                    <div class="dc_review-verified-badge" style="color: {{ section.settings.verified_badge_color }};">
+                      {% render 'icon-premium-badge' %}
+                      <span>Verified Buyer</span>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+
+              {% if block.settings.image %}
+                <img
+                  src="{{ block.settings.image | image_url }}"
+                  alt=""
+                  width="{{ section.settings.logo.width }}"
+                  height="{{ section.settings.logo.height }}"
+                >
+              {% endif %}
+            </div>
+
+          {% when 'image_only' %}
+            <div class="dc_review_card">
+              {% if block.settings.image %}
+                <img
+                  src="{{ block.settings.image | image_url }}"
+                  alt=""
+                  width="{{ section.settings.logo.width }}"
+                  height="{{ section.settings.logo.height }}"
+                >
+              {% endif %}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "🔥Custom Masonry Reviews",
+  "tag": "section",
+  "class": "masonry-reviews-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Select a background color for this section",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Select a background color for this section",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "background_color_for_title_on_mobile",
+      "label": "Select a background color for the title on mobile",
+      "default": "#333"
+    },
+    {
+      "type": "color",
+      "id": "background_color_for_title_text_on_mobile",
+      "label": "Select a background color for the title on mobile",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "color_for_stars",
+      "label": "Color for review stars",
+      "default": "#ff7a00"
+    },
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Over 1,000,000+ Happy customers"
+    },
+    {
+      "type": "color",
+      "id": "verified_badge_color",
+      "label": "Color for Verified Badge",
+      "default": "#333"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stars",
+          "label": "Stars",
+          "default": "★★★★★"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Review Date",
+          "default": "07/11/2025"
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review Text"
+        },
+        {
+          "type": "text",
+          "id": "buyer_name",
+          "label": "Buyer Name",
+          "default": "John Doe"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Badge",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Optional Review Image"
+        }
+      ]
+    },
+    {
+      "type": "image_only",
+      "name": "Image Only",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥 Masonry Reviews",
+      "blocks": [{ "type": "review" }, { "type": "image_only" }]
+    }
+  ]
+}
+{% endschema %}

@@ -6,11 +6,22 @@
     assign menu_mobile = menu
   endif
 -%}
-<menu-drawer id="MenuDrawer" class="menu-drawer drawer drawer--left z-1" hidden>
+<menu-drawer id="MenuDrawer" class="menu-drawer drawer drawer--left z-1 " hidden>
   <div class="fixed-overlay" aria-controls="MenuDrawer"></div>
   <div class="drawer__inner flex flex-col w-full h-full overflow-hidden color-{{ settings.overlay_color_scheme }}">
     <div class="drawer__content menu-drawer__content flex-grow flex flex-col h-full w-full">
-      <nav class="overflow-hidden flex-grow" role="navigation">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'banner_on_menu' %}
+            {% render 'custom-banner-on-menu', block: block %}
+        {% endcase %}
+      {% endfor %}
+
+      <nav
+        class="overflow-hidden flex-grow"
+        role="navigation"
+        style="background-color: {{ section.settings.menu_drawer_color_on_mobile }};"
+      >
         <div class="menu-drawer__menus v-scrollable flex flex-col relative w-full h-full" data-parent>
           <ul class="flex-grow">
             {%- for link in menu_mobile.links -%}
@@ -125,23 +136,29 @@
                   </span>
                 </a>
               {%- endif -%}
-              {%- if shop.customer_accounts_enabled -%}
-                <a
-                  href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-                  class="account-button flex items-center gap-2"
-                >
-                  {%- render 'icon-account', size: 'large' -%}
-                  <span>
-                    {%- liquid
-                      if customer
-                        echo 'customer.account_fallback' | t
-                      else
-                        echo 'customer.account_action' | t
-                      endif
-                    -%}
-                  </span>
-                </a>
-              {%- endif -%}
+              {% unless section.settings.use_shop_all_instead_of_login_button %}
+                {%- if shop.customer_accounts_enabled -%}
+                  <a
+                    href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                    class="account-button flex items-center gap-2"
+                  >
+                    {%- render 'icon-account', size: 'large' -%}
+                    <span>
+                      {%- liquid
+                        if customer
+                          echo 'customer.account_fallback' | t
+                        else
+                          echo 'customer.account_action' | t
+                        endif
+                      -%}
+                    </span>
+                  </a>
+                {%- endif -%}
+              {% else %}
+                <button class="btn dc_shop-all-button">
+                  <a class="dc_button-label" href="https://www.beestusa.com/collections/all">Shop All</a>
+                </button>
+              {% endunless %}
               {%- if section.settings.enable_language_selector or section.settings.enable_country_selector -%}
                 <div class="menu-drawer__localization-form flex flex-wrap gap-x-6 gap-y-4">
                   {%- liquid

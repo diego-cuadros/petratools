@@ -12,7 +12,7 @@
 
 {%- liquid
   assign variant = product.selected_or_first_available_variant
-  
+
   if show_vendor == null
     assign show_vendor = settings.pcard_show_vendor
   endif

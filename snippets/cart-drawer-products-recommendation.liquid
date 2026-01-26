@@ -18,7 +18,7 @@
   if layout == 'horizontal-list'
     assign is_list_layout = true
     assign columns = 1
-    assign wrapper_css_class = css_class | append: ' gap-3'
+    assign wrapper_css_class = css_class | append: ' gap-1'
   else
     assign wrapper_css_class = css_class | append: ' gap-4 md:gap-5'
   endif
@@ -43,7 +43,7 @@
       <div class="{% unless is_list_layout %}relative swiper-show-nav-on-hover{% endunless %}">
         <div
           id="cart-drawer-products-recommendation-{{ section.id }}"
-          class="cart-drawer-products-recommendation__container{% unless is_list_layout %} swipe-mobile swipe-mobile--2-cols{% else %} pcard-radius{% endunless %}{% if is_carousel %} swiper{% endif %}"
+          class="cart-drawer-products-recommendation__container{% unless is_list_layout %} swipe-mobile swipe-mobile--2-cols{% else %} {% if section.settings.use_custom_product_recommendations%}dc_card-radius{% else %} pcard-radius{% endif %}{% endunless %}{% if is_carousel %} swiper{% endif %}"
           data-columns="{{ columns }}"
           data-enable-slider-mobile="{{ is_carousel_mobile }}"
         >
@@ -51,12 +51,21 @@
             {%- if is_list_layout -%}
               {%- for recommendation in products_recommendations -%}
                 <div class="f-column swiper-slide">
-                  {% render 'card-product-horizontal',
-                    product: recommendation,
-                    parent_color_scheme: color_scheme,
-                    title_line_limit: '1-line',
-                    button_type: 'text'
-                  %}
+                  {% unless section.settings.use_custom_product_recommendations %}
+                    {% render 'card-product-horizontal',
+                      product: recommendation,
+                      parent_color_scheme: color_scheme,
+                      title_line_limit: '1-line',
+                      button_type: 'text'
+                    %}
+                  {% else %}
+                    {% render 'custom-card-product-horizontal',
+                      product: recommendation,
+                      parent_color_scheme: color_scheme,
+                      title_line_limit: '1-line',
+                      button_type: 'text'
+                    %}
+                  {% endunless %}
                 </div>
               {%- endfor -%}
             {%- else -%}

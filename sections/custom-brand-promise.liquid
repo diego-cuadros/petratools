@@ -1,0 +1,135 @@
+{{ 'custom-brand-promise.css' | asset_url | stylesheet_tag }}
+
+<div class="dc_brand-promise" style="background-color:{{ section.settings.section_background_color }};">
+  <div
+    class="dc_brand-promise__inner"
+    style="background-color:{{ section.settings.background_color }}; color: {{ section.settings.tex_color }};"
+  >
+    <div class="dc_brand-promise__left">
+      {% if section.settings.logo %}
+        <img
+          class="dc_brand-promise__logo"
+          src="{{ section.settings.logo | img_url: '200x' }}"
+          alt="Logo"
+          width="{{ section.settings.logo.width }}"
+          height="{{ section.settings.logo.height }}"
+        >
+      {% endif %}
+
+      <h2 class="dc_brand-promise__heading" style="color:{{ section.settings.heading_color }}">
+        {{ section.settings.heading }}
+      </h2>
+      <p class="dc_brand-promise__text" style="color:{{ section.settings.body_text_color }}">
+        {{ section.settings.text }}
+      </p>
+    </div>
+
+    <div class="dc_brand-promise__right">
+      <div class="dc_brand-promise__features" style="border-color:{{ section.settings.border_color_grid }}">
+        {% for block in section.blocks %}
+          <div class="dc_brand-promise__feature" style="border-color:{{ section.settings.border_color_grid }}">
+            <div
+              class="dc_brand-promise__icon"
+              style="color:{{ section.settings.body_text_color }};"
+            >
+              {% if block.settings.icon %}
+                <img
+                  src="{{ block.settings.icon | img_url: '64x' }}"
+                  alt="Feature icon"
+                  class="dc_brand-promise__icon-img"
+                  width="{{ block.settings.icon.width }}"
+                  height="{{ block.settings.icon.height }}"
+                >
+              {% endif %}
+            </div>
+            <div
+              class="dc_brand-promise__label"
+              style="color:{{ section.settings.body_text_color }};"
+            >
+              {{ block.settings.label }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "🔥Custom Brand Promise",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Background color on section"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Custom Brand Promise"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam."
+    },
+    {
+      "type": "color",
+      "id": "body_text_color",
+      "label": "Body text color"
+    },
+    {
+      "type": "color",
+      "id": "border_color_grid",
+      "label": "Border color on grid"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Select an icon for your feature"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Feature text",
+          "default": "Worldwide Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥Custom brand promise"
+    }
+  ]
+}
+{% endschema %}

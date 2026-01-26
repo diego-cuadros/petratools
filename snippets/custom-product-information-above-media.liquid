@@ -1,0 +1,62 @@
+{% comment %}
+  This will only work to see blocks above the gallery in the mobile version.
+{% endcomment %}
+<div class="product__blocks-above-media-mobile md:block product__blocks accordion-parent">
+  {%- for block in section.blocks -%}
+    {%- liquid
+      unless block.settings.show_above_product_media_mobile
+        continue
+      endunless
+
+      assign block_classes = 'product__block product__block--' | append: block.type
+    -%}
+    {%- case block.type -%}
+      {%- when 'title' -%}
+        <div class="{{ block_classes }} dc_hide_on_desktop" {{ block.shopify_attributes }}>
+          <h1 class="product__title {{ block.settings.heading_size }}">{{ product.title | escape }}</h1>
+          <a href="{{ product.url }}" class="product__title">
+            <h2 class="h1">
+              {{ product.title | escape }}
+            </h2>
+          </a>
+        </div>
+
+      {%- when 'price' -%}
+        <div class="{{ block_classes }} dc_hide_on_desktop" {{ block.shopify_attributes }}>
+          <div id="price-{{ section.id }}" role="status">
+            {%- render 'price',
+              product: product,
+              use_variant: true,
+              show_sale_badge: false,
+              price_class: 'f-price--large'
+            -%}
+          </div>
+          {%- if product.quantity_price_breaks_configured? -%}
+            <div class="volume-pricing-note text-subtext" id="VolumeNote-{{ section.id }}">
+              <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+            </div>
+          {%- endif -%}
+          <div class="product__tax text-sm text-subtext rte">
+            {%- if cart.taxes_included -%}
+              {{ 'products.product.include_taxes' | t }}
+            {%- endif -%}
+            {%- if shop.shipping_policy.body != blank -%}
+              {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+            {%- endif -%}
+          </div>
+        </div>
+      {%- when 'text' -%}
+        <div class="{{ block_classes }} rte dc_hide_on_desktop" {{ block.shopify_attributes }}>
+          {% if block.settings.richtext_field != blank %}
+            <div class="rte text-subtext">
+              {{ block.settings.richtext_field }}
+            </div>
+          {% else %}
+            <p class="product__text inline-richtext m-0{% if block.settings.text_style == 'uppercase' %} text-upper{% elsif block.settings.text_style == 'subtitle' %} text-upper text-subtext{% endif %}">
+              {{- block.settings.text -}}
+            </p>
+          {% endif %}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>

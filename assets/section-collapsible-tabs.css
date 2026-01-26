@@ -75,3 +75,23 @@
     width: var(--col-width, 50%);
   }
 }
+
+
+
+/* Custom styles for collapsible tabs */
+.dc_internal-heading{
+  width: 100%;
+  max-width: 100%;
+  margin-bottom:30px;
+}
+
+.dc_internal-heading h2{
+  text-align: left;
+  font-size: 40px;
+}
+
+@media only screen and (max-width:767px){
+  .dc_internal-heading h2{
+  font-size: 32px;
+}
+}

@@ -10,10 +10,6 @@
     assign video_url_id = video_url_id | default: video_url.id
   else
     assign video_url_type = video.host
-    # Extract video ID from external video (YouTube/Vimeo)
-    if video.media_type == 'external_video'
-      assign video_url_id = video.external_id
-    endif
   endif
 
   assign video_id = video.id | default: video_url_id
@@ -36,7 +32,7 @@
 {%- if video != blank or video_url != blank -%}
   <video-element
     class="media-wrapper {{ classes }}"
-    {%- if video_url_type == 'youtube' or video_url_type == 'vimeo' %}
+    {%- if video_url_type and video == blank %}
       source="{{ video_url_type }}"
     {% endif -%}
     {%- if autoplay %}
@@ -45,7 +41,19 @@
   >
     {{- poster -}}
     <template>
-      {%- if video_url_type == 'youtube' or video_url_type == 'vimeo' -%}
+      {%- if video != blank -%}
+        {{-
+          video
+          | video_tag:
+            playsinline: true,
+            muted: muted,
+            autoplay: true,
+            loop: loop,
+            controls: controls,
+            preload: 'none',
+            image_size: '800x'
+        -}}
+      {%- else -%}
         {%- if video_url_type == 'youtube' -%}
           <iframe
             src="https://www.youtube.com/embed/{{ video_url_id }}?playsinline=1{% if controls %}&controls=1{% else %}&controls=0{% endif %}{% if autoplay %}&autoplay=1{% endif %}{% if muted %}&mute=1{% endif %}{% if loop %}&loop=1{% endif %}&playlist={{ video_url_id }}&enablejsapi=1&rel=0&modestbranding=1&origin={{ 'https://' | append: request.host | url_encode }}"
@@ -59,18 +67,6 @@
             allowfullscreen="allowfullscreen"
           ></iframe>
         {%- endif -%}
-      {%- elsif video != blank -%}
-        {{-
-          video
-          | video_tag:
-            playsinline: true,
-            muted: muted,
-            autoplay: true,
-            loop: loop,
-            controls: controls,
-            preload: 'none',
-            image_size: '800x'
-        -}}
       {%- endif -%}
     </template>
     {%- if show_play_button -%}

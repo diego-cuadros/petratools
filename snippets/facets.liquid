@@ -70,7 +70,7 @@
             endif
           -%}
           <details
-            class="accordion-details facet-accordion-details"
+            class="accordion-details facet-accordion-details dc_accordion-details"
             is="accordion-details"
             data-filter
             data-index="{{ filter_id }}"
@@ -87,9 +87,9 @@
                   </small>
                 {%- endif -%}
               </span>
-              {%- render 'icon-plus-toggle', size: 'small' -%}
+              {%- render 'icon-chevron', size: 'small' -%}
             </summary>
-            <div class="accordion-details__content parent-display flex flex-col gap-3">
+            <div class="accordion-details__content parent-display flex flex-col gap-3 dc_accordion-details__content">
               {%- if is_color or filter.presentation == 'swatch' -%}
                 <ul class="swatches grid gap-3">
                   {%- for filter_value in sorted_values -%}
@@ -226,7 +226,7 @@
           -%}
           <details
             is="accordion-details"
-            class="accordion-details facet-accordion-details"
+            class="accordion-details facet-accordion-details dc_accordion-details"
             data-filter
             data-index="{{ filter_id }}"
             {% if expand %}
@@ -235,9 +235,9 @@
           >
             <summary class="accordion-details__summary flex items-center justify-between">
               <span class="h6">{{- filter.label | escape -}}</span>
-              {%- render 'icon-plus-toggle', size: 'small' -%}
+              {%- render 'icon-chevron', size: 'small' -%}
             </summary>
-            <div class="accordion-details__content accordion-details__content--price">
+            <div class="accordion-details__content accordion-details__content--price dc_accordion-details__content">
               <price-range class="grid">
                 {%- if range_max > 0 -%}
                   {%- liquid
@@ -281,6 +281,24 @@
                     <label class="visually-hidden" for="FacetFormInputFromPrice-{{ context }}">
                       {{- 'products.facets.from' | t -}}
                     </label>
+                    <div class = "dc_outer-price-input">
+                      <span class="facet-range__symbol">{{ cart.currency.symbol }}</span>
+                      <input
+                        type="number"
+                        inputmode="numeric"
+                        name="{{ filter.min_value.param_name }}"
+                        id="FacetFormInputFromPrice-{{ context }}"
+                        autocomplete="off"
+                        placeholder="0"
+                        min="0"
+                        max="{{ max_value | ceil }}"
+                        step="{{ step_value }}"
+                        {% if filter.min_value.value %}
+                          value="{{ min_value | ceil }}"
+                        {% endif %}
+                      >
+                    </div>
+                    {% comment %} THESE ARE THE ORIGINAL INPUT FIELDS THAT CAME WITH HYPER
                     <span class="facet-range__symbol">{{ cart.currency.symbol }}</span>
                     <input
                       class="form-control facet-range__input"
@@ -296,12 +314,33 @@
                       {% if filter.min_value.value %}
                         value="{{ min_value | ceil }}"
                       {% endif %}
-                    >
+                    >{% endcomment %}
                   </div>
+                  <span>-</span>
                   <div class="flex items-center flex-grow relative gap-2">
                     <label class="visually-hidden" for="FacetFormInputToPrice-{{ context }}">
                       {{- 'products.facets.to' | t -}}
                     </label>
+                    <div class = "dc_outer-price-input">
+                      <span class="facet-range__symbol">{{ cart.currency.symbol }}</span>
+                      <input
+                    
+                      type="number"
+                      inputmode="numeric"
+                      name="{{ filter.max_value.param_name }}"
+                      id="FacetFormInputToPrice-{{ context }}"
+                      autocomplete="off"
+                      placeholder="{{ range_max | ceil }}"
+                      min="{{ min_value | ceil }}"
+                      max="{{ range_max | ceil }}"
+                      step="{{ step_value }}"
+                      {% if filter.max_value.value %}
+                        value="{{ max_value | ceil }}"
+                      {% endif %}
+                    >
+                    </div>
+                    
+                    {% comment %} THESE ARE THE ORIGINAL INPUT FIELDS THAT CAME WITH HYPER
                     <span class="facet-range__symbol">{{ cart.currency.symbol }}</span>
                     <input
                       class="form-control facet-range__input"
@@ -317,7 +356,7 @@
                       {% if filter.max_value.value %}
                         value="{{ max_value | ceil }}"
                       {% endif %}
-                    >
+                    >{% endcomment %}
                   </div>
                 </div>
               </price-range>

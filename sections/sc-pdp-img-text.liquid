@@ -1,0 +1,167 @@
+{% style %}
+  #section-{{ section.id }} {
+     padding-top: {{ section.settings.padding_top }}px;
+     padding-bottom: {{ section.settings.padding_bottom }}px;
+     background-color: {{ section.settings.bg-color }};
+     color: {{ section.settings.text-color }};
+  }
+  #section-{{ section.id }} .title{
+     color: {{ section.settings.text-color }};
+  }
+  #section-{{ section.id }} .box-color {
+     background-color: {{ section.settings.box-bg-color }};
+     color: {{ section.settings.box-text-color }};
+  }
+  @media (max-width: 768px) {
+     #section-{{ section.id }} {
+         padding-top: {{ section.settings.mobile_padding_top }}px;
+         padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+     }
+  }
+{% endstyle %}
+
+{{ 'sc-pdp-img-text.css' | asset_url | stylesheet_tag }}
+<div class="sc-pdp-image-text" id="section-{{ section.id }}">
+  {% if section.settings.heading != blank %}
+    <h2 class="sc-pdp-heading title">{{ section.settings.heading }}</h2>
+  {% endif %}
+
+  <div class="sc-pdp-grid">
+    {% for block in section.blocks %}
+      <div class="sc-pdp-card box-color">
+        <div class="sc-pdp-card-wrapper" onclick="toggleMobileCard(this)">
+          {% if block.settings.image != blank %}
+            <img
+              src="{{ block.settings.image | img_url: '400x400' }}"
+              alt="{{ block.settings.title }}"
+              class="sc-pdp-card-image"
+              loading="lazy"
+              width="{{ img.width }}"
+              height="{{ img.height }}"
+            >
+          {% endif %}
+
+          <div class="sc-pdp-card-content">
+            {% if block.settings.title != blank %}
+              <h3 class="sc-pdp-card-title">{{ block.settings.title }}</h3>
+            {% endif %}
+
+            {% if block.settings.description != blank %}
+              <p class="sc-pdp-card-text">{{ block.settings.description }}</p>
+            {% endif %}
+          </div>
+
+          <div class="sc-pdp-card-toggle">
+            {% comment %} <span class="sc-pdp-card-toggle-arrow"></span> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{{ 'sc-pdp-img-text.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "🔥Sc Pdp Image Text",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg-color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "text-color",
+      "label": "Text Color"
+    },
+    {
+      "type": "color",
+      "id": "box-bg-color",
+      "label": "Box Background Color"
+    },
+    {
+      "type": "color",
+      "id": "box-text-color",
+      "label": "Box Text Color"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "No More Sweeping"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "No More Messy Mulch"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Reduces washouts from heavy rain and even helps stop leaf blowers from blowing your mulch around."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥Sc Pdp Image Text"
+    }
+  ]
+}
+{% endschema %}

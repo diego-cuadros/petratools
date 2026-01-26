@@ -43,6 +43,7 @@
   data-url="{{ product.url }}"
   class="section block section-{{ section.id }} section-main-product page-width section--padding{% unless section.settings.use_color_scheme_in_container %} color-{{ section.settings.color_scheme }}{% else %} use-color-scheme-in-container{% endunless %}"
 >
+  <script src="{{ 'custom-shop-pay-line.js' | asset_url }}" defer></script>
   {{ 'section-main-product.css' | asset_url | stylesheet_tag: preload: true }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag: preload: true }}
   {% unless product.has_only_default_variant %}
@@ -88,6 +89,7 @@
     {%- if product.media.size > 0 -%}
       <div class="product__media-wrapper block w-full relative">
         <div class="product__media-container{% if enable_sticky_info %} sticky-element{% endif %}">
+          {% render 'custom-product-information-above-media' %}
           {% render 'product-media-gallery',
             media_layout: media_layout,
             mobile_thumbnails: mobile_thumbnails,
@@ -148,6 +150,12 @@
           "label": "t:sections.main-product.blocks.text.settings.text.label"
         },
         {
+          "type": "richtext",
+          "id": "richtext_field",
+          "label": "Use rich text instead of inline text",
+          "info": "This will override the inline text you entered in the first option"
+        },
+        {
           "type": "select",
           "id": "text_style",
           "options": [
@@ -166,6 +174,12 @@
           ],
           "default": "body",
           "label": "t:sections.main-product.blocks.text.settings.text_style.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_above_product_media_mobile",
+          "label": "Show above media on mobile view",
+          "default": false
         }
       ]
     },
@@ -221,13 +235,27 @@
               "label": "t:general.text_size.options__hd1.label"
             }
           ]
+        },
+        {
+          "type": "checkbox",
+          "id": "show_above_product_media_mobile",
+          "label": "Show above media on mobile view",
+          "default": false
         }
       ]
     },
     {
       "type": "price",
       "name": "t:sections.main-product.blocks.price.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_above_product_media_mobile",
+          "label": "Show above media on mobile view",
+          "default": false
+        }
+      ]
     },
     {
       "type": "meta",
@@ -306,6 +334,487 @@
           "id": "show_inventory_quantity",
           "label": "t:sections.main-product.blocks.inventory.settings.show_inventory_quantity.label",
           "default": true
+        }
+      ]
+    },
+    {
+      "type": "unlock_free_gift",
+      "name": "🔥Unlock Free Gift",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "control_content_from_metafields",
+          "label": "Control content from metafields",
+          "default": false,
+          "info": "If marked, all the options below will be overridden by the metafield values."
+        },
+        {
+          "type": "text",
+          "id": "free_gift_title_tag",
+          "label": "Enter a title to display in the tag",
+          "default": "Free Gift Unlocked"
+        },
+        {
+          "type": "product",
+          "id": "free_gift_product",
+          "label": "Select a product"
+        },
+        {
+          "type": "text",
+          "id": "free_gift_product_feature",
+          "label": "Mention the biggest feature of this product in one line",
+          "default": "4lts more than usual"
+        },
+        {
+          "type": "image_picker",
+          "id": "free_gift_image",
+          "label": "Add an image with transparent background of the product."
+        },
+        {
+          "type": "header",
+          "content": "Container Colors"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#f4faf3"
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border Color",
+          "default": "#116903"
+        },
+        {
+          "type": "header",
+          "content": "Tag Colors"
+        },
+        {
+          "type": "color",
+          "id": "tag_bg_color",
+          "label": "Tag Background",
+          "default": "#116903"
+        },
+        {
+          "type": "color",
+          "id": "tag_text_color",
+          "label": "Tag Text Color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "type": "discount_level_table",
+      "name": "🔥Discount level table",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Limited time only – more 20% off EVERYTHING"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Add more item to cart to get more discount!"
+        },
+        {
+          "type": "text",
+          "id": "heading_left",
+          "label": "Table heading left",
+          "default": "Discount level"
+        },
+        {
+          "type": "text",
+          "id": "heading_right",
+          "label": "Table heading right",
+          "default": "Total Gallons"
+        },
+        {
+          "type": "text",
+          "id": "left_column_row_1",
+          "label": "Content on left column, row 1",
+          "default": "20% OFF"
+        },
+        {
+          "type": "text",
+          "id": "right_column_row_1",
+          "label": "Content on right column, row 1",
+          "default": "1"
+        },
+        {
+          "type": "text",
+          "id": "left_column_row_2",
+          "label": "Content on left column, row 2",
+          "default": "25% OFF"
+        },
+        {
+          "type": "text",
+          "id": "right_column_row_2",
+          "label": "Content on right column, row 2",
+          "default": "3-5"
+        },
+        {
+          "type": "text",
+          "id": "left_column_row_3",
+          "label": "Content on left column, row 3",
+          "default": "30% OFF"
+        },
+        {
+          "type": "text",
+          "id": "right_column_row_3",
+          "label": "Content on right column, row 3",
+          "default": "6+"
+        },
+        {
+          "type": "text",
+          "id": "text_before_timer",
+          "label": "Text before timer",
+          "default": "Sale ends soon"
+        },
+        {
+          "type": "text",
+          "id": "timer_start",
+          "label": "Timer start value (HH:MM:SS)",
+          "default": "03:24:08",
+          "info": "Format must be HH:MM:SS (e.g. 01:30:00). Hit save to see it working"
+        }
+      ]
+    },
+    {
+      "type": "collapsible_trust_card",
+      "name": "🔥Collapsible trust card",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "label": "Select a background color",
+          "id": "background_color",
+          "default": "#f5f5f5"
+        },
+        {
+          "type": "color",
+          "label": "Select a text color",
+          "id": "text_color",
+          "default": "#222"
+        },
+        {
+          "type": "color",
+          "label": "Select a text color for the collapsible text",
+          "id": "text_content_color",
+          "default": "#222"
+        },
+        {
+          "type": "text",
+          "label": "Type a header",
+          "id": "header_text",
+          "default": "Still deciding?"
+        },
+        {
+          "type": "text",
+          "label": "Type a title for info 1",
+          "id": "info_title_1",
+          "default": "Free Shipping On All U.S. Orders Of $40+"
+        },
+        {
+          "type": "image_picker",
+          "label": "Select an icon for info 1",
+          "id": "info_icon_1"
+        },
+        {
+          "type": "text",
+          "label": "Type some text content for info 1",
+          "id": "info_paragraph_1",
+          "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+          "type": "text",
+          "label": "Type a title for info 2",
+          "id": "info_title_2",
+          "default": "Free Shipping On All U.S. Orders Of $40+"
+        },
+        {
+          "type": "image_picker",
+          "label": "Select an icon for info 2",
+          "id": "info_icon_2"
+        },
+        {
+          "type": "text",
+          "label": "Type some text content for info 2",
+          "id": "info_paragraph_2",
+          "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+          "type": "text",
+          "label": "Type a title for info 3",
+          "id": "info_title_3",
+          "default": "Free Shipping On All U.S. Orders Of $40+"
+        },
+        {
+          "type": "image_picker",
+          "label": "Select an icon for info 3",
+          "id": "info_icon_3"
+        },
+        {
+          "type": "text",
+          "label": "Type some text content for info 3",
+          "id": "info_paragraph_3",
+          "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 80,
+          "step": 4,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 80,
+          "step": 4,
+          "unit": "px",
+          "default": 16
+        }
+      ]
+    },
+    {
+      "type": "collapsible_with_table",
+      "name": "🔥Collapsible with table",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "label": "Select a background color",
+          "id": "background_color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "label": "Select a border color",
+          "id": "border_color",
+          "default": "#CCD2D6"
+        },
+        {
+          "type": "color",
+          "label": "Select a text color",
+          "id": "text_color",
+          "default": "#222"
+        },
+        {
+          "type": "color",
+          "label": "Select a text color for the collapsible text",
+          "id": "text_content_color",
+          "default": "#222"
+        },
+        {
+          "type": "text",
+          "label": "Type a header",
+          "id": "header_text",
+          "default": "Still deciding?"
+        },
+        {
+          "type": "text",
+          "label": "Type a title for info 1",
+          "id": "info_title_1",
+          "default": "Free Shipping On All U.S. Orders Of $40+"
+        },
+        {
+          "type": "text",
+          "label": "Type some text content for info 1",
+          "id": "info_paragraph_1",
+          "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+          "type": "checkbox",
+          "id": "use_content_table_from_metafields_1",
+          "label": "Use content table(from metafields)",
+          "default": false,
+          "info": "If marked, the next option will won't have any impact on the page."
+        },
+        {
+          "type": "checkbox",
+          "id": "use_content_table_1",
+          "label": "Use content table",
+          "default": true,
+          "info": "Only works if the option above is unchecked."
+        },
+        {
+          "type": "text",
+          "id": "table_1_row_content_1",
+          "label": "Content for Table 1 Row 1",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_1_row_content_2",
+          "label": "Content for Table 1 row 2",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_1_row_content_3",
+          "label": "Content for Table 1 row 3",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_1_row_content_4",
+          "label": "Content for Table 1 row 4",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_1_row_content_5",
+          "label": "Content for Table 1 row 5",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "label": "Type a title for info 2",
+          "id": "info_title_2",
+          "default": "Free Shipping On All U.S. Orders Of $40+"
+        },
+        {
+          "type": "text",
+          "label": "Type some text content for info 2",
+          "id": "info_paragraph_2",
+          "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+          "type": "checkbox",
+          "id": "use_content_table_from_metafields_2",
+          "label": "Use content table(from metafields)",
+          "default": false,
+          "info": "If marked, the next option will won't have any impact on the page"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_content_table_2",
+          "label": "Use content table",
+          "default": true,
+          "info": "Only works if the option above is unchecked."
+        },
+        {
+          "type": "text",
+          "id": "table_2_row_content_1",
+          "label": "Content for Table 2 Row 1",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_2_row_content_2",
+          "label": "Content for Table 2 row 2",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_2_row_content_3",
+          "label": "Content for Table 2 row 3",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_2_row_content_4",
+          "label": "Content for Table 2 row 4",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_2_row_content_5",
+          "label": "Content for Table 2 row 5",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "label": "Type a title for info 3",
+          "id": "info_title_3",
+          "default": "Free Shipping On All U.S. Orders Of $40+"
+        },
+        {
+          "type": "text",
+          "label": "Type some text content for info 3",
+          "id": "info_paragraph_3",
+          "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        },
+        {
+          "type": "checkbox",
+          "id": "use_content_table_from_metafields_3",
+          "label": "Use content table(from metafields)",
+          "default": false,
+          "info": "If marked, the next option will won't have any impact on the page"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_content_table_3",
+          "label": "Use content table",
+          "default": true,
+          "info": "Only works if the option above is unchecked."
+        },
+        {
+          "type": "text",
+          "id": "table_3_row_content_1",
+          "label": "Content for Table 3 Row 1",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_3_row_content_2",
+          "label": "Content for Table 3 row 2",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_3_row_content_3",
+          "label": "Content for Table 3 row 3",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_3_row_content_4",
+          "label": "Content for Table 3 row 4",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "text",
+          "id": "table_3_row_content_5",
+          "label": "Content for Table 3 row 5",
+          "info": "Enter text dash separated for the first row e.g 'hello-world' you'll see each word in each column"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top",
+          "min": 0,
+          "max": 80,
+          "step": 4,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "label": "Margin bottom",
+          "min": 0,
+          "max": 80,
+          "step": 4,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "checkbox",
+          "id": "show_below_product_media",
+          "label": "t:sections.main-product.blocks.general.settings.show_below_product_media.label",
+          "default": false
         }
       ]
     },
@@ -409,6 +918,12 @@
           "label": "t:sections.main-product.blocks.variant_picker.settings.button_style.label"
         },
         {
+          "type": "checkbox",
+          "id": "use_custom_variant_picker_style",
+          "default": true,
+          "label": "Use custom variant picker style"
+        },
+        {
           "type": "header",
           "content": "t:sections.main-product.blocks.variant_picker.settings.size_chart.content"
         },
@@ -460,6 +975,39 @@
           "default": true,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_custom_quantity_selector_style",
+          "default": true,
+          "label": "Use custom quantity selector style",
+          "info": "Please refresh the page after activating this option"
+        },
+        {
+          "type": "header",
+          "content": "Calculator",
+          "info": "Add a calculator above the quantity selector to help customers calculate the quantity they need to purchase based on their requirements."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_calculator",
+          "label": "Show Calculator",
+          "default": true,
+          "info": "Show a calculator above the quantity selector. MUST BE TURNED ON TO CONTROL FROM THE METAFIELDS."
+        },
+        {
+          "type": "number",
+          "id": "dc_coverage_sqft",
+          "label": "Coverage per unit (Sq. Ft.)",
+          "default": 150,
+          "info": "How many square feet one unit (e.g. 1 gallon) covers."
+        },
+        {
+          "type": "text",
+          "id": "dc_unit_name",
+          "label": "Unit Name (Plural)",
+          "default": "gallons",
+          "info": "e.g. gallons, bags, rolls"
         }
       ]
     },
@@ -627,6 +1175,96 @@
           "label": "t:sections.main-product.blocks.collapsible_tab.settings.default_open.label",
           "id": "default_open",
           "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_below_product_media",
+          "label": "t:sections.main-product.blocks.general.settings.show_below_product_media.label",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "what_makes_it_special",
+      "name": "🔥What makes it special",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "special_feature_bg_color",
+          "label": "Select a background color",
+          "default": "#FFF"
+        },
+        {
+          "type": "color",
+          "id": "special_feature_border_color",
+          "label": "Select a border color",
+          "default": "#CCD2D6"
+        },
+        {
+          "type": "color",
+          "id": "special_feature_text_color",
+          "label": "Select a text color"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Add a png icon"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_heading",
+          "label": "Add a heding for this block"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_1",
+          "label": "Special feature text 1"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_2",
+          "label": "Special feature text 2"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_3",
+          "label": "Special feature text 3"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_4",
+          "label": "Special feature text 4"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_5",
+          "label": "Special feature text 5"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_6",
+          "label": "Special feature text 6"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_7",
+          "label": "Special feature text 7"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_8",
+          "label": "Special feature text 8"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_9",
+          "label": "Special feature text 9"
+        },
+        {
+          "type": "text",
+          "id": "special_feature_text_10",
+          "label": "Special feature text 10"
         },
         {
           "type": "checkbox",
@@ -2394,6 +3032,12 @@
           "label": "t:general.icon.label"
         },
         {
+          "type": "image_picker",
+          "id": "icon_1_from_image_1",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
+        },
+        {
           "type": "inline_richtext",
           "id": "heading_1",
           "default": "Heading",
@@ -2539,6 +3183,12 @@
           ],
           "default": "check",
           "label": "t:general.icon.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1_from_image_2",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
         },
         {
           "type": "inline_richtext",
@@ -2688,6 +3338,12 @@
           "label": "t:general.icon.label"
         },
         {
+          "type": "image_picker",
+          "id": "icon_1_from_image_3",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
+        },
+        {
           "type": "inline_richtext",
           "id": "heading_3",
           "default": "Heading",
@@ -2833,6 +3489,12 @@
           ],
           "default": "check",
           "label": "t:general.icon.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1_from_image_4",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
         },
         {
           "type": "inline_richtext",
@@ -2982,6 +3644,12 @@
           "label": "t:general.icon.label"
         },
         {
+          "type": "image_picker",
+          "id": "icon_1_from_image_5",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
+        },
+        {
           "type": "inline_richtext",
           "id": "heading_5",
           "default": "Heading",
@@ -3127,6 +3795,12 @@
           ],
           "default": "check",
           "label": "t:general.icon.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1_from_image_6",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
         },
         {
           "type": "inline_richtext",
@@ -3276,6 +3950,12 @@
           "label": "t:general.icon.label"
         },
         {
+          "type": "image_picker",
+          "id": "icon_1_from_image_7",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
+        },
+        {
           "type": "inline_richtext",
           "id": "heading_7",
           "default": "Heading",
@@ -3421,6 +4101,12 @@
           ],
           "default": "check",
           "label": "t:general.icon.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1_from_image_8",
+          "label": "Select an icon from an image",
+          "info": "This will override the icon on the dropdown above"
         },
         {
           "type": "inline_richtext",

@@ -13,8 +13,17 @@ if (!customElements.get('quick-view-modal')) {
         return '.quick-view__content';
       }
 
+      get sourceSelector() {
+        return '#MainProduct-quick-view__content';
+      }
+
       get requiresBodyAppended() {
         return !(Shopify.designMode && this.closest('.section-group-overlay-quick-view'));
+      }
+
+      shouleBeShow() {
+        const sectionId = this.getProductQuickViewSectionId();
+        return typeof sectionId === 'string';
       }
 
       prepareToShow() {
@@ -64,13 +73,18 @@ if (!customElements.get('quick-view-modal')) {
           .then((responseText) => {
             const productElement = new DOMParser()
               .parseFromString(responseText, 'text/html')
-              .querySelector(this.selector);
+              .querySelector(this.sourceSelector);
 
-            this.setInnerHTML(drawerContent, productElement.innerHTML);
+            this.setInnerHTML(drawerContent, productElement.content.cloneNode(true));
             FoxTheme.a11y.trapFocus(this, this.focusElement);
+
             if (window.Shopify && Shopify.PaymentButton) {
               Shopify.PaymentButton.init();
             }
+
+            setTimeout(() => {
+              this.classList.remove(this.classesToRemoveOnLoad);
+            }, 300);
 
             document.dispatchEvent(
               new CustomEvent('quick-view:loaded', {
@@ -84,7 +98,8 @@ if (!customElements.get('quick-view-modal')) {
       }
 
       setInnerHTML(element, innerHTML) {
-        element.innerHTML = innerHTML;
+        element.innerHTML = '';
+        element.appendChild(innerHTML);
         element.querySelectorAll('script').forEach((oldScriptTag) => {
           const newScriptTag = document.createElement('script');
           Array.from(oldScriptTag.attributes).forEach((attribute) => {
@@ -93,8 +108,11 @@ if (!customElements.get('quick-view-modal')) {
           newScriptTag.appendChild(document.createTextNode(oldScriptTag.innerHTML));
           oldScriptTag.parentNode.replaceChild(newScriptTag, oldScriptTag);
         });
+      }
 
-        this.classList.remove(this.classesToRemoveOnLoad);
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        this.handleAfterHide();
       }
     }
   );

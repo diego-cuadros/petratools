@@ -7,7 +7,9 @@
 }
 .collection__toolbar {
   background: rgb(var(--color-background));
-  padding-block: 1.2rem;
+  /*padding-block: 1.2rem;*/
+  padding-top:15px !important;
+  padding-bottom:15px !important;
   margin-bottom: 1.2rem;
 }
 .collection__toolbar-left {
@@ -45,7 +47,7 @@
 }
 .facet-accordion-details .accordion-details__content {
   padding-block: 0 2.4rem;
-  margin-top: -1.2rem;
+  /*margin-top: -1.2rem;*/
 }
 .facet-accordion-details:nth-child(2) .accordion-details__summary {
   padding-top: 0;
@@ -76,7 +78,15 @@ price-range {
 .facet-range-wrapper {
   --range-min: 0%;
   --range-max: 100%;
-  background: linear-gradient(to var(--transform-origin-end), rgba(var(--color-border), var(--color-border-alpha, 1)) var(--range-min), rgb(var(--color-foreground)) var(--range-min), rgb(var(--color-foreground)) var(--range-max), rgba(var(--color-border), var(--color-border-alpha, 1)) var(--range-max));
+  background: linear-gradient(
+    to var(--transform-origin-end), 
+    rgba(var(--color-border), var(--color-border-alpha, 1)) var(--range-min), 
+    #005D88 var(--range-min), 
+    #005D88 var(--range-max), 
+    rgba(var(--color-border), var(--color-border-alpha, 1)) var(--range-max)
+  );
+  
+  /*background: linear-gradient(to var(--transform-origin-end), rgba(var(--color-border), var(--color-border-alpha, 1)) var(--range-min), rgb(var(--color-foreground)) var(--range-min), rgb(var(--color-foreground)) var(--range-max), rgba(var(--color-border), var(--color-border-alpha, 1)) var(--range-max));*/
   border-radius: 0;
   height: 0.4rem;
 }
@@ -91,8 +101,10 @@ price-range {
 .facet-range::-webkit-slider-thumb {
   -webkit-margin-before: -6px;
   -webkit-appearance: none;
-  border: 1px solid rgb(var(--color-foreground));
-  background-color: rgb(var(--color-background));
+  border: 1px solid #005D88;
+  /*border: 1px solid rgb(var(--color-foreground));*/
+  background-color: #005D88;
+  /*background-color: rgb(var(--color-background));*/
   border-radius: 100%;
   box-shadow: none;
   cursor: pointer;
@@ -130,6 +142,7 @@ price-range {
 }
 .facet-range::-moz-range-progress {
   background-color: rgb(var(--color-foreground));
+  background-color:red;
 }
 .facet-range::-moz-range-track {
   background-color: rgb(var(--border-color));
@@ -286,4 +299,78 @@ price-range {
     max-width: 30%;
     margin-inline-end: 0.8rem;
   }
+}
+
+
+
+/* Custom styles for the mobile filters */
+input[id^="FacetFormInputFromPrice-"]::-webkit-outer-spin-button,
+input[id^="FacetFormInputFromPrice-"]::-webkit-inner-spin-button,
+input[id^="FacetFormInputToPrice-"]::-webkit-outer-spin-button,
+input[id^="FacetFormInputToPrice-"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[id^="FacetFormInputFromPrice-"],
+input[id^="FacetFormInputToPrice-"] {
+  -moz-appearance: textfield;
+}
+
+input[id^="FacetFormInputFromPrice-"]:focus,
+input[id^="FacetFormInputToPrice-"]:focus {
+  outline: none;    
+  box-shadow: none;   
+}
+
+drawer-component .drawer__body{
+  background-color:#fff;
+}
+
+#FacetDrawer .drawer-content{
+  background-color:#fff !important;
+}
+
+@media only screen and (max-width:768px){
+  .dc_accordion-details{
+    padding-top:16px;
+    padding-bottom:16px;
+  }
+
+  .dc_accordion-details__content{
+    padding-top:15px !important;
+  }
+}
+
+@media only screen and (min-width:769px){
+  .dc_accordion-details .accordion-details__summary{
+    padding-bottom:15px;
+  }
+}
+
+.dc_outer-price-input{
+  border:1px solid #333232;
+  border-radius:4px;
+  display:flex;
+  flex-direction:row;
+  padding:5px 16px;
+  width:100%;
+}
+
+.dc_outer-price-input input{
+  border:none;
+  text-align:right;
+  width:100%; 
+}
+
+/* 1. Target the chevron inside a details tag that has the 'open' attribute */
+.dc_accordion-details[open] .icon-chevron {
+  transform: rotate(180deg);
+}
+
+/* 2. Add a smooth transition so it slides instead of snaps */
+.dc_accordion-details .icon-chevron {
+  transition: transform 0.3s ease;
+  /* Optional: Ensure the icon's origin is centered for a clean spin */
+  transform-origin: center; 
 }

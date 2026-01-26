@@ -194,7 +194,7 @@ if (!customElements.get('quick-order-list')) {
           return;
         }
 
-        const sectionContent = new DOMParser().parseFromString(event.cart?.sections?.[this.sectionId], 'text/html');
+        const sectionContent = new DOMParser().parseFromString(event.cart.sections[this.sectionId], 'text/html');
 
         this.updateCartSections(sectionContent, event);
         this.updateFocus(event);

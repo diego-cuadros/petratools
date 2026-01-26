@@ -11,6 +11,7 @@
   "sections": {
     "breadcrumbs": {
       "type": "breadcrumbs",
+      "disabled": true,
       "custom_css": [
         "@media (min-width: 1280px) {.breadcrumbs {padding-inline: 5rem; }}"
       ],
@@ -244,7 +245,7 @@
         "use_color_scheme_in_container": false,
         "enable_sticky_info": true,
         "media_size": "large",
-        "gallery_layout": "vertical-carousel",
+        "gallery_layout": "carousel",
         "mobile_thumbnails": "show",
         "show_image_border": false,
         "enable_image_zoom": true,
@@ -259,37 +260,45 @@
         "testimonial_dhi3Xf": {
           "type": "testimonial",
           "settings": {
+            "icon": "none",
             "heading": "Testimonials",
             "text": "<p>“I am extremely happy about both design and comfort. I am a furniture designer myself, and your product makes me happy.”</p>",
             "author": "Stephanie L.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": ""
           }
         },
         "testimonial_D7Mq7i": {
           "type": "testimonial",
           "settings": {
+            "icon": "none",
             "heading": "Testimonials",
             "text": "<p>The story behind, sustainable production, and the risk-free feeling with the free return policy make this a great choice.</p>",
             "author": "Rachel M.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": ""
           }
         },
         "testimonial_33tAjm": {
           "type": "testimonial",
           "settings": {
+            "icon": "none",
             "heading": "Testimonials",
             "text": "<p>“High-quality furniture, crafted with passion and care, fantastic in appearance and use, reasonably priced, and excellent custome.”</p>",
             "author": "Emily J.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": ""
           }
         },
         "testimonial_dDRMwy": {
           "type": "testimonial",
           "settings": {
+            "icon": "none",
             "heading": "Testimonials",
             "text": "<p>The craftsmanship, eco-friendly materials, and excellent customer service truly make this product an outstanding standout.</p>",
             "author": "Sarah T.",
-            "bio": "Verified Buyer"
+            "bio": "Verified Buyer",
+            "product": ""
           }
         }
       },
@@ -357,7 +366,13 @@
             "button_label": "",
             "button_link": "",
             "button_style": "btn--primary",
-            "button_icon": "none"
+            "button_icon": "none",
+            "icon_1": "check",
+            "heading_1": "Heading",
+            "icon_2": "check",
+            "heading_2": "Heading",
+            "icon_3": "check",
+            "heading_3": "Heading"
           }
         },
         "image_with_text_LQUEir": {
@@ -376,8 +391,15 @@
             "description": "<p>The good design concepts at the heart of Danish design are functionality, beauty and the needs of the many. This is a strong tradition. And when a tradition is strong enough, it leaves room for innovation that allows us to always move forward.</p>",
             "description_size": "text-base",
             "button_label": "Shop More Products",
+            "button_link": "",
             "button_style": "btn--primary",
-            "button_icon": "none"
+            "button_icon": "none",
+            "icon_1": "check",
+            "heading_1": "Heading",
+            "icon_2": "check",
+            "heading_2": "Heading",
+            "icon_3": "check",
+            "heading_3": "Heading"
           }
         },
         "tab_xGBJeM": {
@@ -680,6 +702,7 @@
           "type": "button",
           "settings": {
             "button_label": "Explore More Details",
+            "button_link": "",
             "button_style": "btn--primary",
             "button_icon": "none"
           }
@@ -865,6 +888,7 @@
             "text": "<p>All orders over $500 are delivered to your doorstep at no extra charge.</p>",
             "text_size": "text-base",
             "button_label": "Shipping Details",
+            "button_link": "",
             "button_style": "btn--plain",
             "button_icon": "caret-right"
           }
@@ -885,6 +909,7 @@
             "text": "<p>Enjoy the freedom of stress-free shopping with our hassle-free and return policy.</p>",
             "text_size": "text-base",
             "button_label": "Return Policy",
+            "button_link": "",
             "button_style": "btn--plain",
             "button_icon": "caret-right"
           }
@@ -905,6 +930,7 @@
             "text": "<p>Shop with confidence knowing your payments are secure and your information</p>",
             "text_size": "text-base",
             "button_label": "More About Payment",
+            "button_link": "",
             "button_style": "btn--plain",
             "button_icon": "caret-right"
           }
@@ -961,6 +987,7 @@
           "type": "gallery",
           "settings": {
             "color_scheme": "",
+            "image_link": "",
             "social_media": "instagram",
             "heading": "thisisaaccount"
           }
@@ -969,6 +996,7 @@
           "type": "gallery",
           "settings": {
             "color_scheme": "",
+            "image_link": "",
             "social_media": "instagram",
             "heading": "furniturelover"
           }
@@ -977,6 +1005,7 @@
           "type": "gallery",
           "settings": {
             "color_scheme": "",
+            "image_link": "",
             "social_media": "instagram",
             "heading": "thisisaaccount"
           }
@@ -985,6 +1014,7 @@
           "type": "gallery",
           "settings": {
             "color_scheme": "",
+            "image_link": "",
             "social_media": "instagram",
             "heading": "baddyjam"
           }
@@ -993,6 +1023,7 @@
           "type": "gallery",
           "settings": {
             "color_scheme": "scheme-1",
+            "image_link": "",
             "social_media": "instagram",
             "heading": "liamwealthy"
           }
@@ -1001,6 +1032,7 @@
           "type": "gallery",
           "settings": {
             "color_scheme": "scheme-1",
+            "image_link": "",
             "social_media": "instagram",
             "heading": "baddyjam"
           }
@@ -1009,6 +1041,7 @@
           "type": "gallery",
           "settings": {
             "color_scheme": "scheme-1",
+            "image_link": "",
             "social_media": "instagram",
             "heading": "liamwealthy"
           }
@@ -1038,6 +1071,7 @@
         "text_size": "text-base",
         "show_button_on_top": false,
         "button_label": "@garage_store",
+        "button_link": "",
         "button_style": "btn--underline",
         "button_icon": "none",
         "direction": "left",

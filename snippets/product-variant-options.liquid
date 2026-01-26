@@ -16,6 +16,10 @@
     picker_type: picker_type
   %}
 {% endcomment %}
+
+{% if block.settings.use_custom_variant_picker_style %}
+  {{ 'custom-product-variant-options.css' | asset_url | stylesheet_tag }}
+{% endif %}
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
   assign image_size = block.settings.swatch_size | times: 2
@@ -144,6 +148,31 @@
       <span class="swatch-color block" style="--swatch-background: {{ swatch_value }}"></span>
     </label>
   {%- elsif picker_type == 'button' -%}
+    {%- liquid
+      assign variant_image = null
+      for variant in product.variants
+        if variant.title contains value and variant.image != blank
+          assign variant_image = variant.image
+          break
+        endif
+      endfor
+
+      if variant_image == null
+        for variant in product.variants
+          assign variant_option_values = variant.options | join: ', '
+          if variant_option_values contains value and variant.image != blank
+            assign variant_image = variant.image
+            break
+          endif
+        endfor
+      endif
+
+      assign image_url = null
+      if variant_image != null
+        assign image_size = 80
+        assign image_url = variant_image | image_url: width: image_size
+      endif
+    -%}
     <input
       type="radio"
       id="{{ input_id }}"
@@ -158,8 +187,22 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
-      {{ value -}}
+    <label for="{{ input_id }}" class="button-with-image">
+      {% if block.settings.use_custom_variant_picker_style %}
+        {% if image_url %}
+          <span class="variant-image-wrapper">
+            <img
+              src="{{ image_url | image_url: width: 80 }}"
+              alt="{{ value | escape }}"
+              class="variant-image"
+              loading="lazy"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+            >
+          </span>
+        {% endif -%}
+      {% endif %}
+      <span class="variant-label">{{ value }}</span>
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}

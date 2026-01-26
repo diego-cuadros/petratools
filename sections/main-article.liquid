@@ -135,7 +135,7 @@
                 {%- if block.settings.show_share -%}
                   <div class="article__share flex items-center gap-4">
                     <span class="article__share-title font-button">{{ 'general.share.title' | t }}</span>
-                    {% render 'social-sharing', url: article.url, share_image: article.image, share_title: article.title %}
+                    {% render 'social-sharing', url: article.url, share_image: article.featured_media.preview_image %}
                   </div>
                 {%- endif -%}
               </div>

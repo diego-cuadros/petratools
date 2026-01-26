@@ -177,9 +177,9 @@ console.log(
         t = setTimeout(() => fn.apply(this, args), wait);
       };
     },
-    fetchConfig: (type = 'json', method = 'POST') => {
+    fetchConfig: (type = 'json') => {
       return {
-        method,
+        method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: `application/${type}` },
       };
     },
@@ -656,17 +656,23 @@ class ModalComponent extends HTMLElement {
   }
 
   get overlay() {
-    return (this._overlay = this._overlay || this.querySelector('.fixed-overlay'));
+    // Check if the _overlay property is already set
+    if (!this._overlay) {
+      // If not set, find the element and cache it
+      this._overlay = this.querySelector('.fixed-overlay');
+    }
+
+    // Return the cached element
+    return this._overlay;
   }
 
   get focusElement() {
     const button = this.querySelector('button');
     if (button) return button;
-
+    
     const focusableElements = FoxTheme.a11y.getFocusableElements(this);
     return focusableElements[0] || this;
   }
-
   connectedCallback() {
     // Initialize the AbortController
     this.abortController = new AbortController();
@@ -679,25 +685,42 @@ class ModalComponent extends HTMLElement {
     });
 
     // Add keyup event listener to document for handling the Escape key
-    document.addEventListener('keyup', (event) => event.code === 'Escape' && this.hide(), {
-      signal: this.abortController.signal,
-    });
+    document.addEventListener(
+      'keyup',
+      (event) => {
+        if (event.code === 'Escape') {
+          this.hide();
+        }
+      },
+      { signal: this.abortController.signal }
+    );
 
     // Additional setup for Shopify design mode
     if (this.designMode && Shopify.designMode) {
       const section = this.closest('.shopify-section');
-      section.addEventListener('shopify:section:select', (event) => this.show(null, !event.detail.load), {
-        signal: this.abortController.signal,
-      });
-      section.addEventListener('shopify:section:deselect', this.hide.bind(this), {
-        signal: this.abortController.signal,
-      });
+      section.addEventListener(
+        'shopify:section:select',
+        (event) => {
+          this.show(null, !event.detail.load);
+        },
+        {
+          signal: this.abortController.signal,
+        }
+      );
+      section.addEventListener(
+        'shopify:section:deselect',
+        () => {
+          this.hide();
+        },
+        {
+          signal: this.abortController.signal,
+        }
+      );
     }
   }
 
   disconnectedCallback() {
-    this.abortController?.abort();
-    Shopify.designMode && document.body.classList.remove(this.classes.show);
+    this.abortController.abort();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -727,11 +750,13 @@ class ModalComponent extends HTMLElement {
             this.handleAfterHide();
 
             if (!this.hasAttribute('inert')) return;
+
             if (this.parentElement === document.body && this.parentElementBeforeAppend) {
               this.parentElementBeforeAppend.appendChild(this);
               this.parentElementBeforeAppend = null;
             }
             this.dispatchEvent(new CustomEvent(this.events.handleAfterHide, { bubbles: true }));
+
             this.hidden = true;
           });
         }
@@ -743,6 +768,9 @@ class ModalComponent extends HTMLElement {
 
   onButtonClick(event) {
     event.preventDefault();
+    if (event.currentTarget.disabled) {
+      return;
+    }
 
     if (this.open) {
       this.hide();
@@ -752,42 +780,58 @@ class ModalComponent extends HTMLElement {
   }
 
   hide() {
-    if (!this.open) return;
-    this.prepareToHide();
-    this.removeAttribute('open');
-
-    return FoxTheme.utils.waitForEvent(this, this.events.handleAfterHide);
+    if (this.open) {
+      this.removeAttribute('open');
+      return FoxTheme.utils.waitForEvent(this, this.events.handleAfterHide);
+    }
   }
 
   show(activeElement = null, animate = true) {
-    if (this.open) return;
-    this.prepareToShow();
-    this.activeElement = activeElement;
-    this.setAttribute('open', animate ? '' : 'immediate');
-
-    if (this.isLockingNeeded) {
-      document.body.classList.add(this.classes.showing);
+    if (!this.shouleBeShow()) {
+      return;
     }
 
-    return FoxTheme.utils.waitForEvent(this, this.events.handleAfterShow);
+    if (!this.open) {
+      this.prepareToShow();
+      this.activeElement = activeElement;
+      this.setAttribute('open', animate ? '' : 'immediate');
+
+      if (this.isLockingNeeded) {
+        document.body.classList.add(this.classes.showing);
+      }
+
+      return FoxTheme.utils.waitForEvent(this, this.events.handleAfterShow);
+    }
   }
 
   handleAfterHide() {
     setTimeout(() => {
+      // Remove trap focus from the active element
       FoxTheme.a11y.removeTrapFocus(this.activeElement);
+
+      // Conditionally manage locking behavior
       if (this.isLockingNeeded) {
+        // Decrement the lock layer count for the ModalElement
         const currentModalCount = clearModalComponentCount.get(ModalComponent) - 1;
         clearModalComponentCount.set(ModalComponent, currentModalCount);
+
+        // Toggle the 'open' class on the body based on the current lock count
         document.body.classList.toggle(this.classes.show, currentModalCount > 0);
       }
     });
   }
 
   handleAfterShow() {
-    FoxTheme.a11y.trapFocus(this, this.focusElement);
+    // Trap focus on the specified elements
+    if (!Shopify.designMode) {
+      FoxTheme.a11y.trapFocus(this, this.focusElement);
+    }
+
+    // Check if locking is needed
     if (this.isLockingNeeded) {
-      const currentModalCount = clearModalComponentCount.get(ModalComponent) + 1;
-      clearModalComponentCount.set(ModalComponent, currentModalCount);
+      // Increment the lock layer count for the ModalElement
+      const currentLockCount = clearModalComponentCount.get(ModalComponent) + 1;
+      clearModalComponentCount.set(ModalComponent, currentLockCount);
 
       // Manage class changes on the document body
       document.body.classList.remove(this.classes.showing);
@@ -795,37 +839,31 @@ class ModalComponent extends HTMLElement {
     }
   }
 
+  shouleBeShow() {
+    return true;
+  }
+
   prepareToShow() {}
 
-  prepareToHide() {}
-
   handleShowTransition() {
+    // Start a timeout to set an attribute
     setTimeout(() => {
       this.setAttribute('active', '');
-    }, 100);
+    }, 75);
 
+    // Return a promise that resolves when the transition ends
     return new Promise((resolve) => {
-      this.overlay.addEventListener(
-        'transitionend',
-        () => {
-          resolve();
-        },
-        { once: true }
-      );
+      this.overlay.addEventListener('transitionend', resolve, { once: true });
     });
   }
 
   handleHideTransition() {
+    // Immediately remove the 'active' attribute
     this.removeAttribute('active');
 
+    // Return a promise that resolves when the transition ends
     return new Promise((resolve) => {
-      this.overlay.addEventListener(
-        'transitionend',
-        () => {
-          resolve();
-        },
-        { once: true }
-      );
+      this.overlay.addEventListener('transitionend', resolve, { once: true });
     });
   }
 }
@@ -1389,30 +1427,16 @@ class VideoElement extends HTMLElement {
   }
 
   get player() {
-    if (this.playerProxy) {
-      return this.playerProxy;
-    }
-
-    // Wrap initializePlayer to ensure it always returns a Promise or object (never null directly)
-    const playerInit = this.initializePlayer();
-    const playerPromise = playerInit instanceof Promise ? playerInit : Promise.resolve(playerInit);
-
-    // Create a proxy with a placeholder object to avoid "Cannot create proxy with null" error
-    const placeholder = {};
-    this.playerProxy = new Proxy(placeholder, {
-      get: (target, prop) => {
-        return async () => {
-          const resolvedPlayer = await playerPromise;
-          if (!resolvedPlayer) {
-            console.warn('VideoElement: player is null, cannot perform action:', prop);
-            return;
-          }
-          this.handlePlayerAction(resolvedPlayer, prop);
-        };
-      },
-    });
-
-    return this.playerProxy;
+    return (this.playerProxy =
+      this.playerProxy ||
+      new Proxy(this.initializePlayer(), {
+        get: (target, prop) => {
+          return async () => {
+            target = await target;
+            this.handlePlayerAction(target, prop);
+          };
+        },
+      }));
   }
 
   static get observedAttributes() {
@@ -1434,19 +1458,13 @@ class VideoElement extends HTMLElement {
 
   play() {
     if (!this.playing) {
-      const playerResult = this.player;
-      if (playerResult) {
-        playerResult.play();
-      }
+      this.player.play();
     }
   }
 
   pause() {
     if (this.playing) {
-      const playerResult = this.player;
-      if (playerResult) {
-        playerResult.pause();
-      }
+      this.player.pause();
     }
   }
 
@@ -1484,13 +1502,7 @@ class VideoElement extends HTMLElement {
             });
           }
           await onYouTubeApiLoaded;
-          const iframe = this.querySelector('iframe');
-          if (!iframe) {
-            console.warn('VideoElement: iframe not found for YouTube player');
-            resolve(null);
-            return;
-          }
-          const player = new YT.Player(iframe, {
+          const player = new YT.Player(this.querySelector('iframe'), {
             events: {
               onReady: () => {
                 if (muteVideo) {
@@ -1516,13 +1528,7 @@ class VideoElement extends HTMLElement {
               script.onload = resolve2;
             });
           }
-          const iframe = this.querySelector('iframe');
-          if (!iframe) {
-            console.warn('VideoElement: iframe not found for Vimeo player');
-            resolve(null);
-            return;
-          }
-          const player = new Vimeo.Player(iframe);
+          const player = new Vimeo.Player(this.querySelector('iframe'));
           if (muteVideo) {
             player.setMuted(true);
           }
@@ -1535,36 +1541,11 @@ class VideoElement extends HTMLElement {
         }
       });
     } else {
-      const templateElement = this.querySelector('template');
-      if (!templateElement) {
-        console.warn('VideoElement: template not found');
-        return null;
-      }
-
-      const templateContent = templateElement.content.firstElementChild;
-      this.appendChild(templateContent.cloneNode(true));
+      this.appendChild(this.querySelector('template').content.firstElementChild.cloneNode(true));
       this.setAttribute('loaded', '');
       this.closest('.media')?.classList.remove('loading');
 
-      // Check if template contains iframe instead of video (edge case: iframe without source attribute)
-      const iframe = this.querySelector('iframe');
-      if (iframe) {
-        console.warn('VideoElement: iframe found but no source attribute set. Cannot initialize player.');
-        return null;
-      }
-
       const player = this.querySelector('video');
-      if (!player) {
-        console.warn('VideoElement: video element not found after cloning template');
-        return null;
-      }
-
-      // Double check: ensure player is a valid video element
-      if (!(player instanceof HTMLVideoElement) || typeof player.addEventListener !== 'function') {
-        console.warn('VideoElement: player is not a valid HTMLVideoElement');
-        return null;
-      }
-
       player.addEventListener('play', () => {
         this.setAttribute('playing', '');
         this.removeAttribute('suspended');
@@ -1579,11 +1560,6 @@ class VideoElement extends HTMLElement {
   }
 
   handlePlayerAction(target, prop) {
-    if (!target) {
-      console.warn('VideoElement: player target is null, cannot perform action:', prop);
-      return;
-    }
-
     if (this.getAttribute('source') === 'youtube') {
       prop === 'play' ? target.playVideo() : target.pauseVideo();
     } else {
@@ -1831,88 +1807,9 @@ class ProductRecentlyViewed extends HTMLElement {
 }
 customElements.define('product-recently-viewed', ProductRecentlyViewed);
 
-/**
- * MotionObserverManager - Shared IntersectionObserver for all motion-elements
- *
- * Benefits:
- * - Reduces memory usage: 1 observer instead of N observers (N = number of motion-elements)
- * - Better performance on Safari with many elements (60+ images)
- * - Prevents memory leaks from multiple observer instances
- *
- * Memory impact: ~98% reduction in observer overhead
- * Example: 60 elements × 50KB = 3MB → 1 observer = 50KB
- */
-class MotionObserverManager {
-  constructor() {
-    this.observer = null;
-    this.elements = new WeakMap(); // WeakMap ensures proper garbage collection
-    this.initialize();
-  }
-
-  initialize() {
-    if (FoxTheme.config.motionReduced) return;
-
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const callback = this.elements.get(entry.target);
-            if (callback) {
-              callback();
-              this.unobserve(entry.target);
-            }
-          }
-        });
-      },
-      { rootMargin: '0px 0px -80px 0px' }
-    );
-  }
-
-  observe(element, callback) {
-    if (!this.observer) return;
-    this.elements.set(element, callback);
-    this.observer.observe(element);
-  }
-
-  unobserve(element) {
-    if (!this.observer) return;
-    this.observer.unobserve(element);
-    this.elements.delete(element);
-  }
-
-  disconnect() {
-    if (this.observer) {
-      this.observer.disconnect();
-      this.elements = new WeakMap();
-    }
-  }
-}
-
-// Create singleton instance
-FoxTheme.MotionObserver = new MotionObserverManager();
-
-/**
- * MotionElement - Optimized custom element for animations
- *
- * Key optimizations:
- * - Shared IntersectionObserver via MotionObserverManager
- * - Event-based parent waiting (no setTimeout polling)
- * - Proper cleanup in disconnectedCallback
- * - Cached media elements (no repeated DOM queries)
- * - AbortController pattern for cancellable animations
- *
- * Fixes Safari crash issues with 60+ product images
- */
 class MotionElement extends HTMLElement {
   constructor() {
     super();
-
-    // Instance properties for cleanup tracking
-    this._parentCheckTimer = null;
-    this._abortController = null;
-    this._cachedMediaElements = null;
-    this._isObserving = false;
-    this._parentEventHandler = null;
   }
 
   connectedCallback() {
@@ -1924,87 +1821,34 @@ class MotionElement extends HTMLElement {
       this.waitForParent(parentMotionElement);
     } else {
       this.preInitialize();
-      this.setupObserver();
+      FoxTheme.Motion.inView(
+        this,
+        async () => {
+          if (!this.isInstant && this.mediaElements) await FoxTheme.utils.imageReady(this.mediaElements);
+          this.initialize();
+        },
+        { margin: '0px 0px -80px 0px' }
+      );
     }
-  }
-
-  disconnectedCallback() {
-    this.cleanup();
-  }
-
-  cleanup() {
-    // Clear parent check timer
-    if (this._parentCheckTimer) {
-      clearTimeout(this._parentCheckTimer);
-      this._parentCheckTimer = null;
-    }
-
-    // Remove parent event listener
-    if (this._parentEventHandler) {
-      const parent = this.closest('motion-element:not(:scope)');
-      if (parent) {
-        parent.removeEventListener('motion-initialized', this._parentEventHandler);
-      }
-      this._parentEventHandler = null;
-    }
-
-    // Unobserve from IntersectionObserver
-    if (this._isObserving) {
-      FoxTheme.MotionObserver.unobserve(this);
-      this._isObserving = false;
-    }
-
-    // Abort any pending animations
-    if (this._abortController) {
-      this._abortController.abort();
-      this._abortController = null;
-    }
-
-    // Clear cached elements
-    this._cachedMediaElements = null;
-
-    // Remove initialized attribute
-    this.removeAttribute('data-initialized');
   }
 
   waitForParent(parentMotionElement) {
-    // Use event-based approach instead of polling for better performance
-    if (parentMotionElement.hasAttribute('data-initialized')) {
-      this.preInitialize();
-      this.setupObserver();
-    } else {
-      // Listen for parent initialization event
-      this._parentEventHandler = () => {
+    const checkParent = () => {
+      if (parentMotionElement.hasAttribute('data-initialized')) {
         this.preInitialize();
-        this.setupObserver();
-      };
-      parentMotionElement.addEventListener('motion-initialized', this._parentEventHandler, { once: true });
-
-      // Fallback timeout in case event doesn't fire (max 5 seconds to prevent infinite waiting)
-      this._parentCheckTimer = setTimeout(() => {
-        if (!this.hasAttribute('data-initialized')) {
-          this.preInitialize();
-          this.setupObserver();
-        }
-      }, 5000);
-    }
-  }
-
-  setupObserver() {
-    this._isObserving = true;
-    FoxTheme.MotionObserver.observe(this, async () => {
-      try {
-        if (!this.isInstant && this.mediaElements.length > 0) {
-          await FoxTheme.utils.imageReady(this.mediaElements);
-        }
-        await this.initialize();
-      } catch (error) {
-        // Silently handle errors from disconnected elements
-        if (this.isConnected) {
-          console.warn('Motion animation error:', error);
-        }
+        FoxTheme.Motion.inView(
+          this,
+          async () => {
+            if (!this.isInstant && this.mediaElements) await FoxTheme.utils.imageReady(this.mediaElements);
+            this.initialize();
+          },
+          { margin: '0px 0px -80px 0px' }
+        );
+      } else {
+        setTimeout(checkParent, 50);
       }
-    });
+    };
+    checkParent();
   }
 
   get isHold() {
@@ -2016,11 +1860,7 @@ class MotionElement extends HTMLElement {
   }
 
   get mediaElements() {
-    // Cache media elements to avoid repeated DOM queries (performance optimization)
-    if (!this._cachedMediaElements) {
-      this._cachedMediaElements = Array.from(this.querySelectorAll('img, iframe, svg'));
-    }
-    return this._cachedMediaElements;
+    return Array.from(this.querySelectorAll('img, iframe, svg'));
   }
 
   get animationType() {
@@ -2033,10 +1873,6 @@ class MotionElement extends HTMLElement {
 
   preInitialize() {
     if (this.isHold) return;
-
-    // Create abort controller for animations
-    this._abortController = new AbortController();
-
     switch (this.animationType) {
       case 'fade-in':
         this.style.visibility = 'hidden';
@@ -2051,7 +1887,6 @@ class MotionElement extends HTMLElement {
       case 'zoom-in':
         FoxTheme.Motion.animate(this, { transform: 'scale(0.8)' }, { duration: 0 });
         break;
-
       case 'zoom-in-lg':
         FoxTheme.Motion.animate(this, { transform: 'scale(0)' }, { duration: 0 });
         break;
@@ -2068,123 +1903,134 @@ class MotionElement extends HTMLElement {
 
   async initialize() {
     if (this.isHold) return;
-
-    // Check if element is still connected before animating
-    if (!this.isConnected) return;
-
     this.setAttribute('data-initialized', 'true');
 
-    // Dispatch custom event for child elements to listen
-    this.dispatchEvent(new CustomEvent('motion-initialized', { bubbles: false }));
+    switch (this.animationType) {
+      case 'fade-in':
+        this.style.visibility = 'visible';
+        await FoxTheme.Motion.animate(
+          this,
+          { opacity: 1 },
+          { duration: 1.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
+        ).finished;
+        break;
 
-    try {
-      switch (this.animationType) {
-        case 'fade-in':
-          this.style.visibility = 'visible';
-          await FoxTheme.Motion.animate(
-            this,
-            { opacity: 1 },
-            { duration: 1.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
-          ).finished;
-          break;
+      case 'fade-up':
+        this.style.visibility = 'visible';
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'translateY(0)', opacity: 1 },
+          { duration: 0.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
+        ).finished;
+        break;
 
-        case 'fade-up':
-          this.style.visibility = 'visible';
-          await FoxTheme.Motion.animate(
-            this,
-            { transform: 'translateY(0)', opacity: 1 },
-            { duration: 0.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
-          ).finished;
-          break;
+      case 'zoom-in':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(1)' },
+          { duration: 1.3, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
+        ).finished;
+        break;
 
-        case 'zoom-in':
-          await FoxTheme.Motion.animate(
-            this,
-            { transform: 'scale(1)' },
-            { duration: 1.3, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
-          ).finished;
-          break;
+      case 'zoom-in-lg':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(1)' },
+          { duration: 0.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
+        ).finished;
+        break;
 
-        case 'zoom-in-lg':
-          await FoxTheme.Motion.animate(
-            this,
-            { transform: 'scale(1)' },
-            { duration: 0.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
-          ).finished;
-          break;
+      case 'zoom-out':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(1)' },
+          { duration: 1.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
+        ).finished;
+        break;
 
-        case 'zoom-out':
-          await FoxTheme.Motion.animate(
-            this,
-            { transform: 'scale(1)' },
-            { duration: 1.5, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
-          ).finished;
-          break;
-
-        case 'zoom-out-sm':
-          await FoxTheme.Motion.animate(
-            this,
-            { transform: 'scale(1)' },
-            { duration: 1, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
-          ).finished;
-          break;
-      }
-    } catch (error) {
-      // Animation was cancelled or element was removed
-      if (error.name !== 'AbortError' && this.isConnected) {
-        console.warn('Motion animation error:', error);
-      }
+      case 'zoom-out-sm':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(1)' },
+          { duration: 1, delay: this.animationDelay, easing: [0, 0, 0.3, 1] }
+        ).finished;
+        break;
     }
   }
 
   async resetAnimation(duration) {
-    if (!this.isConnected) return;
+    switch (this.animationType) {
+      case 'fade-in':
+        await FoxTheme.Motion.animate(
+          this,
+          { opacity: 0 },
+          {
+            duration: duration ? duration : 1.5,
+            delay: this.animationDelay,
+            easing: duration ? 'none' : [0, 0, 0.3, 1],
+          }
+        ).finished;
+        break;
 
-    try {
-      switch (this.animationType) {
-        case 'fade-in':
-          await FoxTheme.Motion.animate(
-            this,
-            { opacity: 0 },
-            {
-              duration: duration ? duration : 1.5,
-              delay: this.animationDelay,
-              easing: duration ? 'none' : [0, 0, 0.3, 1],
-            }
-          ).finished;
-          break;
+      case 'fade-up':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'translateY(2.5rem)', opacity: 0 },
+          {
+            duration: duration ? duration : 0.5,
+            delay: this.animationDelay,
+            easing: duration ? 'none' : [0, 0, 0.3, 1],
+          }
+        ).finished;
+        break;
 
-        case 'fade-up':
-          await FoxTheme.Motion.animate(
-            this,
-            { transform: 'translateY(2.5rem)', opacity: 0 },
-            {
-              duration: duration ? duration : 0.5,
-              delay: this.animationDelay,
-              easing: duration ? 'none' : [0, 0, 0.3, 1],
-            }
-          ).finished;
-          break;
+      case 'zoom-in':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(0)' },
+          {
+            duration: duration ? duration : 1.3,
+            delay: this.animationDelay,
+            easing: duration ? 'none' : [0, 0, 0.3, 1],
+          }
+        ).finished;
+        break;
 
-        case 'zoom-in':
-        case 'zoom-in-lg':
-        case 'zoom-out':
-        case 'zoom-out-sm':
-          await FoxTheme.Motion.animate(
-            this,
-            { transform: 'scale(0)' },
-            {
-              duration: duration ? duration : 1.3,
-              delay: this.animationDelay,
-              easing: duration ? 'none' : [0, 0, 0.3, 1],
-            }
-          ).finished;
-          break;
-      }
-    } catch (error) {
-      if (error.name !== 'AbortError' && this.isConnected) {
-        console.warn('Motion reset error:', error);
-      }
+      case 'zoom-in-lg':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(0)' },
+          {
+            duration: duration ? duration : 1.3,
+            delay: this.animationDelay,
+            easing: duration ? 'none' : [0, 0, 0.3, 1],
+          }
+        ).finished;
+        break;
+
+      case 'zoom-out':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(0)' },
+          {
+            duration: duration ? duration : 1.3,
+            delay: this.animationDelay,
+            easing: duration ? 'none' : [0.16, 1, 0.3, 1],
+          }
+        ).finished;
+        break;
+
+      case 'zoom-out-sm':
+        await FoxTheme.Motion.animate(
+          this,
+          { transform: 'scale(0)' },
+          {
+            duration: duration ? duration : 1.3,
+            delay: this.animationDelay,
+            easing: duration ? 'none' : [0.16, 1, 0.3, 1],
+          }
+        ).finished;
+        break;
     }
   }
 
@@ -2192,9 +2038,7 @@ class MotionElement extends HTMLElement {
     this.removeAttribute('hold');
     this.preInitialize();
     setTimeout(() => {
-      if (this.isConnected) {
-        this.initialize();
-      }
+      this.initialize();
     }, 50); // Delay a bit to make animation re init properly.
   }
 }
@@ -2565,25 +2409,10 @@ class ProductForm extends HTMLFormElement {
       .then(async (parsedState) => {
         if (parsedState.status) {
           this.handleCartError(parsedState);
-          const cartJsonSub = await (
-            await fetch(`${FoxTheme.routes.cart_url}`, { ...FoxTheme.utils.fetchConfig('json', 'GET') })
-          ).json();
-
-          this.updateCartState(cartJsonSub);
-          document.dispatchEvent(
-            new CustomEvent('cart:refresh', {
-              bubbles: true,
-              detail: {
-                open: true,
-              },
-            })
-          );
           return;
         }
 
-        const cartJson = await (
-          await fetch(`${FoxTheme.routes.cart_url}`, { ...FoxTheme.utils.fetchConfig('json', 'GET') })
-        ).json();
+        const cartJson = await (await fetch(`${FoxTheme.routes.cart_url}`, { ...FoxTheme.utils.fetchConfig() })).json();
         cartJson['sections'] = parsedState['sections'];
 
         this.updateCartState(cartJson);
@@ -3218,9 +3047,16 @@ if (!customElements.get('show-more')) {
     }
 
     connectedCallback() {
-      const events = ['matchMobile', 'unmatchMobile', 'matchTablet', 'unmatchTablet', 'matchLaptop', 'unmatchLaptop'];
+      const events = [
+        'matchMobile',
+        'unmatchMobile',
+        'matchTablet',
+        'unmatchTablet',
+        'matchLaptop',
+        'unmatchLaptop'
+      ];
 
-      events.forEach((event) => document.addEventListener(event, this.init.bind(this)));
+      events.forEach(event => document.addEventListener(event, this.init.bind(this)));
     }
 
     init() {

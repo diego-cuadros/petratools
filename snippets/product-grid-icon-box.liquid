@@ -11,8 +11,10 @@
     {%- for i in (1..8) -%}
       {%- liquid
         assign icon_key = 'icon_' | append: i
+        assign image_setting_id = 'icon_1_from_image_' | append: i
         assign heading_key = 'heading_' | append: i
         assign icon = block.settings[icon_key]
+        assign icon_from_image = block.settings[image_setting_id]
         assign heading = block.settings[heading_key]
         if heading == blank
           continue
@@ -20,8 +22,12 @@
       -%}
       <div class="f-column">
         <div class="grid-icon-box flex flex-col items-center justify-start text-center blocks-radius">
-          {%- if icon != 'none' -%}
-            {%- render 'icons', icon: icon -%}
+          {%- if icon != 'none' or icon_from_image != blank -%}
+            {% if icon_from_image %}
+              <img src="{{ icon_from_image | image_url }}" width="{{  img.height }}" height="{{ img.height }}">
+            {% else %}
+              {%- render 'icons', icon: icon -%}
+            {% endif %}
           {%- endif -%}
           <span class="inline-richtext text-sm">
             {{- heading -}}

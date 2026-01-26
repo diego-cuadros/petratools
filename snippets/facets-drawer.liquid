@@ -1,4 +1,5 @@
 {%- liquid
+  assign enable_mobile_sorting = enable_mobile_sorting | default: false, allow_false: true
   assign active_values_count = 0
 
   for filter in results.filters
@@ -13,7 +14,7 @@
     endif
   endfor
 -%}
-<div class="facet-drawer-wrapper no-js-hidden">
+<div class="facet-drawer-wrapper no-js-hidden {% if template.suffix == 'btmles-collection' %}lg:hidden{% endif %}">
   {%- if filter_type == 'vertical' -%}
     <div class="hidden xl:flex">
       <button
@@ -22,13 +23,17 @@
         class="btn btn--icon gap-2 facet-drawer-button no-js-hidden"
       >
         <span class="btn__text flex gap-1 items-center">
-          {%- render 'icon-funnel', size: 'large' -%}
+          {% if template.suffix == 'btmles-collection' %}
+            {%- render 'icon-filter', size: 'large' -%}
+          {% else %}
+            {%- render 'icon-funnel', size: 'large' -%}
+          {% endif %}
           <span>{{ 'products.facets.filter_button' | t }}</span>
         </span>
       </button>
     </div>
   {%- endif -%}
-  <div class="facet-drawer-button-wrap{% if filter_type == 'vertical' %} flex xl:hidden{% endif %}">
+  <div class="facet-drawer-button-wrap{% if filter_type == 'vertical' %} flex {% if template.suffix == 'btmles-collection' %}lg:hidden{% else %}xl:hidden{% endif %}{% endif %}">
     <button
       class="btn btn--secondary gap-2 facet-drawer-button"
       type="button"
@@ -37,7 +42,11 @@
       data-facet-loading
     >
       <span class="btn__text flex gap-1 items-center">
-        {%- render 'icon-funnel', size: 'large' -%}
+        {% if template.suffix == 'btmles-collection' %}
+          {%- render 'icon-filter', size: 'large' -%}
+        {% else %}
+          {%- render 'icon-funnel', size: 'large' -%}
+        {% endif %}
         {{ 'products.facets.filter_button' | t }}
         <facet-count
           {% if active_values_count == 0 %}
@@ -69,7 +78,7 @@
           </div>
         </div>
         <div class="drawer__body flex-grow v-scrollable" id="DrawerFacetFiltersContainer">
-          {%- if enable_sorting -%}
+          {%- if enable_mobile_sorting -%}
             <div class="flex items-center gap-3 lg:hidden facet-short-drawer" id="SortByContainerMobile">
               {%- render 'facet-short', results: results, label_class: 'h4', context: 'drawer' -%}
             </div>

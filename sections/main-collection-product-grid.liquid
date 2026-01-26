@@ -7,7 +7,7 @@
   assign columns_desktop = section.settings.columns_desktop
   assign columns_laptop = 4
   if columns_desktop < 4
-      assign columns_laptop = columns_desktop
+    assign columns_laptop = columns_desktop
   endif
   assign columns_tablet = 3
   assign columns_mobile = section.settings.columns_mobile | times: 1
@@ -51,6 +51,28 @@
       <div class="sticky-element grid gap-5 z-9" style="--sticky-offset: 0px;">
         <div class="collection__toolbar flex flex-wrap items-end md:items-center justify-between gap-x-2">
           <div class="collection__toolbar-left flex md:items-center flex-col md:flex-row">
+            <div class="dc_collection__toolbar-mobile">
+              {%- if enable_sorting -%}
+                <div class="dc_hide_on_desktop no-js-hidden lg:flex items-center gap-2" id="SortByContainer">
+                  {%- render 'facet-short',
+                    results: collection,
+                    label_class: 'font-body-bolder',
+                    context: 'collection'
+                  -%}
+                </div>
+              {%- endif -%}
+
+              {%- if enable_filtering -%}
+                <div class="dc_custom_filter_btn dc_hide_on_desktop">
+                  {%- render 'facets-drawer',
+                    results: collection,
+                    enable_sorting: enable_sorting,
+                    enable_mobile_sorting: section.settings.enable_sorting_on_mobile_drawer,
+                    filter_type: filter_type
+                  -%}
+                </div>
+              {%- endif -%}
+            </div>
             <div data-facet-loading class="md:order-last">
               {%- render 'loading-spinner' -%}
               <p id="ProductCount" class="m-0 text-subtext" role="status">
@@ -66,11 +88,14 @@
               </p>
             </div>
             {%- if enable_filtering -%}
-              {%- render 'facets-drawer',
-                results: collection,
-                enable_sorting: enable_sorting,
-                filter_type: filter_type
-              -%}
+              <div class="dc_hide_on_mobile">
+                {%- render 'facets-drawer',
+                  results: collection,
+                  enable_sorting: enable_sorting,
+                  enable_mobile_sorting: section.settings.enable_sorting_on_mobile_drawer,
+                  filter_type: filter_type
+                -%}
+              </div>
             {%- endif -%}
           </div>
           <div class="collection__toolbar-right flex items-end md:items-center flex-col md:flex-row">
@@ -87,7 +112,7 @@
               </compare-switch>
             {%- endif -%}
             {%- if enable_sorting -%}
-              <div class="hidden no-js-hidden lg:flex items-center gap-2" id="SortByContainer">
+              <div class="dc_hide_on_mobile hidden no-js-hidden lg:flex items-center gap-2" id="SortByContainer">
                 {%- render 'facet-short',
                   results: collection,
                   label_class: 'font-body-bolder',
@@ -130,7 +155,7 @@
     <div class="collection__content flex">
       {%- if collection.all_products_count > 0 -%}
         <div
-          class="no-js-hidden hidden{% if enable_filtering and filter_type == 'vertical' %} xl:block{% endif %}"
+          class="no-js-hidden hidden {% if enable_filtering and filter_type == 'vertical' %} {% if template.suffix == 'btmles-collection' %}lg:block{% else %}xl:block{% endif %}{% endif %}"
           id="FacetFiltersContainer"
         >
           <div class="sticky-element z-8" style="--sticky-offset: 7.2rem;">
@@ -184,7 +209,6 @@
                       color_scheme: block.settings.color_scheme,
                       link: block.settings.card_link,
                       image: block.settings.image,
-                      image_mobile: block.settings.image_mobile,
                       image_overlay_opacity: block.settings.image_overlay_opacity,
                       heading: block.settings.heading,
                       highlight_style: block.settings.highlight_style,
@@ -460,9 +484,21 @@
     },
     {
       "type": "checkbox",
+      "id": "enable_sorting_on_mobile_drawer",
+      "default": true,
+      "label": "Enable sorting on mobile drawer"
+    },
+    {
+      "type": "checkbox",
       "id": "enable_layout_switching",
       "default": true,
       "label": "t:sections.main-collection-product-grid.settings.enable_layout_switching.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_static_atc_btn",
+      "default": true,
+      "label": "Enabel static atc button"
     },
     {
       "type": "header",
@@ -1052,6 +1088,12 @@
           "type": "image_picker",
           "id": "image_mobile",
           "label": "t:general.image.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "order_first",
+          "label": "t:sections.collapsible-tabs.blocks.image_card.settings.order_first.label",
+          "default": false
         },
         {
           "type": "header",

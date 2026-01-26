@@ -14,7 +14,7 @@
   {%- if linklists['gift-wrapping'].links != blank and linklists['gift-wrapping'].links.first.type == 'product_link' -%}
     <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
-
+  {{ 'custom-cart-drawer.css' | asset_url | stylesheet_tag }}
   <cart-drawer
     id="CartDrawer"
     class="drawer cart-drawer drawer--right"
@@ -154,7 +154,7 @@
                   -%}
                   {%- capture cart_item -%}
                   <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item flex flex-col" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}">
-                    <div class="cart-item__product flex items-start gap-3">
+                    <div class="cart-item__product flex items-start {% unless section.settings.use_custom_product_recommendations %}gap-3"{% endunless %}>
                       {%- if item.image -%}
                         <a class="cart-item__media blocks-radius media-wrapper" href="{{ item.url }}" tabindex="-1" aria-label="{{ item.title }}">
                           {{- item.image 
@@ -168,10 +168,11 @@
                         </a>
                       {%- endif -%}
                       <div class="cart-item__details flex-grow flex flex-col gap-3">
-                        <div class="flex justify-between gap-3">
+                        <div class="flex justify-between {% unless section.settings.use_custom_product_recommendations %}gap-3{% endunless %}">
                           <div class="grid flex-1">
                             <div class="block"><a href="{{ item.url }}" class="cart-item__title text-pcard-title reversed-link">{{- item.product.title | escape -}}</a></div>
                             {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}
+                              {% unless section.settings.use_custom_product_recommendations %}
                               <div class="cart-item__options">
                                 {%- if item.product.has_only_default_variant == false -%}
                                   {%- assign last_index = item.options_with_values.size | minus: 1 -%}
@@ -203,14 +204,134 @@
                                   <p class="text-sm text-subtext">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                                 {%- endif -%}
                               </div>
+                            {% else %}
+                              <div class = "dc_cart-item__options">
+                                {% if item.product.variants.size > 1 %}
+                                <div class="dc_cart-item__variant">
+                                  <select
+                                    class="dc_cart-item__variant-select"
+                                    data-line="{{ forloop.index }}"
+                                    data-quantity="{{ item.quantity }}"
+                                    data-current-variant="{{ item.variant_id }}"
+                                  >
+                                    {% for variant in item.product.variants %}
+                                      <option
+                                        value="{{ variant.id }}"
+                                        {% if variant.id == item.variant_id %}selected{% endif %}
+                                        {% unless variant.available %}disabled{% endunless %}
+                                      >
+                                        {{ variant.title }}
+                                      </option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                              {% endif %}
+                              <quantity-input class="cart-quantity quantity self-end">
+                                <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}">{{ 'products.product.quantity.label' | t }}</label>
+                                <button type="button" name="minus" class="quantity__button {% if item.quantity == 1 %}is-minimum{% endif %}" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
+                                  <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.6875 7H12.3125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </button>
+                                <input class="quantity__input"
+                                  type="number"
+                                  name="updates[]"
+                                  value="{{ item.quantity }}"
+                                  id="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"
+                                  aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                  step="{{ item.variant.quantity_rule.increment }}"
+                                  size="2"
+                                  inputmode="numeric"
+                                  autocomplete="off"
+                                  data-index="{{ item.index | plus: 1 }}"
+                                  data-quantity-variant-id="{{ item.variant.id }}"
+                                  data-cart-quantity="{{ cart | item_count_for_variant: item.variant.id }}"
+                                  min="0"
+                                  data-min="{{ item.variant.quantity_rule.min }}"
+                                  {% if item.variant.quantity_rule.max != null %}
+                                    max="{{ item.variant.quantity_rule.max }}"
+                                  {% endif %}
+                                />
+                                <button type="button" name="plus" class="quantity__button" aria-label="{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}">
+                                  <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.6875 7H12.3125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M7.5 2.1875V11.8125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </button>
+                              </quantity-input>
+                              </div>
+                              
+                              {% endunless %}
                             {%- endif -%}
                           </div>
+                          {% unless section.settings.use_custom_product_recommendations %}
                           <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="cart-item__remove flex items-center justify-center relative btn-remove" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                             <span class="flex">
                               {%- render 'icon-close', size: 'small' -%}
                             </span>
                             {% render 'loading-spinner' %}
                           </a>
+                        {% else %}
+                          <div class="cart-item__prices text-right flex flex-col gap-2">
+                            {%- if item.line_level_discount_allocations != blank -%}
+                              <ul class="cart-item__discounts discounts list-unstyled flex justify-end flex-wrap gap-1" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                                {%- for discount_allocation in item.line_level_discount_allocations -%}
+                                  <li class="discount text-sm-extra font-body-bold inline-flex items-center">
+                                    {% render 'icon-discount' %}
+                                    <span>{{ discount_allocation.discount_application.title }}</span>
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                            {%- endif -%}
+                            <div>
+                              <div class="price font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
+                                {%- liquid
+                                  assign money_price = item.original_price | money
+                                  if settings.currency_code_enabled
+                                    assign money_price = item.original_price | money_with_currency
+                                  endif
+                                -%}
+                                {%- if item.original_price != item.final_price -%}
+                                  <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                                  <s class="font-body text-sm text-subtext">{{ money_price }}</s>
+                                  <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+                                  <span class="price__regular">
+                                    {%- liquid 
+                                      if settings.currency_code_enabled
+                                        echo item.final_price | money_with_currency
+                                      else
+                                        echo item.final_price | money
+                                      endif  
+                                    -%}
+                                  </span>
+                                {%- else -%}
+                                  {{- money_price -}}
+                                {%- endif -%}
+                              </div>
+                              {%- if item.variant.available and item.unit_price_measurement -%}
+                                <div>
+                                <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+                                <span class="unit-price flex items-center text-sm font-body text-subtext">
+                                  {%- liquid
+                                    capture unit_price_base_unit
+                                      if item.variant.unit_price_measurement
+                                        if item.variant.unit_price_measurement.reference_value != 1
+                                          echo item.variant.unit_price_measurement.reference_value
+                                        endif
+                                        echo item.variant.unit_price_measurement.reference_unit
+                                      endif
+                                    endcapture
+                                  -%}
+                                  ({{ item.variant.unit_price | money }}
+                                  <span aria-hidden="true">/</span>
+                                  <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
+                                  {{ unit_price_base_unit }})
+                                  </span>
+                                </div>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                        {% endunless %}
                         </div>
                         <div class="cart-item__action cart-item__action flex items-center justify-between gap-3">
                           {%- liquid 
@@ -296,9 +417,10 @@
                           {%- endif -%}
                           <div class="flex items-center gap-2">
                             {%- unless is_gift_wrap_item -%}
+                              {% unless section.settings.use_custom_product_recommendations %}
                               <quantity-input class="cart-quantity quantity self-end">
                                 <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}">{{ 'products.product.quantity.label' | t }}</label>
-                                <button type="button" name="minus" class="quantity__button" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
+                                <button type="button" name="minus" class="quantity__button {% if item.quantity == 1 %}is-minimum{% endif %}" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
                                   <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2.6875 7H12.3125" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                   </svg>
@@ -329,6 +451,7 @@
                                   </svg>
                                 </button>
                               </quantity-input>
+                              {% endunless %}
                             {%- else -%}
                               <div class="cart-quantity quantity cart-quantity-gift-wrap self-end">
                                 <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"></label>
@@ -397,7 +520,7 @@
                               </cart-addon-modal>
                             {% endif %}
                           </div>
-
+                          {% unless section.settings.use_custom_product_recommendations %}
                           <div class="cart-item__prices text-right flex flex-col gap-2">
                             {%- if item.line_level_discount_allocations != blank -%}
                               <ul class="cart-item__discounts discounts list-unstyled flex justify-end flex-wrap gap-1" role="list" aria-label="{{ 'customer.order.discount' | t }}">
@@ -457,6 +580,7 @@
                               {%- endif -%}
                             </div>
                           </div>
+                        {% endunless %}
                         </div>
                       </div>
                       
@@ -473,6 +597,7 @@
                       data-product-id="{{ item.product_id }}"
                     ></foxkit-incart-upsell>
                   </li>
+                  {% unless forloop.last == true %}<div class="dc_cart-line-separator"></div>{% endunless %}
                 {%- endcapture -%}
 
                   {%- liquid
@@ -527,7 +652,10 @@
               items_in_cart: items_in_cart,
               class: 'text-sm'
             -%}
-            {%- if section.settings.show_cart_note or section.settings.show_shipping_rates_calculator or section.settings.show_cart_coupon -%}
+            {%- if section.settings.show_cart_note
+              or section.settings.show_shipping_rates_calculator
+              or section.settings.show_cart_coupon
+            -%}
               <div is="swipe-wrapper" class="cart-drawer__addons min-w-0 swipe--with-shadow">
                 <div class="swipe__element swipe-all disable-scroll-snap">
                   <div class="swipe-all__inner">
@@ -758,92 +886,129 @@
             {%- endif -%}
           </div>
           <div class="drawer__footer-body">
-            <div class="grid gap-5">
-              <div class="grid gap-1">
-                {%- liquid
-                  assign discount_codes = cart.cart_level_discount_applications | where: 'type', 'discount_code' | map: 'title'
-                  assign cart_items_has_discount = false
-                  for item in cart.items
-                    for allocation in item.line_level_discount_allocations
-                      if allocation.discount_application.type == 'discount_code'
-                        assign cart_items_has_discount = true
-                      endif
+            {% unless section.settings.use_custom_product_recommendations %}
+              <div class="grid gap-5">
+                <div class="grid gap-1">
+                  {%- liquid
+                    assign discount_codes = cart.cart_level_discount_applications | where: 'type', 'discount_code' | map: 'title'
+                    assign cart_items_has_discount = false
+                    for item in cart.items
+                      for allocation in item.line_level_discount_allocations
+                        if allocation.discount_application.type == 'discount_code'
+                          assign cart_items_has_discount = true
+                        endif
+                      endfor
                     endfor
-                  endfor
-                -%}
-                {%- if cart.cart_level_discount_applications.size > 0 or cart_items_has_discount -%}
-                  <ul
-                    class="cart__discounts discounts list-unstyled flex flex-wrap gap-1"
-                    role="list"
-                    aria-label="{{ 'customer.order.discount' | t }}"
-                  >
-                    {%- for discount in cart.cart_level_discount_applications -%}
-                      <li
-                        class="discount text-sm-extra font-body-bold flex items-center"
-                        data-discount-code="{{ discount.title }}"
-                      >
-                        {% render 'icon-discount' %}
-                        <span>{{- discount.title -}}</span>
-                        <span class="font-body-bold">(-{{ discount.total_allocated_amount | money }})</span>
-                        <button
-                          is="cart-discount-remove"
-                          type="button"
-                          aria-label="{{ 'general.cart.coupon.remove' | t: code: discount.title }}"
-                          class="btn btn--inherit btn-remove"
+                  -%}
+                  {%- if cart.cart_level_discount_applications.size > 0 or cart_items_has_discount -%}
+                    <ul
+                      class="cart__discounts discounts list-unstyled flex flex-wrap gap-1"
+                      role="list"
+                      aria-label="{{ 'customer.order.discount' | t }}"
+                    >
+                      {%- for discount in cart.cart_level_discount_applications -%}
+                        <li
+                          class="discount text-sm-extra font-body-bold flex items-center"
+                          data-discount-code="{{ discount.title }}"
                         >
-                          {% render 'icon-close', size: 'extra-small' %}
-                          {%- render 'loading-spinner' -%}
-                        </button>
-                      </li>
-                    {%- endfor -%}
-                    {%- if cart_items_has_discount -%}
-                      {%- for item in cart.items -%}
-                        {%- for allocation in item.line_level_discount_allocations -%}
-                          {%- liquid
-                            unless allocation.discount_application.type == 'discount_code'
-                              continue
-                            endunless
-
-                            assign discount = allocation.discount_application
-
-                            assign is_displayed = discount_codes | has: discount.title
-                            if is_displayed
-                              continue
-                            endif
-
-                            assign discount_codes = item.line_level_discount_allocations | slice: forloop.index0 | map: 'discount_application' | map: 'title' | concat: discount_codes
-                          -%}
-                          <li
-                            class="discount text-sm-extra font-body-bold flex items-center"
-                            data-discount-code="{{ discount.title }}"
+                          {% render 'icon-discount' %}
+                          <span>{{- discount.title -}}</span>
+                          <span class="font-body-bold">(-{{ discount.total_allocated_amount | money }})</span>
+                          <button
+                            is="cart-discount-remove"
+                            type="button"
+                            aria-label="{{ 'general.cart.coupon.remove' | t: code: discount.title }}"
+                            class="btn btn--inherit btn-remove"
                           >
-                            {% render 'icon-discount' %}
-                            <span>{{- discount.title -}}</span>
-                            <span class="font-body-bold">(-{{ discount.total_allocated_amount | money }})</span>
-                            <button
-                              is="cart-discount-remove"
-                              type="button"
-                              aria-label="{{ 'general.cart.coupon.remove' | t: code: discount.title }}"
-                              class="btn btn--inherit btn-remove"
-                            >
-                              {% render 'icon-close', size: 'extra-small' %}
-                              {%- render 'loading-spinner' -%}
-                            </button>
-                          </li>
-                        {%- endfor -%}
+                            {% render 'icon-close', size: 'extra-small' %}
+                            {%- render 'loading-spinner' -%}
+                          </button>
+                        </li>
                       {%- endfor -%}
-                    {%- endif -%}
-                  </ul>
-                {%- endif -%}
+                      {%- if cart_items_has_discount -%}
+                        {%- for item in cart.items -%}
+                          {%- for allocation in item.line_level_discount_allocations -%}
+                            {%- liquid
+                              unless allocation.discount_application.type == 'discount_code'
+                                continue
+                              endunless
+
+                              assign discount = allocation.discount_application
+
+                              assign is_displayed = discount_codes | has: discount.title
+                              if is_displayed
+                                continue
+                              endif
+
+                              assign discount_codes = item.line_level_discount_allocations | slice: forloop.index0 | map: 'discount_application' | map: 'title' | concat: discount_codes
+                            -%}
+                            <li
+                              class="discount text-sm-extra font-body-bold flex items-center"
+                              data-discount-code="{{ discount.title }}"
+                            >
+                              {% render 'icon-discount' %}
+                              <span>{{- discount.title -}}</span>
+                              <span class="font-body-bold">(-{{ discount.total_allocated_amount | money }})</span>
+                              <button
+                                is="cart-discount-remove"
+                                type="button"
+                                aria-label="{{ 'general.cart.coupon.remove' | t: code: discount.title }}"
+                                class="btn btn--inherit btn-remove"
+                              >
+                                {% render 'icon-close', size: 'extra-small' %}
+                                {%- render 'loading-spinner' -%}
+                              </button>
+                            </li>
+                          {%- endfor -%}
+                        {%- endfor -%}
+                      {%- endif -%}
+                    </ul>
+                  {%- endif -%}
+                  <div class="totals flex justify-between h5 items-center">
+                    <span class="totals__subtotal">
+                      {{- 'sections.cart.estimated_total' | t -}}
+                    </span>
+                    <span class="totals__subtotal-value">
+                      {{- cart.total_price | money_with_currency -}}
+                    </span>
+                  </div>
+                  <div class="tax-note text-sm-extra">
+                    {%- liquid
+                      if cart.taxes_included and shop.shipping_policy.body != blank
+                        echo 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url
+                      elsif cart.taxes_included
+                        echo 'sections.cart.taxes_included_but_shipping_at_checkout' | t
+                      elsif shop.shipping_policy.body != blank
+                        echo 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: shop.shipping_policy.url
+                      else
+                        echo 'sections.cart.taxes_and_shipping_at_checkout' | t
+                      endif
+                    -%}
+                  </div>
+                </div>
+                <form action="{{ routes.cart_url }}" method="POST" novalidate class="drawer__footer-buttons flex gap-2">
+                  <a href="{{ routes.cart_url }}" class="btn btn--secondary">
+                    <span class="btn__text">{{ 'general.cart.view_empty_cart' | t }}</span>
+                  </a>
+                  <button class="btn btn--primary flex-grow" type="submit" name="checkout">
+                    <span class="btn__text">{{ 'sections.cart.checkout' | t }}</span>
+                  </button>
+                </form>
+              </div>
+            {% else %}
+              <div class="dc_cart-footer">
                 <div class="totals flex justify-between h5 items-center">
-                  <span class="totals__subtotal">
-                    {{- 'sections.cart.estimated_total' | t -}}
-                  </span>
+                  <span class="totals__subtotal"> Subtotal </span>
                   <span class="totals__subtotal-value">
                     {{- cart.total_price | money_with_currency -}}
                   </span>
                 </div>
-                <div class="tax-note text-sm-extra">
+                <form action="{{ routes.cart_url }}" method="POST" novalidate class="drawer__footer-buttons flex gap-2">
+                  <button class="dc_checkout_btn btn btn--primary flex-grow" type="submit" name="checkout">
+                    <span class="btn__text" style="text-transform: uppercase;">{{ 'sections.cart.checkout' | t }}</span>
+                  </button>
+                </form>
+                <div class="tax-note text-sm-extra text-center">
                   {%- liquid
                     if cart.taxes_included and shop.shipping_policy.body != blank
                       echo 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url
@@ -857,15 +1022,7 @@
                   -%}
                 </div>
               </div>
-              <form action="{{ routes.cart_url }}" method="POST" novalidate class="drawer__footer-buttons flex gap-2">
-                <a href="{{ routes.cart_url }}" class="btn btn--secondary">
-                  <span class="btn__text">{{ 'general.cart.view_empty_cart' | t }}</span>
-                </a>
-                <button class="btn btn--primary flex-grow" type="submit" name="checkout">
-                  <span class="btn__text">{{ 'sections.cart.checkout' | t }}</span>
-                </button>
-              </form>
-            </div>
+            {% endunless %}
           </div>
         </div>
       </div>
@@ -912,6 +1069,13 @@
     {
       "type": "paragraph",
       "content": "t:sections.cart-drawer.settings.cart_recommendations.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_custom_product_recommendations",
+      "label": "Use custom product recommendations styles",
+      "default": true,
+      "info": "This overrides the styles in cart recommendations below 👇🏻"
     },
     {
       "type": "checkbox",

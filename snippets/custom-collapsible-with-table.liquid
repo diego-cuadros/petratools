@@ -1,0 +1,125 @@
+{{ 'custom-collapsible-with-table.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="dc-collapsible-with-table"
+  style="
+    background-color:{{ block.settings.background_color }};
+    margin-top:{{ block.settings.margin_top }}px;
+    margin-bottom:{{ block.settings.margin_bottom }}px;
+    border:1px solid {{ block.settings.border_color }};
+  "
+>
+  {% if block.settings.header_text != blank %}
+    <p
+      class="dc-collapsible-with-table__title"
+      style="color:{{ block.settings.text_color }}; border-bottom: 1px solid {{ block.settings.border_color }}"
+    >
+      {{ block.settings.header_text }}
+    </p>
+  {% endif %}
+
+  <div class="dc-collapsible-with-table__list">
+    {% for i in (1..3) %}
+      {% capture title_key %}info_title_{{ i }}{% endcapture %}
+      {% capture paragraph_key %}info_paragraph_{{ i }}{% endcapture %}
+
+      {% assign title = block.settings[title_key] %}
+      {% assign paragraph = block.settings[paragraph_key] %}
+
+      {% if title != blank %}
+        <div
+          class="dc-collapsible-with-table__item"
+          {% unless forloop.last %}
+            style="border-bottom:1px solid {{ block.settings.border_color }}"
+          {% endunless %}
+        >
+          <div
+            class="dc-collapsible-with-table__header"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+          >
+            <div class="dc-collapsible-with-table__left">
+              <p style="color: {{ block.settings.text_color }};">
+                {{ title }}
+              </p>
+            </div>
+
+            <span class="dc-collapsible-with-table__icon">
+              <span class="dc-collapsible-with-table__icon-plus">
+                {% render 'icon-plus-toggle' %}
+              </span>
+              <span class="dc-collapsible-with-table__icon-minus">
+                {% render 'icon-minus' %}
+              </span>
+            </span>
+          </div>
+
+          {% if paragraph != blank %}
+            <div class="dc-collapsible-with-table__content">
+              <p style="color: {{ block.settings.text_content_color }};">
+                {{ paragraph }}
+              </p>
+
+              {%- comment -%}
+                TABLE VISIBILITY RESOLUTION
+                --------------------------------
+                1. If "use_content_table_from_metafields_X" is ON:
+                   → use product metafield
+                2. Else:
+                   → use section setting
+              {%- endcomment -%}
+
+              {% assign use_content_table = 'use_content_table_' | append: i %}
+              {% assign use_content_table_from_metafields = 'use_content_table_from_metafields_' | append: i %}
+              {% assign should_show_table = false %}
+
+              {% if block.settings[use_content_table_from_metafields] == true %}
+                {% if product != blank %}
+                  {% case i %}
+                    {% when 1 %}
+                      {% assign should_show_table = product.metafields.custom.collapsible_with_table_table_on_1.value %}
+                    {% when 2 %}
+                      {% assign should_show_table = product.metafields.custom.collapsible_with_table2_table_on_2.value %}
+                    {% when 3 %}
+                      {% assign should_show_table = product.metafields.custom.collapsible_with_table_table3_on_3.value %}
+                  {% endcase %}
+                {% endif %}
+              {% else %}
+                {% assign should_show_table = block.settings[use_content_table] %}
+              {% endif %}
+
+              {% if should_show_table == true %}
+                <div class="dc_inner-table">
+                  {% comment %}
+                    Create the correct table prefix based on which collapsible section we're in
+                  {% endcomment %}
+                  {% assign table_prefix = 'table_' | append: i | append: '_row_content_' %}
+
+                  {% for j in (1..5) %}
+                    {% assign row_key = table_prefix | append: j %}
+                    {% assign row_content = block.settings[row_key] %}
+
+                    {% if row_content != blank %}
+                      {% assign row_parts = row_content | split: '_' %}
+                      <div class="dc_inner-table_cell dc_inner-table_cell-left">
+                        {{ row_parts[0] | strip }}
+                      </div>
+                      <div class="dc_inner-table_cell dc_inner-table_cell-right">
+                        {% if row_parts[1] %}
+                          {{ row_parts[1] | strip }}
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{{ 'custom-collapsible-with-table.js' | asset_url }}" defer></script>

@@ -65,17 +65,29 @@
             {%- render 'product-payment-info', block: block -%}
           </div>
         {%- when 'text' -%}
-          <div class="{{ block_classes }} rte" {{ block.shopify_attributes }}>
-            <p class="product__text inline-richtext m-0{% if block.settings.text_style == 'uppercase' %} text-upper{% elsif block.settings.text_style == 'subtitle' %} text-upper text-subtext{% endif %}">
-              {{- block.settings.text -}}
-            </p>
+          <div
+            class="{{ block_classes }} rte {% if block.settings.show_above_product_media_mobile %}dc_hide_on_mobile{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {% if block.settings.richtext_field != blank %}
+              <div class="rte text-subtext">
+                {{ block.settings.richtext_field }}
+              </div>
+            {% else %}
+              <p class="product__text inline-richtext m-0{% if block.settings.text_style == 'uppercase' %} text-upper{% elsif block.settings.text_style == 'subtitle' %} text-upper text-subtext{% endif %}">
+                {{- block.settings.text -}}
+              </p>
+            {% endif %}
           </div>
         {%- when 'rich-text' -%}
           <div class="{{ block_classes }} rte text-subtext" {{ block.shopify_attributes }}>
             {{- block.settings.text -}}
           </div>
         {%- when 'title' -%}
-          <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
+          <div
+            class="{{ block_classes }} {% if block.settings.show_above_product_media_mobile %}dc_hide_on_mobile{% endif %}"
+            {{ block.shopify_attributes }}
+          >
             <h1 class="product__title {{ block.settings.heading_size }}">{{ product.title | escape }}</h1>
             <a href="{{ product.url }}" class="product__title">
               <h2 class="h1">
@@ -83,8 +95,19 @@
               </h2>
             </a>
           </div>
+        {% when 'unlock_free_gift' %}
+          {% if block.settings.control_content_from_metafields == true
+            and product.metafields.custom.use_free_gift_unlocked == true
+          %}
+            {% render 'custom-unlock-free-gift', block: block %}
+          {% elsif block.settings.control_content_from_metafields == false %}
+            {% render 'custom-unlock-free-gift', block: block %}
+          {% endif %}
         {%- when 'price' -%}
-          <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
+          <div
+            class="{{ block_classes }} {% if block.settings.show_above_product_media_mobile %}dc_hide_on_mobile{% endif %}"
+            {{ block.shopify_attributes }}
+          >
             <div id="price-{{ section.id }}" role="status">
               {%- render 'price',
                 product: product,
@@ -106,11 +129,6 @@
                 {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
               {%- endif -%}
             </div>
-            {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-            {%- form 'product', product, id: product_form_installment_id, class: 'installment' -%}
-              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-              {{ form | payment_terms }}
-            {%- endform -%}
           </div>
         {%- when 'inventory' -%}
           <div
@@ -372,6 +390,18 @@
             <span class="font-button">{{ 'general.share.title' | t }}</span>
             {% render 'social-sharing', url: product.url, share_image: product.featured_media.preview_image %}
           </div>
+        {% when 'what_makes_it_special', block: block, section_id: section.id %}
+          <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
+            {% render 'custom-what-makes-it-special', block: block, section_id: section.id %}
+          </div>
+        {% when 'discount_level_table' %}
+          {% render 'custom-discount-level-table' %}
+        {% when 'collapsible_trust_card' %}
+          {% render 'custom-collapsible-trust-card', block: block, section: section %}
+        {% when 'collapsible_with_table' %}
+          <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
+            {% render 'custom-collapsible-with-table', block: block, section: section %}
+          </div>
         {%- when 'variant_picker' -%}
           <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
             {% render 'product-variant-picker',
@@ -391,6 +421,11 @@
               product_id: product.id
             -%}
           </div>
+          {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
+          {%- form 'product', product, id: product_form_installment_id, class: 'installment' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            {{ form | payment_terms }}
+          {%- endform -%}
         {%- when 'pickup_availability' -%}
           <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
             {%- render 'product-pickup-availability', product: product -%}

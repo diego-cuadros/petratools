@@ -1,0 +1,138 @@
+{{ 'compatible-accessories.css' | asset_url | stylesheet_tag }}
+<div
+  class="section section--padding page-width page-width--{{ section.settings.container }} color-{{ section.settings.color_scheme }}"
+  style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="dc_compatible-accessories">
+    {% if section.settings.title != blank %}
+      <h2 class="dc_compatible-accessories__title">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+
+    <div class="dc_compatible-accessories__grid">
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+
+        {% if product != blank %}
+          <div class="dc_compatible-accessories__item" {{ block.shopify_attributes }}>
+            <a
+              href="{{ product.url }}"
+              class="dc_compatible-accessorie__product-container"
+              style="background-color: {{ section.settings.card_background_color }};"
+            >
+              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+
+              <div class="dc_compatible-accessorie__btn-container">
+                <div
+                  class="dc_compatible-accessorie__shop-now-button"
+                  style="background-color: {{ section.settings.button_background_color }}; color: {{ section.settings.button_label_color }};"
+                >
+                  Shop Now
+                </div>
+              </div>
+            </a>
+          </div>
+        {% else %}
+          <div class="media-wrapper bg-none blocks-radius" style="--aspect-ratio: 1/1;">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "🔥 Compatible Accessories",
+  "settings": [
+    {
+      "type": "select",
+      "id": "container",
+      "label": "t:general.container.label",
+      "default": "fixed",
+      "options": [
+        {
+          "value": "fixed",
+          "label": "t:general.container.options__fixed.label"
+        },
+        {
+          "value": "full",
+          "label": "t:general.container.options__full.label"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:general.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background color",
+      "default": "#222"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Compatible Accessories"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background color",
+      "default": "#FF5413"
+    },
+    {
+      "type": "color",
+      "id": "button_label_color",
+      "label": "Button label color",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:general.padding.top.label",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:general.padding.bottom.label",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Accessory Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "🔥 Compatible Accessories",
+      "blocks": [{ "type": "product" }, { "type": "product" }, { "type": "product" }, { "type": "product" }]
+    }
+  ]
+}
+{% endschema %}

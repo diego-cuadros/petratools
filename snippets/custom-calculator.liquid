@@ -1,0 +1,58 @@
+{{ 'custom-calculator.css' | asset_url | stylesheet_tag }}
+
+<a href="javascript:void(0)" id="dc_calcTrigger" class="dc_calculator">
+  <div class="dc_calculator-icon">{% render 'icon-calculator' %}</div>
+  <span class="dc_calculator-trigger-label"> Calculate how many you need </span>
+</a>
+<div
+  id="dc_calculator-modal"
+  class="dc_calculator-modal"
+  data-coverage="{{ block.settings.dc_coverage_sqft }}"
+  data-unit-name="{{ block.settings.dc_unit_name }}"
+>
+  <div class="dc_calculator-modal-content">
+    <div class="dc_calc-header">
+      <div class="dc_calc-title">
+        <span class="dc_calculator-icon__modal">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0703/4522/8508/files/Frame_9.png?v=1769177838"
+            alt="Calculator Icon"
+          >
+        </span>
+        <span>Calculate how many you need</span>
+      </div>
+      <span class="dc_calculator-close-button">&times;</span>
+    </div>
+
+    <div class="dc_calc-body">
+      <p class="dc_calc-instruction">Tell us your project/lawn dimension, and we tell you how many you need.</p>
+
+      <div class="dc_calc-inputs-row">
+        <div class="dc_input-group">
+          <label>Width (m)</label>
+          <input type="number" id="dc_calc-width" value="5">
+        </div>
+        <div class="dc_input-group">
+          <label>Length (m)</label>
+          <input type="number" id="dc_calc-length" value="7">
+        </div>
+        <button id="dc_do-calculate" class="dc_calc-btn">CALCULATE</button>
+      </div>
+
+      <div class="dc_calc-result-line">
+        <span>Your project area</span>
+        <span id="dc_area-display"><strong>35m2 = 376 Sq. Ft.</strong></span>
+      </div>
+
+      <div class="dc_calc-result-line dc_total-row">
+        <span>Total {{ block.settings.dc_unit_name }} you need</span>
+        <div class="dc_total-actions">
+          <span id="dc_gallons-display" class="dc_gallons-box">3</span>
+          <a href="#" id="dc_add-to-cart-trigger" class="dc_add-to-order">Add To Order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'custom-calculator.js' | asset_url }} defer"></script>

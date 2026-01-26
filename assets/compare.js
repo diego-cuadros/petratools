@@ -486,10 +486,10 @@ class CompareDrawer extends DrawerComponent {
     return sectionId;
   }
 
-  // shouleBeShow() {
-  //   const sectionId = this.getSectionId();
-  //   return typeof sectionId === 'string';
-  // }
+  shouleBeShow() {
+    const sectionId = this.getSectionId();
+    return typeof sectionId === 'string';
+  }
 
   prepareToShow() {
     super.prepareToShow();

@@ -1,0 +1,21 @@
+{{ 'custom-empty-stripe.css' | asset_url | stylesheet_tag }}
+<div class="dc_layout-decor" style="background-color:{{ section.settings.decor_color }}"></div>
+{% schema %}
+{
+  "name": "🔥Layout Decor",
+  "class": "testing-class",
+  "settings": [
+    {
+      "type": "color",
+      "id": "decor_color",
+      "label": "Decor Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥 Layout Decor"
+    }
+  ]
+}
+{% endschema %}

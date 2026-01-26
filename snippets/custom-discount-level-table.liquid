@@ -1,0 +1,109 @@
+{{ 'custom-discount-level-table.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-discount-level-table.js' | asset_url }}" defer></script>
+{% assign table_block = null %}
+
+{% for block in section.blocks %}
+  {% if block.type == 'discount_level_table' %}
+    {% assign table_block = block %}
+  {% endif %}
+{% endfor %}
+
+{% if table_block %}
+  <div class="dc_card" {{ table_block.shopify_attributes }}>
+    <div class="dc_card__header">
+      <h2 class="dc_card__title">{{ table_block.settings.title }}</h2>
+      <p class="dc_card__subtitle">{{ table_block.settings.subtitle }}</p>
+    </div>
+
+    <table class="dc_table">
+      {%- assign meta_value = product.metafields.custom.discount_level_table_headings.value -%}
+      {%- assign heading_parts = meta_value | split: '_' -%}
+      <thead class="dc_table-header">
+        <tr>
+          <th class="dc_table__th dc_table__th--left">
+            {%- if heading_parts[0] -%}
+              {{ heading_parts[0] | strip }}
+            {%- else -%}
+              {{ table_block.settings.heading_left }}
+            {%- endif -%}
+          </th>
+          <th class="dc_table__th dc_table__th--right">
+            {%- if heading_parts[1] -%}
+              {{ heading_parts[1] | strip }}
+            {%- else -%}
+              {{ table_block.settings.heading_right }}
+            {%- endif -%}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {%- assign row_meta_left = product.metafields.custom.discount_level_table_percentage_off | split: '_' -%}
+        {%- assign row_meta_right = product.metafields.custom.discount_level_table_amount | split: '_' -%}
+
+        {%- assign row_1_left = row_meta_left[0] | default: table_block.settings.left_column_row_1 -%}
+        {%- assign row_1_right = row_meta_right[0] | default: table_block.settings.right_column_row_1 -%}
+
+        <tr id="dc-row-1" class="dc_row" data-qty-rule="{{ row_1_right }}">
+          <td class="dc_row__cell dc_row__cell--left">
+            <div id="dc-line-1-btm" class="dc_row__line-bottom"></div>
+            <div id="dc-circle-1" class="dc_indicator">
+              <svg class="dc_indicator__check" viewBox="0 0 20 20">
+                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+              </svg>
+            </div>
+            <span class="dc_row__label">{{ row_1_left | strip }}</span>
+          </td>
+          <td class="dc_row__cell dc_row__cell--right">{{ row_1_right | strip }}</td>
+        </tr>
+
+        {%- assign row_2_left = row_meta_left[1] | default: table_block.settings.left_column_row_2 -%}
+        {%- assign row_2_right = row_meta_right[1] | default: table_block.settings.right_column_row_2 -%}
+
+        <tr id="dc_row-2" class="dc_row" data-qty-rule="{{ row_2_right }}">
+          <td class="dc_row__cell dc_row__cell--left">
+            <div id="dc-line-2-top" class="dc_row__line-top"></div>
+            <div id="dc-line-2-btm" class="dc_row__line-bottom"></div>
+            <div id="dc-circle-2" class="dc_indicator">
+              <svg class="dc_indicator__check" viewBox="0 0 20 20">
+                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+              </svg>
+            </div>
+            <span class="dc_row__label">{{ row_2_left | strip }}</span>
+          </td>
+          <td class="dc_row__cell dc_row__cell--right">{{ row_2_right | strip }}</td>
+        </tr>
+
+        {%- assign row_3_left = row_meta_left[2] | default: table_block.settings.left_column_row_3 -%}
+        {%- assign row_3_right = row_meta_right[2] | default: table_block.settings.right_column_row_3 -%}
+
+        <tr id="dc-row-3" class="dc_row" data-qty-rule="{{ row_3_right }}">
+          <td class="dc_row__cell dc_row__cell--left">
+            <div id="dc-line-3-top" class="dc_row__line-top"></div>
+            <div id="dc-circle-3" class="dc_indicator">
+              <span id="dc-lock-3" class="dc_indicator__lock">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4.33398 4.33329C4.33398 2.30825 5.9756 0.666626 8.00065 0.666626C10.0257 0.666626 11.6673 2.30825 11.6673 4.33329V5.99996C11.6673 6.36815 11.3689 6.66663 11.0007 6.66663C10.6325 6.66663 10.334 6.36815 10.334 5.99996V4.33329C10.334 3.04463 9.28932 1.99996 8.00065 1.99996C6.71198 1.99996 5.66732 3.04463 5.66732 4.33329V5.99996C5.66732 6.36815 5.36884 6.66663 5.00065 6.66663C4.63246 6.66663 4.33398 6.36815 4.33398 5.99996V4.33329Z" fill="#B5B5B5"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M3.99935 5.5C2.98676 5.5 2.16592 6.32091 2.16602 7.33353L2.16657 13.3335C2.16666 14.3459 2.98745 15.1667 3.9999 15.1667H11.9992C13.0117 15.1667 13.8325 14.3459 13.8325 13.3333V7.33333C13.8325 6.32081 13.0117 5.5 11.9992 5.5H3.99935ZM7.99935 9.33333C7.44708 9.33333 6.99935 9.78107 6.99935 10.3333C6.99935 10.8856 7.44708 11.3333 7.99935 11.3333H8.00535C8.55762 11.3333 9.00535 10.8856 9.00535 10.3333C9.00535 9.78107 8.55762 9.33333 8.00535 9.33333H7.99935Z" fill="#B5B5B5"/>
+                </svg>
+              </span>
+              <svg class="dc_indicator__check" viewBox="0 0 20 20">
+                <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+              </svg>
+            </div>
+            <span class="dc_row__label">{{ row_3_left | strip }}</span>
+          </td>
+          <td class="dc_row__cell dc_row__cell--right">{{ row_3_right | strip }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="dc_card__footer">
+      {{ table_block.settings.text_before_timer }}
+      <span
+        id="dc-timer"
+        data-start-time="{{ table_block.settings.timer_start | escape }}"
+      >
+        {{- table_block.settings.timer_start }}
+      </span>
+    </div>
+  </div>
+{% endif %}

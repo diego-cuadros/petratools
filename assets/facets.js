@@ -225,7 +225,7 @@ class FacetForm extends HTMLFormElement {
     const loadings = document.querySelectorAll('[data-facet-loading]');
     const translateY = FoxTheme.config.motionReduced ? 0 : 50;
 
-    FoxTheme.Motion.timeline([
+    FoxTheme.Motion.timeline([      
       [container, { y: [translateY, 0], opacity: [0, 1] }],
       [
         items,

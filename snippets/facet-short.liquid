@@ -1,7 +1,6 @@
 <label for="SortBy-{{ context }}" class="text-nowrap {{ label_class }}">
   {{- 'products.facets.sort_by_label' | t -}}
-  :</label
->
+</label>
 <div class="select w-auto facet-short flex items-center gap-2 flex-grow">
   {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
   <select

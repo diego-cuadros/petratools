@@ -1,0 +1,24 @@
+.dc_extra-menu-on-top__container{
+    padding-top: 12px;
+}
+
+.dc_extra-menu-on-top__menu {
+    display: flex;
+    flex-direction: row;
+    gap: 27px;
+}
+
+@media only screen and (min-width:1200px){
+    .dc_extra-menu-on-top__menu {
+        margin-left:-25px;
+    }
+}
+
+
+.dc_extra-menu-on-top-menu__link{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 120%;
+    padding-bottom: 12px;
+    
+}

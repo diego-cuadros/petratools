@@ -1,0 +1,157 @@
+{{ 'custom-collection-banner.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  # Choose banner images
+  assign banner = section.settings.image
+  assign banner_mobile = section.settings.image_mobile | default: banner
+
+  assign image_ratio = banner.aspect_ratio
+  assign image_ratio_mobile = banner_mobile.aspect_ratio | default: image_ratio
+
+  # Improve LCP on top sections
+  assign loading = 'lazy'
+  assign fetchpriority = 'low'
+  if section.index < 2
+    assign loading = 'eager'
+    assign fetchpriority = 'high'
+  endif
+%}
+
+<section class="collection-features-banner">
+  <div class="banner-media-wrapper">
+    <picture class="banner-media">
+      {% if banner_mobile %}
+        <source
+          media="(max-width: 767px)"
+          srcset="
+            {{ banner_mobile | image_url: width: 600 }} 600w,
+            {{ banner_mobile | image_url: width: 900 }} 900w,
+            {{ banner_mobile | image_url: width: 1200 }} 1200w
+          "
+          width="{{ banner_mobile.width }}"
+          height="{{ banner_mobile.height }}"
+        >
+      {% endif %}
+
+      {{
+        banner
+        | image_url: width: banner.width
+        | image_tag:
+          loading: loading,
+          fetchpriority: fetchpriority,
+          sizes: '100vw',
+          width: banner.width,
+          height: banner.height,
+          widths: '800,1000,1200,1400,1600,1800,2000,2400,2800',
+          alt: alt_image,
+          class: 'banner-img'
+      }}
+    </picture>
+  </div>
+
+  <div class="collection-content">
+    <h1 class="collection-title" style="color:{{ section.settings.title_color }};">{{ collection.title }}</h1>
+
+    {% if section.settings.description != blank %}
+      <p class="collection-desc" style="color:{{ section.settings.collection_description_color }};">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+
+    <div class="features-grid">
+      {% for block in section.blocks %}
+        <div
+          class="feature-item"
+          {{ block.shopify_attributes }}
+          style="background-color:{{ block.settings.feature_container_color }};"
+        >
+          {% if block.settings.icon %}
+            <img
+              src="{{ block.settings.icon | image_url: width: 48 }}"
+              alt=""
+              class="feature-icon"
+              width="48"
+              height="48"
+            >
+          {% endif %}
+          <span class="feature-text" style="color:{{ block.settings.feature_text_color }};">
+            {{- block.settings.text -}}
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "🔥Custom banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Banner image (mobile)",
+      "info": "Optional — will use desktop image if empty."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description under collection name"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Select a color for your collection title",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "collection_description_color",
+      "label": "Select a color for your collection description",
+      "default": "#fff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (small image or SVG)"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature text",
+          "default": "Your feature text"
+        },
+        {
+          "type": "color",
+          "id": "feature_text_color",
+          "label": "Select a color for your feature text",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "feature_container_color",
+          "label": "Select a color for your feature container",
+          "default": "#242525"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥Custom banner",
+      "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }, { "type": "feature" }]
+    }
+  ]
+}
+{% endschema %}

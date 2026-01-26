@@ -14,17 +14,19 @@
     "cart-drawer": {
       "type": "cart-drawer",
       "settings": {
-        "show_cart_note": true,
-        "show_shipping_rates_calculator": true,
-        "show_cart_coupon": true,
+        "show_cart_note": false,
+        "show_shipping_rates_calculator": false,
+        "show_cart_coupon": false,
         "show_free_shipping_goal": true,
+        "use_custom_product_recommendations": true,
         "enable_cart_recommendations": true,
         "cart_recommendations_color_scheme": "",
         "cart_recommendations_heading": "Pair Well With",
         "cart_recommendations_limit": 3,
-        "cart_recommendations_layout": "grid",
+        "cart_recommendations_products": [],
+        "cart_recommendations_layout": "horizontal-list",
         "cart_mess_color_scheme": "scheme-2",
-        "cart_message": "✌🏼 Free Express Shipping on orders $500!",
+        "cart_message": "",
         "cart_message_alignment": "center"
       }
     },
@@ -69,6 +71,7 @@
         "type_AzgBQT",
         "variants_RYYmjz"
       ],
+      "disabled": true,
       "settings": {}
     },
     "quick-view": {
@@ -160,6 +163,7 @@
         "variant_picker",
         "buy_buttons"
       ],
+      "disabled": true,
       "settings": {
         "show_image_border": false,
         "enable_sticky_info": true,
@@ -208,6 +212,7 @@
         "form",
         "socials"
       ],
+      "disabled": true,
       "settings": {
         "enable": true,
         "show_for_homepage_only": true,
@@ -258,6 +263,7 @@
             "heading_size": "h5",
             "description": "<p>Valid for filter </p>",
             "button_label": "Shop",
+            "button_link": "",
             "button_style": "btn--primary",
             "button_icon": "none"
           }
@@ -276,6 +282,7 @@
             "heading_size": "h5",
             "description": "<p>Online exclusive</p>",
             "button_label": "Shop",
+            "button_link": "",
             "button_style": "btn--primary",
             "button_icon": "none"
           }
@@ -294,6 +301,7 @@
             "heading_size": "h5",
             "description": "<p>on all major appliances $500+</p>",
             "button_label": "Shop",
+            "button_link": "",
             "button_style": "btn--primary",
             "button_icon": "none"
           }
@@ -305,6 +313,7 @@
         "item_dQn9tr",
         "item_xfLhK8"
       ],
+      "disabled": true,
       "custom_css": [
         ".spotlight__item-content {max-width: 22rem;}"
       ],

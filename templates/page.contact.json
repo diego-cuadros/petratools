@@ -9,18 +9,167 @@
  */
 {
   "sections": {
-    "breadcrumbs_xYaBHj": {
-      "type": "breadcrumbs",
+    "image_with_text_overlay_kEKA7D": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_EAqb69": {
+          "type": "heading",
+          "settings": {
+            "heading": "Contact Us",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "hd2"
+          }
+        }
+      },
+      "block_order": [
+        "heading_EAqb69"
+      ],
+      "custom_css": [
+        "@media (min-width: 1440px) {.image-with-text-ovelay__content-wrapper {padding-left: calc((100vw - 1440px) / 2); padding-right: 0; }}"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
       "settings": {
-        "text_alignment": "start"
+        "container": "full",
+        "image": "shopify://shop_images/banner_on_contact_page.webp",
+        "desktop_height": "medium",
+        "overlay_opacity": 0,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "scheme-2",
+        "container_visible": false,
+        "container_color": "#ffffff",
+        "content_position": "middle-left",
+        "content_alignment": "center",
+        "image_mobile": "shopify://shop_images/d18d8f1b849b3032848ca4a714fa87031384c20b.webp",
+        "mobile_height": "small",
+        "content_position_mobile": "top-center-mobile",
+        "content_alignment_mobile": "left",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "enable_preload_image": false
+      }
+    },
+    "custom_empty_stripe_NtRnTW": {
+      "type": "custom-empty-stripe",
+      "custom_css": [],
+      "name": "🔥 Layout Decor",
+      "settings": {
+        "decor_color": "#ffffff"
+      }
+    },
+    "multicolumn_fizYAW": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_afjyaB": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Frame_4ff7ba54-27ac-481f-99d4-b24b9c251bc4.png",
+            "title": "Call Us",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "1 (800) 613-6889 >",
+            "button_link": "",
+            "button_style": "btn--secondary",
+            "button_icon": "none"
+          }
+        },
+        "column_pdBbdt": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Frame_2_d418ea8f-44e4-4015-86c7-dd263abca1fb.png",
+            "title": "Email Us",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "support@petratools.com >",
+            "button_link": "",
+            "button_style": "btn--secondary",
+            "button_icon": "none"
+          }
+        },
+        "column_m3GHtB": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1_31a02012-d9d9-48b9-8817-53a480ce0502.png",
+            "title": "Start A Chat",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "Chat Us Now >",
+            "button_link": "",
+            "button_style": "btn--secondary",
+            "button_icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "column_afjyaB",
+        "column_pdBbdt",
+        "column_m3GHtB"
+      ],
+      "custom_css": [
+        ".f-column {background-color: #f9f9f9; padding: 16px 24px; border-radius: 12px;}",
+        ".multicolumn-card__image {width: 48px; height: 48px;}",
+        ".multicolumn__items .btn {width: 100%; background-color: transparent; border: 1px solid #ff5413; color: black; opacity: 1; font-weight: 400;}",
+        "@media only screen and (max-width: 748px) {.multicolumn-card__image {width: 40px; height: 40px; }}"
+      ],
+      "name": "t:sections.multicolumn.name",
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "section_header_alignment": "center",
+        "section_header_alignment_mobile": "inherit",
+        "subheading": "",
+        "heading": "Need Help? Our Experts Are Here For You",
+        "highlight_style": "none",
+        "highlight_font_style": "italic",
+        "highlight_style_color": "",
+        "highlight_text_color": "",
+        "heading_size": "h1",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--underline",
+        "button_icon": "none",
+        "content_alignment": "center",
+        "show_col_count": false,
+        "show_image": true,
+        "columns_desktop": 3,
+        "column_gap": "small",
+        "row_gap": "inherit",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "padding_top": 0,
+        "padding_bottom": 50
       }
     },
     "main": {
       "type": "main-page",
+      "disabled": true,
       "custom_css": [
         ".rich-text {max-width: 67rem;}"
       ],
       "settings": {
+        "container": "fixed",
         "text_alignment": "left",
         "padding_top": 0,
         "padding_bottom": 40
@@ -28,93 +177,13 @@
     },
     "form": {
       "type": "contact-form",
-      "blocks": {
-        "sidebar_6PaerX": {
-          "type": "sidebar",
-          "settings": {
-            "position": "right",
-            "heading": "Need Help?",
-            "heading_size": "h3",
-            "text": "<p>To us, design has a broader purpose and as you can read about on this website, we are on a mission. </p>",
-            "text_size": "text-base",
-            "icon_1": "map-pin",
-            "icon_width_1": 32,
-            "icon_color_1": "#1d349a",
-            "icon_heading_1": "General Office",
-            "icon_heading_size_1": "h5",
-            "icon_text_1": "<p>382 NE 191st St # 87394 Miami</p>",
-            "icon_vertical_alignment_1": "start",
-            "icon_2": "phone",
-            "icon_width_2": 28,
-            "icon_color_2": "#1d349a",
-            "icon_heading_2": "Call Us",
-            "icon_heading_size_2": "h5",
-            "icon_text_2": "<p>+1 888-234-1234 (tool-free)</p>",
-            "icon_vertical_alignment_2": "start",
-            "icon_3": "clock",
-            "icon_width_3": 28,
-            "icon_color_3": "#1d349a",
-            "icon_heading_3": "Working Hour",
-            "icon_heading_size_3": "h5",
-            "icon_text_3": "<p>Mon – Fri, 7:30 AM – 4:00 PM PT<br/>Sat, 8:00 AM – 1:00 PM PT<br/>Sun, Closed</p>",
-            "icon_vertical_alignment_3": "start",
-            "button_label": "Find a Store",
-            "button_style": "btn--primary",
-            "button_icon": "none"
-          }
-        },
-        "custom_field_8AQYaC": {
-          "type": "custom_field",
-          "settings": {
-            "field_type": "phone",
-            "heading": "Phone Number",
-            "placeholder": "Phone Number",
-            "required": true,
-            "full_width": false,
-            "select_options": "",
-            "checkbox_checked_value": "Yes",
-            "checkbox_uncheck_value": "No",
-            "radio_options": ""
-          }
-        },
-        "custom_field_8mNKKQ": {
-          "type": "custom_field",
-          "settings": {
-            "field_type": "text",
-            "heading": "Order Number",
-            "placeholder": "Order Number",
-            "required": false,
-            "full_width": false,
-            "select_options": "",
-            "checkbox_checked_value": "Yes",
-            "checkbox_uncheck_value": "No",
-            "radio_options": ""
-          }
-        },
-        "custom_field_d63Kne": {
-          "type": "custom_field",
-          "settings": {
-            "field_type": "select",
-            "heading": "Country",
-            "placeholder": "",
-            "required": false,
-            "full_width": true,
-            "select_options": "Austria,Viet Nam,Japan",
-            "checkbox_checked_value": "Yes",
-            "checkbox_uncheck_value": "No",
-            "radio_options": ""
-          }
-        }
-      },
-      "block_order": [
-        "sidebar_6PaerX",
-        "custom_field_8AQYaC",
-        "custom_field_8mNKKQ",
-        "custom_field_d63Kne"
+      "custom_css": [
+        "@media only screen and {.contact-form__form {margin: auto; max-width: 668px; }}",
+        "form {margin-top: 56px; margin-bottom: 56px;}"
       ],
-      "custom_css": [],
       "settings": {
-        "section_color_scheme": "",
+        "container": "fixed",
+        "section_color_scheme": "scheme-10",
         "heading": "",
         "highlight_style": "none",
         "highlight_font_style": "italic",
@@ -126,89 +195,13 @@
         "show_section_divider": false,
         "divider_width": "fixed"
       }
-    },
-    "scrolling_promotion_Fy9Yhn": {
-      "type": "scrolling-promotion",
-      "blocks": {
-        "text_gijz7Q": {
-          "type": "text",
-          "settings": {
-            "text_link": "",
-            "text": "Fast Delivery",
-            "text_size": "h4",
-            "text_opacity": 100,
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "text_3TVCPg": {
-          "type": "text",
-          "settings": {
-            "text_link": "",
-            "text": "30 Days Free Returns",
-            "text_size": "h4",
-            "text_opacity": 100,
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "text_iD6689": {
-          "type": "text",
-          "settings": {
-            "text_link": "",
-            "text": "Secure Payment",
-            "text_size": "h4",
-            "text_opacity": 100,
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "text_CtJBtL": {
-          "type": "text",
-          "settings": {
-            "text_link": "",
-            "text": "24/7 Customer Support",
-            "text_size": "h4",
-            "text_opacity": 100,
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        },
-        "text_dGmg9m": {
-          "type": "text",
-          "settings": {
-            "text_link": "",
-            "text": "Sustainable Materials",
-            "text_size": "h4",
-            "text_opacity": 100,
-            "use_custom_color": false,
-            "custom_color": "#000000"
-          }
-        }
-      },
-      "block_order": [
-        "text_gijz7Q",
-        "text_3TVCPg",
-        "text_iD6689",
-        "text_CtJBtL",
-        "text_dGmg9m"
-      ],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "direction": "left",
-        "pause_on_hover": true,
-        "speed": 0.2,
-        "h_spacing": 80,
-        "show_section_divider": false,
-        "padding_top": 22,
-        "padding_bottom": 22
-      }
     }
   },
   "order": [
-    "breadcrumbs_xYaBHj",
+    "image_with_text_overlay_kEKA7D",
+    "custom_empty_stripe_NtRnTW",
+    "multicolumn_fizYAW",
     "main",
-    "form",
-    "scrolling_promotion_Fy9Yhn"
+    "form"
   ]
 }

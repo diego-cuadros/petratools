@@ -17,6 +17,11 @@
       assign product_list = block.settings.product_list
       assign heading = block.settings.heading
       assign show_progress_bar = block.settings.show_progress_bar
+    when 'custom_product_list'
+      assign collections = block.settings.collections
+      assign custom_product_list = block.settings.product_list
+      assign heading = block.settings.heading
+      assign show_progress_bar = block.settings.show_progress_bar
   endcase
 -%}
 
@@ -332,6 +337,71 @@
               </div>
             </div>
           {%- endif -%}
+        {% when 'custom_product_list' %}
+          {%- if custom_product_list != blank and enable_mega_menu -%}
+            test
+            <div class="menu-drawer__promotions mega-menu__promotions">
+              <div class="block w-full">
+                {%- if heading != blank -%}
+                  <div
+                    class="mega-menu__product-list--header flex items-center justify-between promotion-item promotion-item--product"
+                    style="--index: 1;"
+                  >
+                    <p class="m-0 font-navigation h6">{{ heading | escape }}</p>
+                  </div>
+                {%- endif -%}
+
+                <div
+                  class="mega-menu__promotions-grid swipe-mobile swipe-mobile--2-cols f-grid--gap-medium"
+                  id="product-list-{{ block.id }}"
+                >
+                  <div
+                    class="swipe-mobile__inner f-grid"
+                    style="--f-columns-md: 3; --f-column-gap: 1.2rem; --f-row-gap: 2rem;"
+                  >
+                    {% comment %} Handle your 2 individual featured products {% endcomment %}
+                    {% for i in (1..2) %}
+                      {% capture feat_prod_id %}custom_featured_product_{{ i }}{% endcapture %}
+                      {% assign feat_product = block.settings[feat_prod_id] %}
+                      {% if feat_product != blank %}
+                        <div class="promotion-item promotion-item--product">
+                          {% render 'card-product', product: feat_product, ... %}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                    {% comment %} FIXED VARIABLE NAME BELOW {% endcomment %}
+                    {%- for product in custom_product_list -%}
+                      <div class="promotion-item promotion-item--product" style="--index: {{ forloop.index }};">
+                        {%- render 'card-product',
+                          product: product,
+                          parent_color_scheme: section.settings.color_scheme,
+                          use_short_text_for_atc_button: true,
+                          show_vendor: block.settings.show_product_vendor,
+                          show_type: block.settings.show_product_type,
+                          enable_quick_view: false,
+                          enable_quick_add: false,
+                          quick_view_suffix: 'megamenu-mobile'
+                        -%}
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                </div>
+
+                {% if show_progress_bar %}
+                  {% comment %} FIXED VARIABLE NAME IN THE COUNT BELOW {% endcomment %}
+                  <scroll-progress-bar
+                    class="md:hidden no-js-hidden {{ custom_product_list.count }}"
+                    target="product-list-{{ block.id }}"
+                    style="--margin-block-start: 2.4rem;"
+                  >
+                    <div class="progress-container">
+                      <div class="progress-bar no-empty"></div>
+                    </div>
+                  </scroll-progress-bar>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
       {%- endcase -%}
     </ul>
   </div>

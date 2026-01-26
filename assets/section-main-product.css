@@ -80,11 +80,6 @@ product-info.use-color-scheme-in-container > .product {
   opacity: 1;
   border-color: rgb(var(--color-foreground));
 }
-@media (max-width: 767.98px) {
-  .product__media-container .swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+3) {
-    display: none;
-  }
-}
 
 .product__xr-button[data-shopify-xr-hidden] {
   visibility: hidden;
@@ -240,6 +235,10 @@ product-info.use-color-scheme-in-container > .product {
   .product__block--timer .countdown-timer__block div:after {
     inset-inline-end: -1.8rem;
   }
+}
+.product__blocks-above-media-mobile{
+  margin-top:1rem;
+  margin-bottom: 1.5rem;
 }
 
 .product__blocks-below-media {
@@ -779,3 +778,31 @@ product-info.use-color-scheme-in-container > .product {
     color: Window;
   }
 }
+
+/* === CUSTOM STYLES ON PRODUCT PAGE === */
+/* Custom styles for product-grid-icon-box.liquid */
+ .grid-icon-box img{
+    width:28px;
+    height: 28px;
+  }
+
+  .grid-icon-box {
+    box-shadow: none !important;
+  }
+
+  /* Shop pay text under at button */
+  .product__blocks .product__block--buy_buttons{
+    margin-bottom: 10px !important;
+  }
+
+  .installment{
+    text-align: center;
+    font-size:14px !important;
+    line-height: 130%;
+  }
+
+  @media only screen and (max-width:748px){
+    .installment{
+    font-size:12px !important;
+  }
+  }

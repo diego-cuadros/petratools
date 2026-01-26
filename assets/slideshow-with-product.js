@@ -85,7 +85,7 @@ if (!customElements.get('slideshow-with-product')) {
           // Fix accessibility
           const focusableElements = FoxTheme.a11y.getFocusableElements(this);
           focusableElements.forEach((element) => {
-            if (!element.classList.contains('swiper-button') && element.tagName.toLowerCase() !== 'a') {
+            if (!element.classList.contains('swiper-button')) {
               element.addEventListener('focusin', () => {
                 const slide = element.closest('.swiper-slide');
                 this.sliderInstance.slider.slideToLoop(this.sliderInstance.slider.slides.indexOf(slide));

@@ -72,6 +72,7 @@
             "button_label": "Shop Now",
             "button_style": "btn--primary",
             "button_icon": "none",
+            "order_first": false,
             "enable_preload_image": false
           }
         }

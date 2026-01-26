@@ -1,0 +1,172 @@
+        .test-controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .dc_card {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .dc_card__header {
+            padding-bottom:10px;
+            border:none;
+        }
+
+        .dc_card__title {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .dc_card__subtitle {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .dc_table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+
+        .dc_table__th {
+            text-align: left;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 500;
+            background-color: #f5f5f5;
+            border-top: 1px solid #CCD2D6; /* Top frame border */
+            border-bottom: 1px solid #eeeeee;
+            color: #444;
+        }
+
+        .dc_table__th--left {
+            border-left: 1px solid #CCD2D6;
+            border-top-left-radius: 4px;
+        }
+
+        .dc_table__th--right {
+            border-right: 1px solid #CCD2D6;
+            border-top-right-radius: 4px;
+        }
+
+        #dc_row-2{
+            background-color: #f5f5f5;
+        }
+
+        .dc_row__cell {
+            font-size:14px;
+            padding: 8px 12px;
+            position: relative;
+            vertical-align: middle;
+            overflow: visible;
+        }
+
+        .dc_row__cell--right{
+            border-right: 1px solid #CCD2D6;
+        }
+
+        .dc_row__cell--left{
+            border-left: 1px solid #CCD2D6;
+        }
+
+
+
+        /* The Stepper/Line Elements */
+        .dc_row__line-top, 
+        .dc_row__line-bottom {
+            display:block !important;
+            position: absolute;
+            left: 19px;
+            width: 2px;
+            background-color: #B5B5B5;
+            z-index: 1;
+        }
+
+        .dc_row__line-top { top: 0; height: 50%; }
+        .dc_row__line-bottom { bottom: 0; height: 50%; }
+
+        /* Modifier for green lines */
+        .dc_row__line-top--active, 
+        .dc_row__line-bottom--active {
+            background-color: #116903;
+        }
+
+        /* The Status Circle */
+        .dc_indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #B5B5B5;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            margin-right: 10px;
+            position: relative;
+            z-index: 2;
+            vertical-align: middle;
+        }
+
+        .dc_indicator--active {
+            background-color: #116903;
+            border-color: #116903;
+        }
+
+        .dc_indicator__check {
+            width: 14px;
+            height: 14px;
+            fill: #fff;
+            display: none;
+        }
+
+        .dc_indicator--active .dc_indicator__check {
+            display: block;
+        }
+
+        .dc_indicator__lock {
+            font-size: 10px;
+            color: #999;
+        }
+
+        .dc_row__label {
+            font-weight: 500;
+            font-size: 14px;
+            color: #222;
+            vertical-align: middle;
+        }
+
+        .dc_card__footer {
+            background: #F5F5F5;
+            padding: 12px;
+            text-align: center;
+            font-style: italic;
+            font-size: 13px;
+            color: #888;
+            border: 1px solid #CCD2D6;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        #dc-circle-3 {
+  border: none;
+  width: auto;
+  height: auto;
+}
+
+
+#dc-circle-3.dc_indicator--active {
+  border: 1px solid #116903 !important;
+}
+
+#dc-line-3-top{
+    height: 20%;
+}
+

@@ -1,0 +1,476 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "container": "fixed",
+        "text_alignment": "center",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "image_with_text_overlay_GnftQV": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_7EYwAY": {
+          "type": "heading",
+          "settings": {
+            "heading": "Welcome to the Gold Club",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "hd1"
+          }
+        },
+        "text_AqJdNC": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Become a member of our Gold Club and get exclusive benefits only available to Members like extended warranties, free products, community access and more.</p>",
+            "text_size": "text-base"
+          }
+        },
+        "button_8FydfA": {
+          "type": "button",
+          "settings": {
+            "button_label": "Join Now",
+            "button_link": "shopify://collections",
+            "button_style": "btn--primary",
+            "button_icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_7EYwAY",
+        "text_AqJdNC",
+        "button_8FydfA"
+      ],
+      "custom_css": [
+        ".dc_wrapper {width: 528px;}",
+        "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - 1440px) / 2); padding-right: 0; width: 50%; }}",
+        "@media only screen and (max-width: 768px) {.image-with-text-ovelay__content-wrapper > div {max-width: 100%; } .rich-text__heading {font-size: 32px; } .image-with-text-ovelay__content-wrapper .btn {width: 100%; }}"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/2f7e4ed6970dc5d8a9db04a9f104581e36bf7b83.jpg",
+        "desktop_height": "extra-medium",
+        "overlay_opacity": 30,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "scheme-info",
+        "container_visible": false,
+        "container_color": "#ffffff",
+        "content_position": "middle-left",
+        "content_alignment": "left",
+        "image_mobile": "shopify://shop_images/Screenshot_2025-12-15_at_4.35.52_PM.png",
+        "mobile_height": "extra-large",
+        "content_position_mobile": "top-center-mobile",
+        "content_alignment_mobile": "center",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "enable_preload_image": false
+      }
+    },
+    "custom_brand_promise_wnVqWg": {
+      "type": "custom-brand-promise",
+      "blocks": {
+        "feature_JPDRyq": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3629_1.png",
+            "label": "6 Month Full Warranty"
+          }
+        },
+        "feature_4bnaNA": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Group_3629.png",
+            "label": "3 Month Extended Warranty"
+          }
+        }
+      },
+      "block_order": [
+        "feature_JPDRyq",
+        "feature_4bnaNA"
+      ],
+      "custom_css": [
+        "@media only screen and (max-width: 768px) {.dc_brand-promise__heading {text-align: center; font-size: 32px; }}",
+        ".dc_brand-promise__features {background-color: #222;}",
+        ".dc_brand-promise__feature {gap: 20px;}",
+        ".dc_brand-promise__icon {width: 72px; height: 72px;}",
+        ".dc_brand-promise__icon img {width: 72px; height: 72px;}"
+      ],
+      "name": "🔥Custom brand promise",
+      "settings": {
+        "section_background_color": "#000000",
+        "background_color": "rgba(0,0,0,0)",
+        "text_color": "#ffffff",
+        "heading": "What Is It All About?",
+        "heading_color": "#ffffff",
+        "text": "Gold Club members are DIY heroes who are getting Rock Solid Results with Petra products. As a member, you have access to exclusive deals, chances to test free new products, and directly impact future Petra products.",
+        "body_text_color": "#ffffff",
+        "border_color_grid": ""
+      }
+    },
+    "multicolumn_iCFciQ": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_Ywc4M9": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/quality_1.png",
+            "title": "90 Days Extended Warranty",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--underline",
+            "button_icon": "none"
+          }
+        },
+        "column_xHiViQ": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/backpack_1.png",
+            "title": "Free Petratools Products Just for You",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--underline",
+            "button_icon": "none"
+          }
+        },
+        "column_NbMnWz": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/avatar_1.png",
+            "title": "Dedicated Support Line",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h4",
+            "text": "",
+            "text_size": "text-base",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "btn--underline",
+            "button_icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "column_Ywc4M9",
+        "column_xHiViQ",
+        "column_NbMnWz"
+      ],
+      "custom_css": [
+        ".f-column {background-color: #f9f9f9; padding: 16px 24px; border-radius: 12px;}",
+        ".multicolumn-card__image {width: 100px; height: 100px;}",
+        "@media only screen and (max-width: 768px) {.f-column {display: flex; align-items: center; gap: 16px; } .multicolumn-card__image {width: 64px; height: 64px; }}"
+      ],
+      "name": "t:sections.multicolumn.name",
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "section_header_alignment": "center",
+        "section_header_alignment_mobile": "inherit",
+        "subheading": "",
+        "heading": "Gold Club Gives You",
+        "highlight_style": "none",
+        "highlight_font_style": "italic",
+        "highlight_style_color": "",
+        "highlight_text_color": "",
+        "heading_size": "h1",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--underline",
+        "button_icon": "none",
+        "content_alignment": "center",
+        "show_col_count": false,
+        "show_image": true,
+        "columns_desktop": 3,
+        "column_gap": "small",
+        "row_gap": "inherit",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
+    "rich_text_bDUNH6": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_AEFWTk": {
+          "type": "heading",
+          "settings": {
+            "heading": "Petratools Return & Warranty Terms and Conditions",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "hd1"
+          }
+        },
+        "text_rLFGjW": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Returns Policy</strong></p><p>PetraTools sprayers are available for free returns for 30 days post purchase. All other chemicals and solutions are not eligible for returns or exchanges at this time. Please contact Customer Service if you have received a damaged product so we can replace it for you.</p><p>Otherwise, we ask that you be kind to our planet and share any unwanted orders with a neighbor or friend.</p>",
+            "text_size": "text-base",
+            "text_line_limit": "none",
+            "button_style": "btn--underline",
+            "button_icon": "none"
+          }
+        }
+      },
+      "block_order": [
+        "heading_AEFWTk",
+        "text_rLFGjW"
+      ],
+      "custom_css": [
+        "@media only screen and (min-width: 749px) {.rich-text {display: flex; gap: 70px; } .rich-text__heading {flex: 0 0 25%; } .rich-text__text {flex: 0 0 60%; } .rich-text__text {margin-top: 0px; }}",
+        ".rich-text h2 {font-size: 32px;}"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "use_color_scheme_in_container": false,
+        "content_spacing": "standard",
+        "content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "collapsible_tabs_PmJJ83": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "collapsible_item_GGMmqU": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Standard 6-Month Warranty(Automatically Applies to All Purchases)",
+            "content": "<ul><li>Coverage Duration:</li></ul><p> 6 months from the date of purchase.</p><ul><li>What’s Covered:</li></ul><p>Manufacturing defects in materials and workmanship, including the sprayer unit, pump, battery, electronic components, and seals.</p><ul><li>Resolution:</li></ul><p>We will provide replacement parts or a full unit replacement as necessary.</p><ul><li>Shipping Costs:</li></ul><p>We will cover all shipping costs for approved warranty claims.</p><ul><li>What’s Not Covered:</li></ul><p>Labor costs.Misuse, abuse, neglect, improper storage, or failure to follow operating instructions.Unauthorized repairs or modifications.Damage caused by chemicals or solutions not approved for use with the sprayer.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        },
+        "collapsible_item_z3WjLd": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Free Extended 1-Year Warranty(Opt-In Registration Required)",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        },
+        "collapsible_item_fnMQgk": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How to Register for the Extended Warranty",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        },
+        "collapsible_item_dwRtxR": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Warranty Claim Process",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        },
+        "collapsible_item_yymbaT": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Important Notes",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_item_GGMmqU",
+        "collapsible_item_z3WjLd",
+        "collapsible_item_fnMQgk",
+        "collapsible_item_dwRtxR",
+        "collapsible_item_yymbaT"
+      ],
+      "custom_css": [
+        "@media only screen and (min-width:769px){.section__heading{margin-top:40px;}}",
+        "a.rich-text--fitted,.rich-text--tight {padding-bottom: 0px !important;}",
+        ".accordion-item svg {color: #ff5413;}"
+      ],
+      "name": "t:sections.collapsible-tabs.name",
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "header_layout": "standing-column",
+        "section_header_alignment": "left",
+        "section_header_alignment_mobile": "inherit",
+        "subheading": "",
+        "heading": "Warranty Terms and Conditions",
+        "highlight_style": "none",
+        "highlight_font_style": "italic",
+        "highlight_style_color": "",
+        "highlight_text_color": "",
+        "heading_size": "h1",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "button_icon": "none",
+        "internal_heading": "",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h4",
+        "item_icon_size": "extra-large",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "collapsible_tabs_UyAjTn": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "collapsible_item_8aekTK": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How do I contact you?",
+            "content": "<p>Our customer success team can be reached at 1-800-613-6889; 7 days a week.</p><p>Monday-Friday: 8 AM-12 MN ESTSaturday & Sunday: 9 AM-5 PM EST, or reach out to us via email at support@petratools.com</p><p>You agree to receive follow-up text messages and calls by calling or texting this number. If you no longer wish to receive text messages or calls, you may opt-out at any time by replying \"STOP\"</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        },
+        "collapsible_item_UeJ7Wk": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "How long does it take to deliver?",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        },
+        "collapsible_item_VdGGCt": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Where are you located?",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_item_8aekTK",
+        "collapsible_item_UeJ7Wk",
+        "collapsible_item_VdGGCt"
+      ],
+      "custom_css": [
+        "a.rich-text--fitted,.rich-text--tight {padding-bottom: 0px !important;}",
+        ".accordion-item svg {color: #ff5413;}"
+      ],
+      "name": "t:sections.collapsible-tabs.name",
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "scheme-inverse",
+        "header_layout": "vertical",
+        "section_header_alignment": "center",
+        "section_header_alignment_mobile": "inherit",
+        "subheading": "",
+        "heading": "Frequently Asked Questions",
+        "highlight_style": "none",
+        "highlight_font_style": "italic",
+        "highlight_style_color": "",
+        "highlight_text_color": "",
+        "heading_size": "h1",
+        "description": "",
+        "text_size": "text-base",
+        "button_label": "",
+        "button_link": "",
+        "button_style": "btn--primary",
+        "button_icon": "none",
+        "internal_heading": "",
+        "column_gap": "large",
+        "row_gap": "inherit",
+        "item_style": "standard",
+        "item_color_scheme": "",
+        "item_heading_font": "heading",
+        "item_heading_size": "h4",
+        "item_icon_size": "extra-large",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_GnftQV",
+    "custom_brand_promise_wnVqWg",
+    "multicolumn_iCFciQ",
+    "rich_text_bDUNH6",
+    "collapsible_tabs_PmJJ83",
+    "collapsible_tabs_UyAjTn"
+  ]
+}

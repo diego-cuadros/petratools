@@ -101,6 +101,9 @@
             class="collapsible-tabs__content-col f-column w-full flex flex-col items-center {{ col_alignment_class }}"
             style="--col-width: {{ col_content_width }}%;"
           >
+            <div class="dc_internal-heading">
+              <h2>{{ section.settings.internal_heading }}</h2>
+            </div>
             <collapsible-tabs
               class="block w-full accordion-parent"
               data-color-scheme="color-{{ section.settings.item_color_scheme }}"
@@ -521,6 +524,11 @@
         }
       ],
       "default": "none"
+    },
+    {
+      "type": "text",
+      "id": "internal_heading",
+      "label": "Internal heading"
     },
     {
       "type": "header",

@@ -40,35 +40,20 @@ class CartDrawer extends DrawerComponent {
   }
 
   async onCartRefresh(event) {
+    const cartId = `CartDrawer-${this.sectionId}`;
+
+    const cartElement = document.getElementById(cartId);
+    if (!cartElement) return;
+
     try {
-      // Fetch both HTML and JSON data in parallel for better performance
-      const [htmlResponse, cartResponse] = await Promise.all([
-        fetch(`${FoxTheme.routes.root_url}?section_id=${this.sectionId}`),
-        fetch(`${FoxTheme.routes.cart_url}.js`),
-      ]);
-
-      if (!htmlResponse.ok || !cartResponse.ok) {
-        throw new Error('Failed to fetch cart data');
-      }
-
-      const [responseText, cartData] = await Promise.all([htmlResponse.text(), cartResponse.json()]);
+      const response = await fetch(`${FoxTheme.routes.root_url}?section_id=${this.sectionId}`);
+      const responseText = await response.text();
 
       const parser = new DOMParser();
       const parsedHTML = parser.parseFromString(responseText, 'text/html');
-      const sectionToRender = parsedHTML.getElementById(`CartDrawer-${this.sectionId}`);
 
-      if (!sectionToRender) {
-        console.warn('Cart drawer section not found in response');
-        return;
-      }
-
-      // Add sections data to cartData for pubsub system
-      cartData.sections = {};
-      cartData.sections[this.sectionId] = sectionToRender.innerHTML;
-
-      FoxTheme.pubsub.publish(FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate, {
-        cart: cartData,
-      });
+      const newCartContent = parsedHTML.getElementById(cartId).innerHTML;
+      cartElement.innerHTML = newCartContent;
 
       if (event.detail && event.detail.open === true) {
         this.show();
@@ -104,6 +89,24 @@ class CartItems extends HTMLElement {
         FoxTheme.utils.debounce(this.onChange(event), 300);
       }
     });
+
+    /* Bottomless: JS to update variant in the cart */
+    this.addEventListener('change', (event) => {
+      const select = event.target.closest('.dc_cart-item__variant-select');
+      if (!select) return;
+
+      const line = Number(select.dataset.line);
+      const quantity = Number(select.dataset.quantity);
+      const newVariantId = Number(select.value);
+      const currentVariantId = Number(select.dataset.currentVariant);
+
+      if (newVariantId === currentVariantId) return;
+
+      this.replaceVariant(line, quantity, newVariantId);
+    });
+    /* End Bottomless code */
+
+
     this.cartUpdateUnsubscriber = FoxTheme.pubsub.subscribe(
       FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate,
       this.onCartUpdate.bind(this)
@@ -209,9 +212,6 @@ class CartItems extends HTMLElement {
       this.onCartError(event.cart.errors, event.target);
       return;
     }
-    if (typeof event.cart.sections === 'undefined') {
-      return;
-    }
 
     const sectionId = FoxTheme.utils.getSectionId(this);
     const sectionToRender = new DOMParser().parseFromString(event.cart.sections[sectionId], 'text/html');
@@ -311,6 +311,58 @@ class CartItems extends HTMLElement {
       });
   }
 
+  /* 2- Bottomless: JS to update variant in the cart */
+     replaceVariant(line, quantity, newVariantId) {
+      this.showLoader(line);
+
+      let sectionsToBundle = [];
+      document.documentElement.dispatchEvent(
+        new CustomEvent('cart:grouped-sections', {
+          bubbles: true,
+          detail: { sections: sectionsToBundle },
+        })
+      );
+
+      fetch(FoxTheme.routes.cart_change_url, {
+        ...FoxTheme.utils.fetchConfig(),
+        body: JSON.stringify({
+          line,
+          quantity: 0,
+          sections: sectionsToBundle,
+        }),
+      })
+        .then(() => {
+          return fetch(FoxTheme.routes.cart_add_url, {
+            ...FoxTheme.utils.fetchConfig(),
+            body: JSON.stringify({
+              id: newVariantId,
+              quantity,
+            }),
+          });
+        })
+        .then(() => {
+          return fetch(FoxTheme.routes.cart_change_url, {
+            ...FoxTheme.utils.fetchConfig(),
+            body: JSON.stringify({
+              line: 1,
+              quantity,
+              sections: sectionsToBundle,
+            }),
+          });
+        })
+        .then((response) => response.json())
+        .then((parsedState) => {
+          FoxTheme.pubsub.publish(
+            FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate,
+            { cart: parsedState }
+          );
+        })
+        .catch((error) => {
+          console.error('Variant replace error:', error);
+        });
+    }     
+    /* End Bottomless code */
+
   showLoader(line) {
     const sectionId = FoxTheme.utils.getSectionId(this);
     const loaders = document.querySelectorAll(`#Loader-${sectionId}-${line}`);
@@ -341,7 +393,7 @@ class CartRemoveItem extends HTMLAnchorElement {
       event.preventDefault();
 
       const cartItems = this.closest('cart-items');
-      cartItems.updateQuantity(this.dataset.index, 0);
+      cartItems.updateQuantity(this.dataset.index, 0);      
     });
   }
 }

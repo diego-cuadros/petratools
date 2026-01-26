@@ -100,7 +100,7 @@
   assign color_scheme_first = settings.color_schemes | first
   assign parent_color_scheme = parent_color_scheme | default: color_scheme_first
 
-  if color_inherit == nil
+  if color_inherit == null
     assign parent_background = parent_color_scheme.settings.background | downcase
     assign card_background = settings.pcard_color_scheme.settings.background | downcase
     assign color_inherit = false
@@ -116,6 +116,36 @@
     <div class="product-card__image-wrapper{% if second_image == blank %} product-card__image-wrapper--main-only{% endif %} {% if list_on_mobile %}desktop-{% endif %}color-{{ settings.pcard_overlay_color_scheme }} bg-none">
       <a href="{{ product.url }}" aria-label="{{ product.title | escape }}" tabindex="-1">
         <motion-element data-motion="zoom-out-sm" class="block">
+          <style>
+            .product-card__image-wrapper {
+              position: relative;
+            }
+
+            .dc_best-seller-tag {
+              position: absolute;
+              top: 10px;
+              left: 10px;
+              padding: 2px 6px;
+              font-size: 14px;
+              font-weight: 600;
+              text-transform: uppercase;
+              border-radius: 4px;
+              width: 98px;
+              height: 24px;
+              z-index: 10;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          </style>
+          {% if product.metafields.custom.mark_as_a_best_seller == true %}
+            <div
+              class="dc_best-seller-tag"
+              style="background-color:{{ section.settings.best_seller_bg_color }}; color:{{ section.settings.best_seller_text_color }};"
+            >
+              {{ 'products.product.best_seller' | t }}
+            </div>
+          {% endif %}
           {%- if featured_media -%}
             {%- unless first_media_type == 'video' or first_media_type == 'external_video' -%}
               <div
@@ -140,6 +170,7 @@
                   class="media-wrapper product-card__image product-card__image--second inset-full hidden md:block"
                   style="--aspect-ratio: {{ image_ratio }}"
                 >
+                  test2
                   {%- assign second_image_widths = image_widths | append: ', ' | append: second_image.width -%}
                   {{
                     second_image
@@ -180,7 +211,6 @@
           aria-label="{{ 'products.product.quick_view' | t }}"
           aria-controls="{{ quick_view_modal_id }}"
           aria-haspopup="dialog"
-          type="button"
         >
           <span class="btn__text flex gap-1 items-center">{%- render 'icon-search', size: 'large' -%}</span>
         </button>
@@ -201,7 +231,6 @@
               {% else %}
                 aria-controls="{{ quick_view_modal_id }}"
                 aria-haspopup="dialog"
-                type="button"
               {% endif %}
               class="product-card__atc product-card__action-button btn {{ settings.pcard_button_style }}"
             >
@@ -312,6 +341,9 @@
         </p>
       {%- endif -%}
       <h3 class="product-card__title text-pcard-title">
+        {%- if show_price -%}
+          {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
+        {%- endif -%}
         <a
           class="reversed-link block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}"
           href="{{ product.url }}"
@@ -319,9 +351,6 @@
           <span class="reversed-link__text">{{- product.title -}}</span>
         </a>
       </h3>
-      {%- if show_price -%}
-        {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
-      {%- endif -%}
       {%- if show_color_swatches -%}
         {%- render 'pcard-color-swatch',
           product: product,
@@ -331,6 +360,37 @@
           quick_view_modal_id: quick_view_modal_id
         -%}
       {%- endif -%}
+      {% comment %}ATC Button should go here{% endcomment %}
+      {% if section.settings.enable_static_atc_btn %}
+        <style>
+          .product-card__info .reversed-link {
+            height: 60.28px !important;
+          }
+
+          .dc_custom-atc-btn-collections {
+            border-radius: 4px !important;
+          }
+        </style>
+        <button
+          class="dc_custom-atc-btn-collections product-card__list-atc btn btn--primary w-full"
+          {% if variant.available == false %}
+            disabled
+          {% endif %}
+          onclick="window.location.href='{{ product.url }}'"
+        >
+          <span class="btn__text flex gap-1 items-center">
+            {%- if variant.available -%}
+              {%- if use_short_text_for_atc_button -%}
+                {{- 'products.product.add_to_cart_short' | t -}}
+              {%- else -%}
+                {{- 'products.product.add_to_cart' | t -}}
+              {%- endif -%}
+            {%- else -%}
+              {{- 'products.product.sold_out' | t -}}
+            {%- endif -%}
+          </span>
+        </button>
+      {% endif %}
     </div>
     <div class="product-card__list-actions hidden gap-3 flex-col">
       {%- if enable_quick_add -%}
@@ -349,7 +409,6 @@
               {% else %}
                 aria-controls="{{ quick_view_modal_id }}"
                 aria-haspopup="dialog"
-                type="button"
               {% endif %}
               class="product-card__list-atc btn btn--primary"
             >

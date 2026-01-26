@@ -1,0 +1,96 @@
+.product-form__input--button .button-with-image {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #e0e0e0 !important;
+  background-color: transparent !important;
+  color: #222 !important;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.product-form__input--button {
+  display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important; 
+}
+
+.product-form__input--button .button-with-image:hover {
+  border-color: #222 !important;
+  background-color: transparent !important;
+  color: #222;
+}
+
+.product-form__input--button input:checked + .button-with-image {
+  background-color: transparent !important;
+  border-color: #222 !important;
+}
+
+.product-form__input--button input[type='radio'] + label {
+  justify-content: flex-start !important;
+}
+
+.product-form__input {
+  flex-wrap: nowrap;
+}
+
+.product-form__input .form__label{
+  font-size:16px !important;
+}
+
+.button-with-image {
+  height: 80px !important;
+  border-radius: 4px !important;
+}
+
+.variant-image-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.variant-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.variant-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Desktop: 2 buttons per row when there are more than 3 */
+@media (min-width: 769px) {
+  .product-form__input--button.has-more-than-3 {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .product-form__input--button.has-more-than-3 .button-with-image {
+    width: 100% !important;
+  }
+}
+
+/* Mobile: Always 2 buttons per row */
+@media (max-width: 768px) {
+  .product-form__input--button {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .product-form__input {
+    flex-wrap: wrap !important;
+  }
+
+  .product-form__input--button .button-with-image {
+    width: 100% !important;
+  }
+}

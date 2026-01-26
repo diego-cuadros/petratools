@@ -11,86 +11,150 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "topbar_3YD96h": {
-      "type": "topbar",
+    "announcement_bar_NAwEyb": {
+      "type": "announcement-bar",
       "blocks": {
-        "link_list_En8dpz": {
-          "type": "link_list",
+        "announcement_bar_GNhNin": {
+          "type": "announcement_bar",
           "settings": {
-            "position": "left"
+            "text": "FREE SHIPPING OVER $50",
+            "link": ""
           }
         },
-        "text_Ahn3nP": {
-          "type": "text",
+        "announcement_bar_aDyKVa": {
+          "type": "announcement_bar",
           "settings": {
-            "text": "✌🏼 Free Express Shipping on orders $500!",
-            "position": "center"
-          }
-        },
-        "language_country_MyFf6D": {
-          "type": "language_country",
-          "settings": {
-            "show_language_selector": true,
-            "show_country_selector": true,
-            "position": "right"
-          }
-        },
-        "social_links_BcFqP9": {
-          "type": "social_links",
-          "settings": {
-            "show_facebook": true,
-            "show_instagram": true,
-            "show_twitter": true,
-            "show_tiktok": true,
-            "show_pinterest": false,
-            "show_snapchat": false,
-            "show_tumblr": false,
-            "show_youtube": false,
-            "show_vimeo": false,
-            "position": "right"
+            "text": "SHOP RV ROOF SEALANT",
+            "link": "https://www.beestusa.com/product/beest-rv-roof-sealant-liquid-rubber-coating"
           }
         }
       },
       "block_order": [
-        "link_list_En8dpz",
-        "text_Ahn3nP",
-        "language_country_MyFf6D",
-        "social_links_BcFqP9"
+        "announcement_bar_GNhNin",
+        "announcement_bar_aDyKVa"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".announcement-bar__text {font-weight: 600; font-family: \"Manrope\", sans-serif;}"
+      ],
+      "name": "t:sections.announcement-bar.name",
       "settings": {
-        "container": "fixed",
-        "color_scheme": "scheme-2",
-        "show_separator_line": false,
-        "padding_top": 12,
-        "padding_bottom": 12
+        "color_scheme": "scheme-info",
+        "content_width": 30,
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding_top": 6,
+        "padding_bottom": 6
       }
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "banner_on_menu_Cnjexk": {
+          "type": "banner_on_menu",
+          "settings": {
+            "main_banner_link": "",
+            "main_banner_text": "Up to 50% Off",
+            "companion_banner_text": "Shop Black Friday Sale",
+            "banner_menu_bg_color": "#005d88",
+            "banner_menu_text_color": "#ffffff"
+          }
+        },
+        "custom_product_list_QLL6gD": {
+          "type": "custom_product_list",
+          "settings": {
+            "menu_title": "Backpack Sprayers",
+            "menu_columns": 4,
+            "show_menu_column_divider": true,
+            "enable_hl_link": false,
+            "hl_link_style": "star_twinkle",
+            "hl_link_color": "#d06835",
+            "heading": "Backpack Sprayers",
+            "promotions_width": 38,
+            "number_of_columns": 3,
+            "product_list": [
+              "petratools-hd4000-battery-powered-backpack-sprayer",
+              "hd3000-pro-kit",
+              "petratools-ultimate-sprayer-bundle-hd4000-4-gallon-backpack-sprayer-hd2000-s-2-gallon-sling-sprayer"
+            ],
+            "show_product_vendor": false,
+            "show_product_type": false,
+            "second_column_title": "Featured",
+            "show_progress_bar": true,
+            "custom_featured_product_1": "petratools-ultimate-sprayer-bundle-hd4000-4-gallon-backpack-sprayer-hd2000-s-2-gallon-sling-sprayer",
+            "custom_featured_product_2": "petratools-hd4000-battery-powered-backpack-sprayer",
+            "border_color": "#f5f5f5",
+            "btn_color": "#d06834",
+            "btn_text_color": "#ffffff",
+            "btn_label": "Shop All",
+            "btn_link": "shopify://collections/backpack-sprayers"
+          }
+        },
+        "product_list_KxDD84": {
+          "type": "product_list",
+          "settings": {
+            "menu_title": "RV Applications",
+            "menu_columns": 3,
+            "show_menu_column_divider": true,
+            "enable_hl_link": false,
+            "hl_link_style": "text_color",
+            "hl_link_color": "",
+            "heading": "Product Type",
+            "promotions_width": 38,
+            "number_of_columns": 3,
+            "product_list": [
+              "beest-cs-9500-concrete-paver-stone-sealer-ready-to-use-1-gallon",
+              "beest-rv-roof-cleaner-32oz",
+              "beest-seam-roller"
+            ],
+            "show_product_vendor": false,
+            "show_product_type": false,
+            "show_progress_bar": true
+          }
+        }
+      },
+      "block_order": [
+        "banner_on_menu_Cnjexk",
+        "custom_product_list_QLL6gD",
+        "product_list_KxDD84"
+      ],
+      "custom_css": [
+        ".header__bottom .header__menu span {font-weight: 500;}"
+      ],
       "settings": {
         "container": "fixed",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-inverse",
+        "menu": "desktop-menu-bottomless",
         "menu_mobile": "",
-        "header_layout": "logo-left",
+        "header_layout": "logo-left-search-center",
         "menu_trigger": "hover",
-        "sticky_header": "always",
+        "sticky_header": "none",
         "enable_collapse_on_scroll": true,
-        "show_sperator_line": true,
-        "show_social_media_icons": true,
+        "show_sperator_line": false,
+        "customer_account_style": "icon-with-text",
+        "use_shop_all_instead_of_login_button": true,
+        "show_social_media_icons": false,
         "enable_language_selector": false,
-        "enable_country_selector": true,
+        "enable_country_selector": false,
+        "extra_menu_url_1": "https://www.beestusa.com",
+        "extra_menu_label_1": "Main Site",
+        "extra_menu_url_2": "https://www.google.com",
+        "extra_menu_label_2": "Site Two",
+        "extra_menu_url_3": "https://www.bottomlesslabs.com",
+        "extra_menu_label_3": "Site Three",
+        "extra_menu_label_selector": "#ff5413",
+        "extra_menu_background_color": "#000000",
         "header_top_padding_top": 20,
         "header_top_padding_bottom": 20,
-        "navigation_color_scheme": "",
+        "menu_drawer_color_on_mobile": "#ffffff",
+        "navigation_color_scheme": "scheme-2",
         "navigation_content_alignment": "start",
-        "navigation_padding_top": 0,
-        "navigation_padding_bottom": 12
+        "navigation_padding_top": 10,
+        "navigation_padding_bottom": 10
       }
     }
   },
   "order": [
-    "topbar_3YD96h",
+    "announcement_bar_NAwEyb",
     "header"
   ]
 }

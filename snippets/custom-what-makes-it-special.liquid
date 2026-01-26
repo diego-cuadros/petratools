@@ -1,0 +1,58 @@
+{{ 'custom-what-makes-it-special.css' | asset_url | stylesheet_tag }}
+
+{%- assign meta_raw = product.metafields.custom.what_makes_it_special_features.value | default: '' -%}
+{%- assign meta_features = meta_raw | split: '_' -%}
+
+{%- assign has_meta = false -%}
+{% if meta_raw != blank %}
+  {% if meta_features.size > 0 %}
+    {%- assign has_meta = true -%}
+  {% endif %}
+{% endif %}
+
+<div
+  class="dc_special-features-box"
+  style="background-color:{{ block.settings.special_feature_bg_color }}; border-color:{{ block.settings.special_feature_border_color }};"
+>
+  {% if block.settings.special_feature_text_heading != blank %}
+    <p
+      class="dc_special-features-box__heading"
+      style="color:{{ block.settings.special_feature_text_color }};"
+    >
+      {{ block.settings.special_feature_text_heading }}
+    </p>
+  {% endif %}
+
+  <div class="dc_special-features-box__features-container">
+    {% for i in (1..10) %}
+      {% assign meta_text = meta_features[forloop.index0] | strip %}
+
+      {% if has_meta %}
+        {% assign final_text = meta_text %}
+      {% else %}
+        {% assign text_key = 'special_feature_text_' | append: i %}
+        {% assign final_text = block.settings[text_key] %}
+      {% endif %}
+
+      {% if final_text != blank %}
+        <div class="dc_special-features-box__feature">
+          {% if block.settings.icon %}
+            <img
+            class="dc_special-features-box__icon"
+            src="{{  block.settings.icon | image_url }}"
+            width="{{ image.width }}"
+            height="{{ image.height }}"
+          >
+          {% endif %}
+
+          <p
+            class="dc_special-features-box__text"
+            style="color:{{ block.settings.special_feature_text_color }};"
+          >
+            {{ final_text }}
+          </p>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

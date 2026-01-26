@@ -6,7 +6,7 @@
   assign form_id = 'ContactSubscribe-' | append: custom_id
   assign button_style = button_style | default: 'btn--primary'
 -%}
-<div class="newsletter-form">
+<div class="newsletter-form dc_newsletter-form">
   {%- form 'customer', id: form_id, is: 'newsletter-form' -%}
     <input type="hidden" name="contact[tags]" value="newsletter">
     <div class="newsletter-form__field-wrapper">
@@ -46,7 +46,7 @@
           button_icon: button_icon,
           additional_attributes: button_attributes
         %}
-    
+
         <basic-modal class="drawer modal modal--newsletter-alert" id="NewsletterAlertModal-{{ custom_id }}" hidden>
           <div
             class="fixed-overlay"
@@ -69,7 +69,10 @@
                 {{- 'newsletter.already_subscribed' | t -}}
               </p>
               {%- if form.errors -%}
-                <p class="form-message form-message--main alert alert--error blocks-radius w-full" id="Newsletter-error--{{ custom_id }}">
+                <p
+                  class="form-message form-message--main alert alert--error blocks-radius w-full"
+                  id="Newsletter-error--{{ custom_id }}"
+                >
                   {% render 'icon-error' %}
                   {{- form.errors.translated_fields.email | capitalize }}
                   {{ form.errors.messages.email -}}

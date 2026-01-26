@@ -64,6 +64,9 @@
       id="GalleryViewer-{{ section.id }}"
       class="product__media-gallery-viewer blocks-radius swiper"
     >
+      <a class="skip-to-content-link button visually-hidden" href="#ProductInfo-{{ section.id }}">
+        {{ 'accessibility.skip_to_product_info' | t }}
+      </a>
       <div
         id="Slider-Gallery-{{ section.id }}"
         class="product__media-list flex swiper-wrapper"

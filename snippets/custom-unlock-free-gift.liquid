@@ -1,0 +1,62 @@
+{{ 'custom-unlock-free-gift.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="dc_free-gift-container"
+  style="background-color: {{ block.settings.bg_color }}; border: 1px solid {{ block.settings.border_color }};"
+>
+  <div class="dc_free-gift-info">
+    <div
+      class="dc_free-gift-tag"
+      style="background-color: {{ block.settings.tag_bg_color }}; color: {{ block.settings.tag_text_color }};"
+    >
+      <div class="dc_free-gift-locker-icon">{% render 'icon-locker' %}</div>
+      {{ block.settings.free_gift_title_tag }}
+    </div>
+
+    <p class="dc_free-gift-product-name">
+      {% if product.metafields.custom.use_free_gift_unlocked == true
+        and block.settings.control_content_from_metafields == true
+      %}
+        {{ product.metafields.custom.free_gift_product.value.title }}
+      {% else %}
+        {% if block.settings.free_gift_product != blank %}
+          {{ block.settings.free_gift_product.title }}
+        {% else %}
+          Select a product
+        {% endif %}
+      {% endif %}
+    </p>
+
+    <p class="dc_free-gift-product-description">
+      {% if product.metafields.custom.use_free_gift_unlocked == true
+        and block.settings.control_content_from_metafields == true
+      %}
+        {{ product.metafields.custom.free_gift_short_description }}
+      {% else %}
+        {{ block.settings.free_gift_product_feature }}
+      {% endif %}
+    </p>
+  </div>
+
+  <div class="dc_free-gift-image">
+    {% if product.metafields.custom.use_free_gift_unlocked == true
+      and block.settings.control_content_from_metafields == true
+    %}
+      <img
+        src="{{ product.metafields.custom.free_gift_image| image_url: width: 300 }}"
+        alt="{{ product.metafields.custom.free_gift_image.alt | escape }}"
+        width="{{ product.metafields.custom.free_gift_image.width }}"
+        height="{{ product.metafields.custom.free_gift_image.height }}"
+      >
+    {% else %}
+      {% if block.settings.free_gift_image != blank %}
+        <img
+          src="{{ block.settings.free_gift_image | image_url: width: 300 }}"
+          alt="{{ block.settings.free_gift_image.alt | escape }}"
+          width="{{ block.settings.free_gift_image.width }}"
+          height="{{ block.settings.free_gift_image.height }}"
+        >
+      {% endif %}
+    {% endif %}
+  </div>
+</div>

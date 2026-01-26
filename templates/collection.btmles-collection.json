@@ -1,0 +1,221 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "blocks": {
+        "collection_info_zUNyKV": {
+          "type": "collection_info",
+          "settings": {
+            "heading_size": "h1",
+            "heading_tag": "h1",
+            "show_description": true,
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "collection_info_zUNyKV"
+      ],
+      "disabled": true,
+      "custom_css": [],
+      "settings": {
+        "container": "full",
+        "color_scheme": "scheme-inverse",
+        "text_alignment": "center",
+        "show_collection_image": true,
+        "image_overlay_opacity": 30,
+        "image_position": "as-bg",
+        "image_height": "small",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "image_height_mobile": "auto",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_collection_banner_MCUihw": {
+      "type": "custom-collection-banner",
+      "blocks": {
+        "feature_dn9Qxn": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame.png",
+            "text": "Worldwide Shipping",
+            "feature_text_color": "#ffffff",
+            "feature_container_color": "#242525"
+          }
+        },
+        "feature_cGmH3k": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_1.png",
+            "text": "30-Days Free Returns",
+            "feature_text_color": "#ffffff",
+            "feature_container_color": "#242525"
+          }
+        },
+        "feature_kEnJXC": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_2.png",
+            "text": "1 Year Warranty",
+            "feature_text_color": "#ffffff",
+            "feature_container_color": "#242525"
+          }
+        },
+        "feature_peh6m7": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_3.png",
+            "text": "24/7 Friendly Support",
+            "feature_text_color": "#ffffff",
+            "feature_container_color": "#242525"
+          }
+        }
+      },
+      "block_order": [
+        "feature_dn9Qxn",
+        "feature_cGmH3k",
+        "feature_kEnJXC",
+        "feature_peh6m7"
+      ],
+      "name": "🔥Custom banner",
+      "settings": {
+        "image": "shopify://shop_images/collections_desktop_banner.webp",
+        "image_mobile": "shopify://shop_images/squared_image_banner.webp",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+        "title_color": "#ffffff",
+        "collection_description_color": "#ffffff"
+      }
+    },
+    "custom_empty_stripe_8H7Wd7": {
+      "type": "custom-empty-stripe",
+      "name": "🔥 Layout Decor",
+      "settings": {
+        "decor_color": "#ffffff"
+      }
+    },
+    "breadcrumbs_Gxg9wp": {
+      "type": "breadcrumbs",
+      "custom_css": [
+        ".breadcrumbs span {font-size: 16px; font-weight: 500; line-height: 130%;}"
+      ],
+      "settings": {
+        "container": "fixed",
+        "text_alignment": "start",
+        "padding_top": 0,
+        "padding_bottom": 16
+      }
+    },
+    "custom_liquid_WV8Nw6": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "Collection Title",
+      "settings": {
+        "custom_liquid": "<style>\n.dc_collection_title-container, div:has(.dc_collection_title-container) {\npadding-top:0px;\npadding-bottom:0px;\n}\n\n.dc_collection_title{\nmargin:0px;\nfont-size:32px;\nfont-weight:500;\n}\n\n@media only screen and (max-width:748px){\n.dc_collection_title{\nfont-size:24px;\n}\n}\n\n\n\n</style>\n\n<div class = \"dc_collection_title-container page-width page-width--fixed section--padding\" >\n<p class = \"dc_collection_title\">{{ collection.title }}</p>\n</div>",
+        "color_scheme": "",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "custom_css": [
+        ".dc_custom-atc-btn-collections {height: 46px;}",
+        ".f-price__regular .f-price-item--regular {font-weight: 600; color: #005d88; letter-spacing: 1px;}"
+      ],
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "scheme-1",
+        "products_per_page": 9,
+        "columns_desktop": 3,
+        "column_gap": "small",
+        "row_gap": "small",
+        "pagination": "number",
+        "enable_filtering": true,
+        "enable_color_swatch": true,
+        "filter_type": "vertical",
+        "expand_filter_groups": "Availability, Price, Color, Size, Category",
+        "enable_sorting": true,
+        "enable_sorting_on_mobile_drawer": false,
+        "enable_layout_switching": false,
+        "enable_static_atc_btn": true,
+        "columns_mobile": "2",
+        "padding_top": 28,
+        "padding_bottom": 60,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "custom_brand_promise_BwAtWb": {
+      "type": "custom-brand-promise",
+      "blocks": {
+        "feature_qNc4Nj": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame.png",
+            "label": "Worldwide Shipping"
+          }
+        },
+        "feature_GHi3Gd": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_2.png",
+            "label": "30-Days Free Returns"
+          }
+        },
+        "feature_8Ch3eF": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_3.png",
+            "label": "1 Year Warranty"
+          }
+        },
+        "feature_zUCRjp": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_1.png",
+            "label": "24/7 Friendly Support"
+          }
+        }
+      },
+      "block_order": [
+        "feature_qNc4Nj",
+        "feature_GHi3Gd",
+        "feature_8Ch3eF",
+        "feature_zUCRjp"
+      ],
+      "name": "🔥Custom brand promise",
+      "settings": {
+        "section_background_color": "#f5f5f5",
+        "background_color": "#222222",
+        "text_color": "#b5b5b5",
+        "heading": "The Beest Brand Promise",
+        "heading_color": "#ffffff",
+        "text": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam.",
+        "body_text_color": "#b5b5b5",
+        "border_color_grid": "#2f2f2f",
+        "logo": "shopify://shop_images/favicon.png"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "custom_collection_banner_MCUihw",
+    "custom_empty_stripe_8H7Wd7",
+    "breadcrumbs_Gxg9wp",
+    "custom_liquid_WV8Nw6",
+    "product-grid",
+    "custom_brand_promise_BwAtWb"
+  ]
+}
