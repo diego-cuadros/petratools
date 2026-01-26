@@ -448,26 +448,28 @@
               style="border-left: 1px solid {{  block.settings.border_color }};"
             >
               <menu-featured-products>
-                {{ 'custom-banner-on-menu.css' | asset_url | stylesheet_tag }}
+                {% if block.settings.show_banner_desktop_menu %}
+                  {{ 'custom-banner-on-menu.css' | asset_url | stylesheet_tag }}
 
-                <a
-                  class="dc_banner-on-menu__container"
-                  style="background-color:{{ block.settings.banner_menu_bg_color }}; color: {{ block.settings.banner_menu_text_color }};"
-                  href="{{ block.settings.main_banner_link }}"
-                >
-                  <div class="dc_banner-on-menu__text">
-                    <p class="dc_banner-on-menu_main-text">{{ block.settings.main_banner_text }}</p>
-                    <p class="dc_banner-on-menu_companion-text">{{ block.settings.companion_banner_text }}</p>
-                  </div>
-                  <div class="dc_banner-on-menu__image">
-                    <img
-                      src="{{ block.settings.banner_menu_image | image_url: width: 300 }}"
-                      alt="{{ block.settings.image.alt | escape }}"
-                      width="{{ image.width }}"
-                      height="{{ image.height }}"
-                    >
-                  </div>
-                </a>
+                  <a
+                    class="dc_banner-on-menu__container"
+                    style="background-color:{{ block.settings.banner_menu_bg_color }}; color: {{ block.settings.banner_menu_text_color }};"
+                    href="{{ block.settings.main_banner_link }}"
+                  >
+                    <div class="dc_banner-on-menu__text">
+                      <p class="dc_banner-on-menu_main-text">{{ block.settings.main_banner_text }}</p>
+                      <p class="dc_banner-on-menu_companion-text">{{ block.settings.companion_banner_text }}</p>
+                    </div>
+                    <div class="dc_banner-on-menu__image">
+                      <img
+                        src="{{ block.settings.banner_menu_image | image_url: width: 300 }}"
+                        alt="{{ block.settings.image.alt | escape }}"
+                        width="{{ image.width }}"
+                        height="{{ image.height }}"
+                      >
+                    </div>
+                  </a>
+                {% endif %}
 
                 <div
                   class="mega-menu__product-list--header flex items-center justify-between promotion-item--product"
