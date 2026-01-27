@@ -4,7 +4,7 @@
   --dc_cart-drawer-black-color: #222222 ;
   --dc_cart-drawer-light-gray-color: #F5F5F5 ;
   --dc_cart-drawer-blue-color: #005D88;
-  --dc_cart-drawer-orange-color: #D06835;
+  --dc_cart-drawer-orange-color: #FF5413;
 }
 
 @media only screen and (min-width:768px){
@@ -35,7 +35,7 @@
 }
 
 .drawer__inner .price{
-  color:var(--dc_cart-drawer-blue-color) !important;
+  color:var(--dc_cart-drawer-orange-color) !important;
   font-weight: 600 !important;
 }
 
@@ -139,7 +139,7 @@ cart-item__details:nth-child(1){
 .cart-item__prices .price{
   font-size: 1.4rem !important;
   font-weight: 700 !important;
-  color:var(--dc_cart-drawer-blue-color) !important;
+  color:var(--dc_cart-drawer-orange-color) !important;
 }
 
 /* Cart options styles */
@@ -260,7 +260,7 @@ background-color: var(--dc_cart-drawer-light-gray-color)!important;
 }
 
 .dc_product-price{
-  color:var(--dc_cart-drawer-blue-color)!important;
+  color:var(--dc_cart-drawer-orange-color)!important;
   font-weight: 600;
 }
 
@@ -301,7 +301,7 @@ background-color: var(--dc_cart-drawer-light-gray-color)!important;
 
 
 .f-price__regular{
-  color:var(--dc_cart-drawer-blue-color) !important;
+  color:var(--dc_cart-drawer-orange-color) !important;
 }
 
 .dc_cart-footer{

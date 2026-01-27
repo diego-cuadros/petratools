@@ -84,3 +84,7 @@
               .dc_mega-menu-btn:hover {
                 opacity: 0.9;
               }
+
+              .mega-menu__container .dc_product-list-grid .f-price{
+                color:orange !important;
+              }
