@@ -1,90 +1,86 @@
 .mega-menu__container {
-                border-top: 1px solid black !important;
-              }
+  border-top: 1px solid black !important;
+}
 
-              .mega-menu__wrapper {
-                border-top: 1px solid black;
-                display: flex;
-                gap: 2rem;
-                flex-direction: row;
-                flex-wrap: nowrap;
-                width: 100%;
-              }
-              .dc_mega-menu__promos-container {
-                display: flex;
-                flex-direction: column;
-                padding: 30px;
-                width: 50%;
-              }
+.mega-menu__wrapper {
+  border-top: 1px solid black;
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+.dc_mega-menu__promos-container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  width: 50%;
+}
 
-              .dc_mega-menu__promos-container h2 {
-                font-size: 20px !important;
-              }
+.dc_mega-menu__promos-container h2 {
+  font-size: 20px !important;
+}
 
-              .dc_menu-featured-products-container {
-                border-left: 1px solid black;
-                padding: 30px;
-                width: 50%;
-              }
-              .dc_menu-featured-products-container h2 {
-                font-size: 20px !important;
-              }
-              .dc_product-list-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 96px);
-                gap: 1rem;
-              }
+.dc_menu-featured-products-container {
+  border-left: 1px solid black;
+  padding: 30px;
+  width: 50%;
+}
+.dc_menu-featured-products-container h2 {
+  font-size: 20px !important;
+}
+.dc_product-list-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 96px);
+  gap: 1rem;
+}
 
-              .dc_featured_products_grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-              }
+.dc_featured_products_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
 
-              .product-card__image-wrapper {
-                border-radius: 8px;
-              }
+.product-card__image-wrapper {
+  border-radius: 8px;
+}
 
-              .product-card__info a {
-                font-family: 'titillium web', sans-serif;
-                font-size: 14px;
-                line-height: 1;
-                overflow: visible;
-                --line-clamp: 0;
-                text-transform: capitalize;
-              }
+.product-card__info a {
+  font-family: "titillium web", sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  overflow: visible;
+  --line-clamp: 0;
+  text-transform: capitalize;
+}
 
-              /* Override the underline text effect on mouse hover*/
-              .product-card__title a.reversed-link,
-              .product-card__title a.reversed-link:hover {
-                background-image: none !important;
-                background-size: 0% 0% !important;
-                text-decoration: none !important;
-              }
+/* Override the underline text effect on mouse hover*/
+.product-card__title a.reversed-link,
+.product-card__title a.reversed-link:hover {
+  background-image: none !important;
+  background-size: 0% 0% !important;
+  text-decoration: none !important;
+}
 
-              .product-card__title a.reversed-link {
-                --reversed-link-gap: 0 !important;
-              }
+.product-card__title a.reversed-link {
+  --reversed-link-gap: 0 !important;
+}
 
-              .product-card__wrapper:hover .reversed-link {
-                background-size: 0% 0% !important;
-                background-image: none !important;
-              }
+.product-card__wrapper:hover .reversed-link {
+  background-size: 0% 0% !important;
+  background-image: none !important;
+}
 
-              .dc_mega-menu-btn {
-                background-color: black;
-                color: white;
-                align-self: start;
-                margin-top: auto;
-                padding: 12px 40px;
-                height: 50px;
-                width: 155px;
-              }
+.dc_mega-menu-btn {
+  background-color: black;
+  color: white;
+  align-self: start;
+  margin-top: auto;
+  padding: 12px 40px;
+  height: 50px;
+  width: 155px;
+}
 
-              .dc_mega-menu-btn:hover {
-                opacity: 0.9;
-              }
-
-              .mega-menu__container .dc_product-list-grid .f-price{
-                color:orange !important;
-              }
+.dc_mega-menu-btn:hover {
+  opacity: 0.9;
+}
