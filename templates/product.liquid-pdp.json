@@ -42,7 +42,7 @@
           "type": "text",
           "settings": {
             "text": "",
-            "richtext_field": "<p>{{ product.metafields.custom.short_description.value }}</p>",
+            "richtext_field": "{{ product.metafields.custom.short_description | metafield_tag }}",
             "text_style": "body",
             "show_above_product_media_mobile": true
           }
