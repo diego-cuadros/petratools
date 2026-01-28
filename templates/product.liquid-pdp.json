@@ -49,6 +49,7 @@
         },
         "description": {
           "type": "description",
+          "disabled": true,
           "settings": {}
         },
         "unlock_free_gift_QH9PP3": {
@@ -83,7 +84,10 @@
             "show_quantity_selector": true,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
-            "use_custom_quantity_selector_style": true
+            "use_custom_quantity_selector_style": true,
+            "show_calculator": true,
+            "dc_coverage_sqft": 150,
+            "dc_unit_name": "gallons"
           }
         },
         "grid_icon_box_kpRHWF": {
@@ -96,13 +100,13 @@
             "columns_mobile": "1",
             "swipe_on_mobile": false,
             "icon_1": "check",
-            "icon_1_from_image_1": "shopify://shop_images/Frame_4.png",
+            "icon_1_from_image_1": "shopify://shop_images/Frame_6.png",
             "heading_1": "1 Year Warranty",
             "icon_2": "check",
             "icon_1_from_image_2": "shopify://shop_images/Frame_5.png",
             "heading_2": "Fast & Free Shipping",
             "icon_3": "check",
-            "icon_1_from_image_3": "shopify://shop_images/Frame_6.png",
+            "icon_1_from_image_3": "shopify://shop_images/Frame_4.png",
             "heading_3": "30-day money-back Guarantee",
             "icon_4": "check",
             "icon_1_from_image_4": "shopify://shop_images/flag_2_1.png",
@@ -148,13 +152,10 @@
             "text_content_color": "#636363",
             "header_text": "STILL DECIDING?",
             "info_title_1": "Free shipping on all U.S. orders of $40+",
-            "info_icon_1": "shopify://shop_images/Frame_7.png",
             "info_paragraph_1": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "info_title_2": "Easy returns and exchanges",
-            "info_icon_2": "shopify://shop_images/Frame_1426_1.png",
             "info_paragraph_2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "info_title_3": "30-day money-back Guarantee",
-            "info_icon_3": "shopify://shop_images/Frame_8.png",
             "info_paragraph_3": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. S",
             "margin_top": 16,
             "margin_bottom": 16
@@ -166,7 +167,7 @@
             "special_feature_bg_color": "#ffffff",
             "special_feature_border_color": "#ccd2d6",
             "special_feature_text_color": "",
-            "icon": "shopify://shop_images/Vector.png",
+            "icon": "shopify://shop_images/Frame_7.png",
             "special_feature_text_heading": "{{ product.metafields.custom.what_makes_it_special_title.value }}",
             "special_feature_text_1": "Feature 1",
             "special_feature_text_2": "Feature 2",
@@ -245,7 +246,7 @@
         "@media (max-width: 748px) {.grid-icon-box span {font-size: 11px !important; line-height: 130%; } .f-grid {display: flex; }}"
       ],
       "settings": {
-        "color_scheme": "scheme-4",
+        "color_scheme": "scheme-1",
         "use_color_scheme_in_container": false,
         "enable_sticky_info": true,
         "media_size": "large",
@@ -302,7 +303,7 @@
       ],
       "name": "🔥Sc Pdp Image Text",
       "settings": {
-        "bg-color": "#121212",
+        "bg-color": "#222222",
         "text-color": "#ffffff",
         "box-bg-color": "#2d2d2d",
         "box-text-color": "#ffffff",
@@ -385,6 +386,33 @@
         "button_label_color": "#ffffff",
         "padding_top": 50,
         "padding_bottom": 50
+      }
+    },
+    "17696171177c1b06c9": {
+      "type": "apps",
+      "blocks": {
+        "storista_pdp_UzWeka": {
+          "type": "shopify://apps/storista/blocks/pdp/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
+          "settings": {
+            "widget_id": "",
+            "heading": "",
+            "heading_tag": "h2",
+            "heading_position": "center",
+            "heading_css": "",
+            "subtitle": "",
+            "subtitle_tag": "h5",
+            "subtitle_position": "center",
+            "suibtitle_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "storista_pdp_UzWeka"
+      ],
+      "settings": {
+        "include_margins": true,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "collapsible_tabs_eTAhFK": {
@@ -640,7 +668,6 @@
         "product_1": "beest-cs-9500-concrete-paver-stone-sealer",
         "product_1_name": "Petramax",
         "product_2": "",
-        "product_2_image": "shopify://shop_images/Mulch_Glue_Max_main_image_1Gal_2.png",
         "product_2_name": "Others"
       }
     },
@@ -695,6 +722,7 @@
         "list_of_images_CdQNyF",
         "list_of_images_MB8Aea"
       ],
+      "disabled": true,
       "name": "🔥Custom tabs content",
       "settings": {
         "container": "fixed",
@@ -708,6 +736,23 @@
         "divider_width": "fixed"
       }
     },
+    "1769618531364edb65": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_snippet_widget_hPBA6t": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_snippet_widget_hPBA6t"
+      ],
+      "settings": {
+        "include_margins": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "tabs_content_VeqDj6": {
       "type": "tabs-content",
       "blocks": {
@@ -716,11 +761,8 @@
           "settings": {
             "navigation_title": "4 Gallon",
             "label_bg_color": "#f5f5f5",
-            "image_1": "shopify://shop_images/tank.webp",
             "label_for_image_1": "HD 4000",
-            "image_2": "shopify://shop_images/New_Project.webp",
             "label_for_image_2": "Nozzle",
-            "image_3": "shopify://shop_images/New_Project_1.webp",
             "label_for_image_3": "Sprayer Stick",
             "swipe_on_mobile": true
           }
@@ -959,7 +1001,7 @@
         "text": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam.",
         "body_text_color": "#b5b5b5",
         "border_color_grid": "#2f2f2f",
-        "logo": "shopify://shop_images/favicon.png"
+        "logo": "shopify://shop_images/Petra_logo.png"
       }
     }
   },
@@ -968,9 +1010,11 @@
     "main",
     "sc_pdp_img_text_wFMzWk",
     "compatible_accesories_cAaBkL",
+    "17696171177c1b06c9",
     "collapsible_tabs_eTAhFK",
     "custom_product_comparison_ThMX3w",
     "custom_tabs_content_Kgafe9",
+    "1769618531364edb65",
     "tabs_content_VeqDj6",
     "custom_collapsible_tabs_BiVTdN",
     "custom_brand_promise_DpUeMH"

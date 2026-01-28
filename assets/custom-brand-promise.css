@@ -98,3 +98,15 @@
       font-size: 18px;
     }
   }
+
+  .dc_brand-promise__logo {
+  width: 72px;
+}
+.dc_brand-promise__label {
+  color: #fff !important;
+}
+@media only screen and (max-width: 768px) {
+  .dc_brand-promise__logo {
+    width: 61px;
+  }
+}

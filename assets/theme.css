@@ -8320,7 +8320,7 @@ body.search-template #MainContent,
   font-size: 14px;
 }
 .search__field-icon {
-  background-color: #d06834;
+  background-color: #FF5413;
   border-radius: 4px;
   padding: 10px;
   right: 5px;
@@ -8357,10 +8357,11 @@ body.search-template #MainContent,
   margin-bottom:30px;
   background-color: rgb(var(--color-primary));
   border-color: rgb(var(--color-primary));
+  text-transform:uppercase;
 }
 
 .dc_shop-all-button:hover{
-  background-color: rgb(var(--color-secondary));
+  opacity:.9;
 }
 
 .dc_button-label{
@@ -8370,7 +8371,7 @@ body.search-template #MainContent,
 }
 
 .dc_shop-all-button:hover .dc_button-label {
-  color: #D06834;
+  color: #fff;
 }
 
 
@@ -8412,18 +8413,18 @@ body.search-template #MainContent,
 }
 
 .dc_newsletter-form{
-  background-color: #F5F5F5;
-  border-radius: 4px;
+  background-color: #3C3C3C;
+  border-radius: 100px;
   padding:3px;
 }
-
+/*
 .form-control{
   background-color:#f5f5f5;
-}
+}*/
 
 .form-control:focus{
-  background-color:#f5f5f5;
-  color: rgb(74,58,54);
+  background-color:#3C3C3C;
+  /*color: rgb(74,58,54);*/
 }
 
 @media only screen and (max-width:1024px){
@@ -8689,3 +8690,28 @@ height: 48px !important;
   
   }
 
+
+
+
+  /* CUSTOM DRAWER MENU */
+  .menu-drawer__menus .drawer__footer{
+    background-color:#2D2D2D;
+  }
+
+    .menu-drawer__menus .menu-drawer__item{
+    border-bottom:1px solid #474747;
+  }
+
+
+
+  /* PERSONALIZED SUPPORT DOCUMENTS */
+  .image-with-text-ovelay__content p{
+    color:#b5b5b5;
+  }
+
+  @media only screen and (min-width:968px){
+    .image-with-text-ovelay__content h2{
+      font-size:32px !important;
+      line-height:1;
+    }
+  }

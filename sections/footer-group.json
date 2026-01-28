@@ -36,7 +36,7 @@
             "heading": "About",
             "heading_size": "p",
             "color_menu_heading": "#676767",
-            "menu": "about-menu",
+            "menu": "about-menu-bottomless",
             "open_default": true,
             "show_divider": false
           }

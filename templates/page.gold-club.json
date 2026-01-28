@@ -68,12 +68,11 @@
         "overlay_opacity": 30,
         "enable_parallax": false,
         "parallax_direction": "vertical",
-        "color_scheme": "scheme-info",
+        "color_scheme": "scheme-2",
         "container_visible": false,
         "container_color": "#ffffff",
         "content_position": "middle-left",
         "content_alignment": "left",
-        "image_mobile": "shopify://shop_images/Screenshot_2025-12-15_at_4.35.52_PM.png",
         "mobile_height": "extra-large",
         "content_position_mobile": "top-center-mobile",
         "content_alignment_mobile": "center",
@@ -88,14 +87,14 @@
         "feature_JPDRyq": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Group_3629_1.png",
+            "icon": "shopify://shop_images/Group_3629.png",
             "label": "6 Month Full Warranty"
           }
         },
         "feature_4bnaNA": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Group_3629.png",
+            "icon": "shopify://shop_images/Group_3629_1.png",
             "label": "3 Month Extended Warranty"
           }
         }
@@ -129,7 +128,7 @@
         "column_Ywc4M9": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/quality_1.png",
+            "image": "shopify://shop_images/g3093.png",
             "title": "90 Days Extended Warranty",
             "highlight_style": "none",
             "highlight_font_style": "italic",
@@ -165,7 +164,7 @@
         "column_NbMnWz": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/avatar_1.png",
+            "image": "shopify://shop_images/g3165.png",
             "title": "Dedicated Support Line",
             "highlight_style": "none",
             "highlight_font_style": "italic",
@@ -342,7 +341,7 @@
         "collapsible_item_yymbaT"
       ],
       "custom_css": [
-        "@media only screen and (min-width:769px){.section__heading{margin-top:40px;}}",
+        "@media only screen and (min-width: 769px) {.section__heading {margin-top: 40px; }}",
         "a.rich-text--fitted,.rich-text--tight {padding-bottom: 0px !important;}",
         ".accordion-item svg {color: #ff5413;}"
       ],
@@ -432,7 +431,7 @@
       "name": "t:sections.collapsible-tabs.name",
       "settings": {
         "container": "fixed",
-        "color_scheme": "scheme-inverse",
+        "color_scheme": "scheme-3",
         "header_layout": "vertical",
         "section_header_alignment": "center",
         "section_header_alignment_mobile": "inherit",
@@ -453,7 +452,7 @@
         "column_gap": "large",
         "row_gap": "inherit",
         "item_style": "standard",
-        "item_color_scheme": "",
+        "item_color_scheme": "scheme-3",
         "item_heading_font": "heading",
         "item_heading_size": "h4",
         "item_icon_size": "extra-large",

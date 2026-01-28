@@ -83,7 +83,7 @@
         {% assign extra_menu_link = section.settings[link_key] %}
 
         {% if extra_menu_label != blank %}
-          <li class="dc_extra-menu-on-top-menu__link {% if extra_menu_link contains 'beestusa' %}dc_extra-menu-on-top__selected{% endif %}">
+          <li class="dc_extra-menu-on-top-menu__link {% if extra_menu_link contains 'petratools' %}dc_extra-menu-on-top__selected{% endif %}">
             <a href="{{ extra_menu_link | default: '#' }}">
               {{ extra_menu_label }}
             </a>

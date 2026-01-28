@@ -296,7 +296,7 @@ background-color: var(--dc_cart-drawer-light-gray-color)!important;
 
 .drawer__footer{
   margin-top: auto !important;
-  background-color: var(--dc_cart-drawer-white-color)!important;
+  background-color: var(--dc_cart-drawer-white-color);
 }
 
 
