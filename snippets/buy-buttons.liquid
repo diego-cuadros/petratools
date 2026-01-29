@@ -498,8 +498,15 @@
               </quantity-input>
             </div>
           {%- endif -%}
-          {% if block.settings.show_calculator %}
-            {%- render 'custom-calculator', block: block -%}
+
+          {% if block.settings.show_calculator_from_metafields %}
+            {% if product.metafields.custom.calculator_use.value == true %}
+              {%- render 'custom-calculator', block: block -%}
+            {% endif %}
+          {% else %}
+            {% if block.settings.show_calculator %}
+              {%- render 'custom-calculator', block: block -%}
+            {% endif %}
           {% endif %}
 
           <button
