@@ -85,6 +85,10 @@
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+  {% if template.name == 'liquid-pdp' %}
+    {{ 'custom-template-liquid-pdp.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+
   <div class="product flex flex-wrap {{ product_class }}">
     {%- if product.media.size > 0 -%}
       <div class="product__media-wrapper block w-full relative">
@@ -254,6 +258,57 @@
           "id": "show_above_product_media_mobile",
           "label": "Show above media on mobile view",
           "default": false
+        },
+        {
+          "type": "color",
+          "id": "price_color",
+          "label": "Price Color",
+          "default": "#222222"
+        },
+        {
+          "type": "color",
+          "id": "strike_through_price_color",
+          "label": "Strike Through Price Color",
+          "default": "#919191"
+        },
+        {
+          "type": "range",
+          "id": "price_font_size",
+          "label": "Price Font Size",
+          "min": 12,
+          "max": 30,
+          "step": 1,
+          "default": 18
+        },
+        {
+          "type": "checkbox",
+          "id": "use_same_size_for_compare_at_price",
+          "label": "Use same font size for compare at price",
+          "default": false
+        },
+        {
+          "type": "font_picker",
+          "id": "price_font_family",
+          "label": "Price Font Family",
+          "default": "assistant_n4"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_percentage_discount_tag",
+          "label": "Use percentage discount tag",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "tag_color",
+          "label": "Tag color",
+          "default": "#FF5413"
+        },
+        {
+          "type": "color",
+          "id": "tag_text_color",
+          "label": "Tag color",
+          "default": "#ffffff"
         }
       ]
     },

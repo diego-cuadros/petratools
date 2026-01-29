@@ -8721,6 +8721,10 @@ body.search-template #MainContent,
   }
 }
 
+/*
+:::::::::::::::::::::::::::::::::: CUSTOM STYLES START HERE :::::::::::::::::::::::::::::::::::::::::::::::
+*/
+
 /* Custom styling begin here */
 /*Hide slider controls on announcement bar*/
 .slider-controls {
@@ -9131,5 +9135,42 @@ body.search-template #MainContent,
   .image-with-text-ovelay__content h2 {
     font-size: 32px !important;
     line-height: 1;
+  }
+}
+
+
+/*
+:::::::::::::::::::::::::::::::::: CUSTOM STYLES FOR PRODUCT PAGE ::::::::::::::::::::::::::::::::::::::::::::
+*/
+@media (min-width: 1280px) {
+  .product {
+    padding-inline: 5rem;
+  }
+}
+.product__tax {
+  display: none;
+}
+.grid-icon-box {
+  padding: 8px;
+}
+.grid-icon-box span {
+  font-size: 14px !important;
+}
+@media (max-width: 748px) {
+  .grid-icon-box span {
+    font-size: 11px !important;
+    line-height: 130%;
+  }
+  .f-grid {
+    display: flex;
+  }
+}
+h1 {
+  font-size: 36px !important;
+  font-weight: 500 !important;
+}
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 24px !important;
   }
 }

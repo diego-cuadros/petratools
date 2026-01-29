@@ -49,6 +49,22 @@
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
 -%}
+
+{%- liquid
+  assign price_font = block.settings.price_font_family
+-%}
+
+{%- style -%}
+  {{ price_font | font_face: font_display: 'swap' }}
+{%- endstyle -%}
+
+{%- liquid
+  assign discount_percentage = 0
+  if compare_at_price > price
+    assign difference = compare_at_price | minus: price
+    assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
+  endif
+-%}
 <div
   class="
     f-price
@@ -79,13 +95,27 @@
   </div>
   <div class="f-price__sale{% if price_sale_class %} {{ price_sale_class }}{% endif %}">
     <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-    <span class="f-price-item f-price-item--sale">
+    <span
+      class="f-price-item f-price-item--sale"
+      style="
+        color: {{ block.settings.price_color }}; font-size: {{ block.settings.price_font_size }}px; font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
+        font-weight: {{ price_font.weight }};
+      "
+    >
       {{ money_price }}
     </span>
     {%- unless target.price_varies == false and target.compare_at_price_varies %}
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
       <span class="f-price-item f-price-item--regular">
-        <s>
+        <s
+          style="
+               color: {{ block.settings.strike_through_price_color }}; {% if block.settings.use_same_size_for_compare_at_price %}
+                 font-size: {{ block.settings.price_font_size }}px;
+               {% endif %}
+                font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
+            font-weight: {{ price_font.weight }};;
+          "
+        >
           {% if settings.currency_code_enabled %}
             {{ compare_at_price | money_with_currency }}
           {% else %}
@@ -95,6 +125,26 @@
       </span>
     {%- endunless -%}
   </div>
+  {% if block.settings.use_percentage_discount_tag %}
+    {%- if compare_at_price > price -%}
+      <div
+        class="dc_discount_tag"
+        style="
+          background-color: {{ block.settings.tag_color }};
+          color: {{ block.settings.tag_text_color }};
+          padding: 3px 8px;
+          border-radius: 4px;
+          font-size: 14px;
+          display: inline-block;
+          font-weight: 600;
+          margin-left: 10px;
+          line-height: 110%;
+        "
+      >
+        {{ discount_percentage }}% OFF
+      </div>
+    {% endif %}
+  {%- endif -%}
   <div class="f-price__unit-wrapper{% if selected_variant.unit_price_measurement == nil %} hidden{% endif %}">
     <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
     <div class="f-price__unit">

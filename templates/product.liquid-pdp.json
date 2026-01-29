@@ -86,6 +86,7 @@
             "show_gift_card_recipient": false,
             "use_custom_quantity_selector_style": true,
             "show_calculator": true,
+            "show_calculator_from_metafields": true,
             "dc_coverage_sqft": 150,
             "dc_unit_name": "gallons"
           }
@@ -238,13 +239,7 @@
         "what_makes_it_special_t8RYPd",
         "collapsible_with_table_WeYK9m"
       ],
-      "custom_css": [
-        "@media (min-width: 1280px) {.product {padding-inline: 5rem; }}",
-        ".product__tax {display: none;}",
-        ".grid-icon-box {padding: 8px;}",
-        ".grid-icon-box span {font-size: 14px !important;}",
-        "@media (max-width: 748px) {.grid-icon-box span {font-size: 11px !important; line-height: 130%; } .f-grid {display: flex; }}"
-      ],
+      "custom_css": [],
       "settings": {
         "color_scheme": "scheme-1",
         "use_color_scheme_in_container": false,

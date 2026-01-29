@@ -18,7 +18,7 @@ product-info.use-color-scheme-in-container > .product {
 }
 
 .product {
-  --media-width: 58.5%;
+  --media-width: 50%;
   --product-gap: 3rem;
   gap: var(--product-gap);
 }
