@@ -35,7 +35,15 @@
         "price": {
           "type": "price",
           "settings": {
-            "show_above_product_media_mobile": true
+            "show_above_product_media_mobile": true,
+            "price_color": "#222222",
+            "strike_through_price_color": "#919191",
+            "price_font_size": 24,
+            "use_same_size_for_compare_at_price": true,
+            "price_font_family": "manrope_n6",
+            "use_percentage_discount_tag": true,
+            "tag_color": "#ff5413",
+            "tag_text_color": "#ffffff"
           }
         },
         "text_VLLzk3": {
@@ -241,7 +249,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-7",
         "use_color_scheme_in_container": false,
         "enable_sticky_info": true,
         "media_size": "large",

@@ -15,7 +15,7 @@
       <div class="dc_calc-title">
         <span class="dc_calculator-icon__modal">
           <img
-            src="https://cdn.shopify.com/s/files/1/0703/4522/8508/files/Frame_9.png?v=1769177838"
+            src="https://cdn.shopify.com/s/files/1/0015/4976/2632/files/Frame_8.png?v=1769792257"
             alt="Calculator Icon"
           >
         </span>
@@ -36,7 +36,13 @@
           <label>Length (m)</label>
           <input type="number" id="dc_calc-length" value="7">
         </div>
-        <button id="dc_do-calculate" class="dc_calc-btn">CALCULATE</button>
+        <button
+          id="dc_do-calculate"
+          class="dc_calc-btn"
+          style="background-color: {{ block.settings.calculator_button_color }}; color: {{ block.settings.calculator_button_text_color }};"
+        >
+          CALCULATE
+        </button>
       </div>
 
       <div class="dc_calc-result-line">
