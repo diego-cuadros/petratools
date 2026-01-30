@@ -92,7 +92,6 @@
       "name": "🔥Custom banner",
       "settings": {
         "image": "shopify://shop_images/collections_desktop_banner.webp",
-        "image_mobile": "shopify://shop_images/squared_image_banner.webp",
         "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
         "title_color": "#ffffff",
         "collection_description_color": "#ffffff"
@@ -205,7 +204,7 @@
         "text": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam.",
         "body_text_color": "#b5b5b5",
         "border_color_grid": "#2f2f2f",
-        "logo": "shopify://shop_images/favicon.png"
+        "logo": "shopify://shop_images/Petra_logo.png"
       }
     }
   },

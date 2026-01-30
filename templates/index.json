@@ -626,31 +626,31 @@
         "verified_badge_color": "#333232"
       }
     },
-    "custom_brand_promise_4rpX9b": {
+    "custom_brand_promise_HRKqYw": {
       "type": "custom-brand-promise",
       "blocks": {
-        "feature_tGqKnq": {
+        "feature_YyEJUc": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame.png",
             "label": "Worldwide Shipping"
           }
         },
-        "feature_tkBwpp": {
+        "feature_NTTjpc": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_1.png",
             "label": "30-Days Free Returns"
           }
         },
-        "feature_DpFr4N": {
+        "feature_eWxR4e": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_2.png",
             "label": "1 Year Warranty"
           }
         },
-        "feature_Uj6MNm": {
+        "feature_eYnUKp": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_3.png",
@@ -659,10 +659,10 @@
         }
       },
       "block_order": [
-        "feature_tGqKnq",
-        "feature_tkBwpp",
-        "feature_DpFr4N",
-        "feature_Uj6MNm"
+        "feature_YyEJUc",
+        "feature_NTTjpc",
+        "feature_eWxR4e",
+        "feature_eYnUKp"
       ],
       "custom_css": [],
       "name": "🔥Custom brand promise",
@@ -688,6 +688,6 @@
     "17695409095f380edc",
     "image_with_text_overlay_e8gK4d",
     "custom_reviews_grid_77yVbd",
-    "custom_brand_promise_4rpX9b"
+    "custom_brand_promise_HRKqYw"
   ]
 }
