@@ -9138,10 +9138,9 @@ body.search-template #MainContent,
   }
 }
 
-
 /*
 :::::::::::::::::::::::::::::::::: CUSTOM STYLES FOR PRODUCT PAGE ::::::::::::::::::::::::::::::::::::::::::::
-*/
+*/ /*
 @media (min-width: 1280px) {
   .product {
     padding-inline: 5rem;
@@ -9173,4 +9172,4 @@ h1 {
   h1 {
     font-size: 24px !important;
   }
-}
+}*/

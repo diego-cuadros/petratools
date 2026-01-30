@@ -35,6 +35,9 @@
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 {%- endstyle -%}
+{% if template.name == 'liquid-pdp' or template.name == 'sprayer-pdp' %}
+  {{ 'custom-styles-for-pdp.css' | asset_url | stylesheet_tag }}
+{% endif %}
 <product-info
   id="MainProduct-{{ section.id }}"
   data-section="{{ section.id }}"
