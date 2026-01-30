@@ -35,9 +35,7 @@
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 {%- endstyle -%}
-{% if template.name == 'liquid-pdp' or template.name == 'sprayer-pdp' %}
-  {{ 'custom-styles-for-pdp.css' | asset_url | stylesheet_tag }}
-{% endif %}
+
 <product-info
   id="MainProduct-{{ section.id }}"
   data-section="{{ section.id }}"
@@ -88,7 +86,8 @@
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  {% if template.name == 'liquid-pdp' %}
+
+  {% if template.suffix == 'liquid-pdp' %}
     {{ 'custom-template-liquid-pdp.css' | asset_url | stylesheet_tag }}
   {% endif %}
 
