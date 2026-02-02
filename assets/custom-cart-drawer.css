@@ -356,3 +356,13 @@ cart-item__details:nth-child(1) {
 .cart-item__prices {
   min-width: 0 !important;
 }
+
+.dc_cart-count {
+  font-size: 1.6rem;
+  font-weight: 600 !important;
+}
+
+.cart-drawer-products-recommendation__header p {
+  font-size: 1.6rem;
+  font-weight: 600 !important;
+}
