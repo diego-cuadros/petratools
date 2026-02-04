@@ -34,22 +34,24 @@
           <div class="drawer__header-inner cart-drawer__header flex items-center justify-between gap-3">
             <h2 class="drawer__heading h4">
               <span>{{ 'general.cart.title' | t }}</span>
-              <cart-count
-                class="cart-count cart-count--blank dc_cart-count"
-                aria-label="{{ 'general.cart.cart_count' | t: count: cart.item_count | escape }}"
-                {% if cart == empty %}
-                  hidden
-                {% endif %}
-                data-type="blank"
-              >
-                (
-                {%- if cart.item_count < 100 -%}
-                  {{- cart.item_count -}}
-                {%- else -%}
-                  99+
-                {%- endif -%}
-                )
-              </cart-count>
+              {% if settings.cart_show_item_count %}
+                <cart-count
+                  class="cart-count cart-count--blank dc_cart-count"
+                  aria-label="{{ 'general.cart.cart_count' | t: count: cart.item_count | escape }}"
+                  {% if cart == empty %}
+                    hidden
+                  {% endif %}
+                  data-type="blank"
+                >
+                  (
+                  {%- if cart.item_count < 100 -%}
+                    {{- cart.item_count -}}
+                  {%- else -%}
+                    99+
+                  {%- endif -%}
+                  )
+                </cart-count>
+              {% endif %}
             </h2>
             <button
               class="drawer__close-btn z-1 static"

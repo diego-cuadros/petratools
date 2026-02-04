@@ -1594,6 +1594,12 @@
         "visible_if": "{{ settings.cart_style == 'solid' }}"
       },
       {
+        "type": "checkbox",
+        "id": "cart_show_item_count",
+        "label": "Show cart item count",
+        "default": false
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.cart.settings.header__1.content"
       },
