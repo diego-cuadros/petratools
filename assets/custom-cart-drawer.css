@@ -135,7 +135,6 @@ cart-item__details:nth-child(1) {
 
 .cart-item__details .cart-item__title {
   text-transform: none !important;
-  font-family: "Titillium Web", sans-serif !important;
   font-weight: 500 !important;
   line-height: 130% !important;
   font-size: 1.4rem;
