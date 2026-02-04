@@ -9131,9 +9131,26 @@ body.search-template #MainContent,
   color: #b5b5b5;
 }
 
-@media only screen and (min-width: 968px) {
+/* main banner on homepage */
+@media only screen and (min-width: 748px) {
+  .dc_h2 {
+    font-size: 56px !important;
+  }
+  /*
   .image-with-text-ovelay__content h2 {
     font-size: 32px !important;
     line-height: 1;
+  }*/
+}
+
+@media screen and (min-width: 748px) and (max-width: 900px) {
+  .dc_wrapper {
+    padding-left: 0px;
+  }
+}
+
+@media only screen and (min-width: 901px) {
+  .dc_wrapper {
+    padding-left: 100px;
   }
 }
