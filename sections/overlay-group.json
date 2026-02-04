@@ -23,7 +23,11 @@
         "cart_recommendations_color_scheme": "scheme-1",
         "cart_recommendations_heading": "Pair Well With",
         "cart_recommendations_limit": 3,
-        "cart_recommendations_products": [],
+        "cart_recommendations_products": [
+          "hd3000-pro-kit",
+          "nitrogen-fertilizer-max",
+          "petratools-prime-tool-box"
+        ],
         "cart_recommendations_layout": "horizontal-list",
         "cart_mess_color_scheme": "scheme-2",
         "cart_message": "",

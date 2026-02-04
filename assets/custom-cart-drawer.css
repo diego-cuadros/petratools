@@ -112,7 +112,7 @@ cart-item__details:nth-child(1) {
   display: block;
 }
 .cart-item__product {
-  gap: 2px !important;
+  gap: 10px !important;
 }
 
 .cart-item__media {
@@ -136,7 +136,7 @@ cart-item__details:nth-child(1) {
 .cart-item__details .cart-item__title {
   text-transform: none !important;
   font-family: "Titillium Web", sans-serif !important;
-  font-weight: 700 !important;
+  font-weight: 500 !important;
   line-height: 130% !important;
   font-size: 1.4rem;
 }
@@ -145,6 +145,13 @@ cart-item__details:nth-child(1) {
   font-size: 1.4rem !important;
   font-weight: 700 !important;
   color: var(--dc_cart-drawer-orange-color) !important;
+}
+
+.dc_cart-item__original-price {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  line-height: 160% !important;
+  color: #676767 !important;
 }
 
 /* Cart options styles */
@@ -258,7 +265,7 @@ cart-item__details:nth-child(1) {
 .dc_product-title,
 .dc_product-price {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   margin: 0px;
   line-height: 130%;
 }
@@ -324,9 +331,9 @@ cart-item__details:nth-child(1) {
 }
 
 .dc_checkout_btn {
-  border-color: var(--dc_cart-drawer-orange-color) !important;
+  border-color: var(--dc_cart-drawer-black-color) !important;
   border-radius: 8px !important;
-  background-color: var(--dc_cart-drawer-orange-color) !important;
+  background-color: var(--dc_cart-drawer-black-color) !important;
 }
 
 .dc_checkout_btn:hover {
@@ -365,4 +372,29 @@ cart-item__details:nth-child(1) {
 .cart-drawer-products-recommendation__header p {
   font-size: 1.6rem;
   font-weight: 600 !important;
+}
+
+/* Layout Fix for Price Overflow */
+.cart-item__details .flex.justify-between {
+  display: flex !important;
+  align-items: flex-start !important;
+}
+
+.cart-item__details .grid.flex-1 {
+  min-width: 0 !important;
+}
+
+.cart-item__prices {
+  flex-shrink: 0 !important;
+  margin-left: 10px !important;
+  min-width: fit-content !important;
+}
+
+.cart-item__title {
+  overflow-wrap: break-word;
+}
+
+.price {
+  display: flex !important ;
+  flex-direction: column !important;
 }

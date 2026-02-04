@@ -140,7 +140,7 @@
               endif
             -%}
             <cart-items class="flex-grow">
-              <ul role="list" class="flex flex-col gap-6">
+              <ul role="list" class="flex flex-col gap-3">
                 {%- for item in cart.items -%}
                   {%- liquid
                     if item.variant.inventory_management != blank and item.variant.inventory_policy == 'deny'
@@ -273,16 +273,6 @@
                           </a>
                         {% else %}
                           <div class="cart-item__prices text-right flex flex-col gap-2">
-                            {%- if item.line_level_discount_allocations != blank -%}
-                              <ul class="cart-item__discounts discounts list-unstyled flex justify-end flex-wrap gap-1" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                                {%- for discount_allocation in item.line_level_discount_allocations -%}
-                                  <li class="discount text-sm-extra font-body-bold inline-flex items-center">
-                                    {% render 'icon-discount' %}
-                                    <span>{{ discount_allocation.discount_application.title }}</span>
-                                  </li>
-                                {%- endfor -%}
-                              </ul>
-                            {%- endif -%}
                             <div>
                               <div class="price font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
                                 {%- liquid
@@ -292,9 +282,6 @@
                                   endif
                                 -%}
                                 {%- if item.original_price != item.final_price -%}
-                                  <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
-                                  <s class="font-body text-sm text-subtext">{{ money_price }}</s>
-                                  <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
                                   <span class="price__regular">
                                     {%- liquid 
                                       if settings.currency_code_enabled
@@ -304,6 +291,9 @@
                                       endif  
                                     -%}
                                   </span>
+                                  <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+                                  <s class="font-body text-sm text-subtext dc_cart-item__original-price">{{ money_price }}</s>
+                                  <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
                                 {%- else -%}
                                   {{- money_price -}}
                                 {%- endif -%}
@@ -597,6 +587,18 @@
                       data-product-id="{{ item.product_id }}"
                     ></foxkit-incart-upsell>
                   </li>
+                  {% comment %}Discount at the end of cart item{% endcomment %}
+                   {%- if item.line_level_discount_allocations != blank -%}
+                      <ul class="cart-item__discounts discounts list-unstyled flex justify-start flex-wrap gap-1" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                        {%- for discount_allocation in item.line_level_discount_allocations -%}
+                          <li class="discount text-sm-extra font-body-bold inline-flex items-center">
+                            {% render 'icon-discount' %}
+                            <span>{{ discount_allocation.discount_application.title }} TEST 3</span>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  
                   {% unless forloop.last == true %}<div class="dc_cart-line-separator"></div>{% endunless %}
                 {%- endcapture -%}
 
