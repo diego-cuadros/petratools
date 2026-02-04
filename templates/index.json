@@ -61,14 +61,14 @@
         "score_block_JFLjji"
       ],
       "custom_css": [
-        ".dc_wrapper {width: 528px;}",
+        ".dc_wrapper {width: 628px;}",
         "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - 1440px) / 2); padding-right: 0; width: 50%; }}",
         "@media only screen and (max-width: 768px) {.image-with-text-ovelay__content-wrapper > div {max-width: 100%; } .rich-text__heading {font-size: 32px; } .image-with-text-ovelay__content-wrapper .btn {width: 100%; }}"
       ],
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "container": "full",
-        "image": "shopify://shop_images/PetraTools_desktop_banner.webp",
+        "image": "shopify://shop_images/petra_h.png",
         "desktop_height": "medium",
         "overlay_opacity": 0,
         "enable_parallax": false,
@@ -78,7 +78,7 @@
         "container_color": "#ffffff",
         "content_position": "middle-left",
         "content_alignment": "left",
-        "image_mobile": "shopify://shop_images/New_Project.jpg",
+        "image_mobile": "shopify://shop_images/petra_hero_mobile.png",
         "mobile_height": "extra-large",
         "content_position_mobile": "top-center-mobile",
         "content_alignment_mobile": "center",
@@ -130,11 +130,11 @@
         "collection_3KPkcF"
       ],
       "custom_css": [
-        ".rich-text__heading {font-size: 40px;}",
+        ".rich-text__heading {font-size: 32px;}",
         ".f-column {max-width: 296px;}",
         ".f-price__regular .f-price-item--regular {font-weight: 600; color: #ff5413; letter-spacing: 1px;}",
         ".reversed-link {line-height: 1.2; letter-spacing: 1px;}",
-        "@media only screen and (max-width: 768px) {.reversed-link {font-size: 16px; } .f-price__regular .f-price-item--regular {font-size: 16px; } .rich-text__heading {font-size: 32px; }}"
+        "@media only screen and (max-width: 768px) {.reversed-link {font-size: 16px; } .f-price__regular .f-price-item--regular {font-size: 16px; } .rich-text__heading {font-size: 24px; }}"
       ],
       "name": "t:sections.featured-collection.presets__1.name",
       "settings": {
@@ -217,9 +217,9 @@
         "featured_collection_hiPccV"
       ],
       "custom_css": [
-        ".section__heading {font-size: 40px;}",
-        ".collection-card__title span {font-weight: 600;}",
-        "@media only screen and (max-width: 768px) {.section__heading {font-size: 32px; } .collection-card__title {font-size: 14px; }}",
+        ".section__heading {font-size: 36px;}",
+        ".collection-card__title span {font-weight: 500;}",
+        "@media only screen and (max-width: 768px) {.section__heading {font-size: 24px; } .collection-card__title {font-size: 14px; }}",
         ".collection-card {border: 0px; border-radius: 12px;}",
         ".collection-card__wrapper {padding: 0px; position: relative;}",
         ".collection-card__inner {background: linear-gradient(to top, rgba(74, 58, 54, 0.9), rgba(0, 0, 0, 0)); bottom: 0; position: absolute;}",
