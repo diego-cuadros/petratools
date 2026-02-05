@@ -58,6 +58,7 @@
       "custom_css": [
         ".dc_wrapper {width: 528px;}",
         "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - 1440px) / 2); padding-right: 0; width: 50%; }}",
+        "@media (min-width: 769px) {.dc_wrapper a {width: 237px; }}",
         "@media only screen and (max-width: 768px) {.image-with-text-ovelay__content-wrapper > div {max-width: 100%; } .rich-text__heading {font-size: 32px; } .image-with-text-ovelay__content-wrapper .btn {width: 100%; }}"
       ],
       "name": "t:sections.image-with-text-overlay.name",
@@ -87,14 +88,14 @@
         "feature_JPDRyq": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Group_3629.png",
+            "icon": "shopify://shop_images/Group_3629_2.png",
             "label": "6 Month Full Warranty"
           }
         },
         "feature_4bnaNA": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Group_3629_1.png",
+            "icon": "shopify://shop_images/Group_3629_3.png",
             "label": "3 Month Extended Warranty"
           }
         }

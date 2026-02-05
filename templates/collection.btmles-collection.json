@@ -132,8 +132,8 @@
       "custom_css": [
         ".dc_custom-atc-btn-collections {height: 46px;}",
         ".f-price__regular .f-price-item--regular {font-weight: 600; letter-spacing: 1px;}",
-        ".btn__text:hover {color: #ffffff !important;}",
-        ".form-control:focus{background:none !important;}"
+        ".btn__text:hover {color: #222222 !important;}",
+        ".form-control:focus {background: none !important;}"
       ],
       "settings": {
         "container": "fixed",
