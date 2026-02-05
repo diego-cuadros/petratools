@@ -109,7 +109,8 @@
         ".dc_brand-promise__features {background-color: #222;}",
         ".dc_brand-promise__feature {gap: 20px;}",
         ".dc_brand-promise__icon {width: 72px; height: 72px;}",
-        ".dc_brand-promise__icon img {width: 72px; height: 72px;}"
+        ".dc_brand-promise__icon img {width: 72px; height: 72px;}",
+        ".dc_brand-promise__left-column-title {border-bottom: 1px solid rgba(255, 255, 255, 0.07);}"
       ],
       "name": "🔥Custom brand promise",
       "settings": {
@@ -120,7 +121,8 @@
         "heading_color": "#ffffff",
         "text": "Gold Club members are DIY heroes who are getting Rock Solid Results with Petra products. As a member, you have access to exclusive deals, chances to test free new products, and directly impact future Petra products.",
         "body_text_color": "#ffffff",
-        "border_color_grid": ""
+        "border_color_grid": "",
+        "left_column_title": "Our Gold Club Members Get:"
       }
     },
     "multicolumn_iCFciQ": {
