@@ -9130,27 +9130,3 @@ body.search-template #MainContent,
 .image-with-text-ovelay__content p {
   color: #b5b5b5;
 }
-
-/* main banner on homepage */
-@media only screen and (min-width: 748px) {
-  .dc_h2 {
-    font-size: 56px !important;
-  }
-  /*
-  .image-with-text-ovelay__content h2 {
-    font-size: 32px !important;
-    line-height: 1;
-  }*/
-}
-
-@media screen and (min-width: 748px) and (max-width:1040px) {
-  .dc_wrapper {
-    padding-left: 0px !important;
-  }
-}
-
-@media only screen and (min-width: 1041px) {
-  .dc_wrapper {
-    padding-left: 100px !important;
-  }
-}
