@@ -30,7 +30,7 @@
             "highlight_font_style": "italic",
             "highlight_style_color": "",
             "highlight_text_color": "",
-            "heading_size": "h1"
+            "heading_size": "hd1"
           }
         },
         "button_DdGDgz": {
@@ -63,7 +63,9 @@
       "custom_css": [
         ".dc_wrapper {width: 628px;}",
         "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - 1440px) / 2); padding-right: 0; width: 50%; }}",
-        "@media only screen and (max-width: 768px) {.image-with-text-ovelay__content-wrapper > div {max-width: 100%; } .rich-text__heading {font-size: 32px; } .image-with-text-ovelay__content-wrapper .btn {width: 100%; }}"
+        "@media only screen and (max-width: 768px) {.image-with-text-ovelay__content-wrapper > div {max-width: 100%; } .rich-text__heading {font-size: 32px; } .image-with-text-ovelay__content-wrapper .btn {width: 100%; }}",
+        "@media screen and (min-width: 748px) and (max-width: 1040px) {.dc_wrapper {padding-left: 0px !important; }}",
+        "@media only screen and (min-width: 1041px) {.dc_wrapper {padding-left: 100px !important; }}"
       ],
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
@@ -470,7 +472,7 @@
             "highlight_font_style": "italic",
             "highlight_style_color": "",
             "highlight_text_color": "",
-            "heading_size": "h3"
+            "heading_size": "h1"
           }
         },
         "text_d3XjhR": {
@@ -505,11 +507,10 @@
       "custom_css": [
         ".dc_main > div {border-radius: 12px;}",
         ".dc_wrapper {max-width: 473px; border-radius: 20px; padding: 24px;}",
-        ".dc_h2 {font-size: 40px;}",
-        ".dc_p {font-size: 16px;}",
         ".btn {height: 50px; width: 196px;}",
         ".text-subheading {font-size: 14px; font-weight: 500; margin: 6px; width: 196px; text-align: center;}",
-        "@media only screen and (max-width: 749px) {.dc_h2 {font-size: 24px; text-align: center; } .dc_p {text-align: center; } .btn {width: 100%; } .btn__text {font-size: 16px; } .text-subheading {text-align: center; } .dc_wrapper > motion-element:nth-of-type(3) {width: 100%; }}"
+        "@media only screen and (max-width: 749px) {.dc_h2 {font-size: 24px; text-align: center; text-align: center; } .btn {width: 100%; } .btn__text {font-size: 16px; } .text-subheading {text-align: center; } .dc_wrapper > motion-element:nth-of-type(3) {width: 100%; }}",
+        ".image-with-text-ovelay__content p {color: #b5b5b5;}"
       ],
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
