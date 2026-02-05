@@ -26,6 +26,11 @@
 
     <div class="dc_brand-promise__right">
       <div class="dc_brand-promise__features" style="border-color:{{ section.settings.border_color_grid }}">
+        {% if section.settings.left_column_title != blank %}
+          <p class="dc_brand-promise__left-column-title" style="color:{{ section.settings.body_text_color }};">
+            {{ section.settings.left_column_title }}
+          </p>
+        {% endif %}
         {% for block in section.blocks %}
           <div class="dc_brand-promise__feature" style="border-color:{{ section.settings.border_color_grid }}">
             <div
@@ -34,7 +39,7 @@
             >
               {% if block.settings.icon %}
                 <img
-                  src="{{ block.settings.icon | img_url: '64x' }}"
+                  src="{{ block.settings.icon | image_url: width: 120 }}"
                   alt="Feature icon"
                   class="dc_brand-promise__icon-img"
                   width="{{ block.settings.icon.width }}"
@@ -105,6 +110,11 @@
       "type": "image_picker",
       "id": "logo",
       "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "left_column_title",
+      "label": "Left column title"
     }
   ],
   "blocks": [
