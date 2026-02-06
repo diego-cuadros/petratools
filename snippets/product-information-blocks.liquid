@@ -431,6 +431,8 @@
           <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
             {%- render 'product-pickup-availability', product: product -%}
           </div>
+        {% when 'frequently_bought_with' %}
+          <div>Frequently bought with product</div>
         {%- when 'badges' -%}
           <div
             class="{{ block_classes }} product__badges flex flex-wrap items-center"
