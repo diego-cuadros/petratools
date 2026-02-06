@@ -2,7 +2,7 @@
   {%- assign fbw_product = block.settings.frequently_bought_with_product -%}
   {%- assign fbw_variant = fbw_product.selected_or_first_available_variant -%}
   {%- assign fbw_featured_media = fbw_product.featured_media -%}
-  
+
   {%- if fbw_featured_media != blank -%}
     {%- assign image_ratio = fbw_featured_media.aspect_ratio -%}
   {%- else -%}
@@ -10,48 +10,56 @@
   {%- endif -%}
 
   <div class="frequently-bought-with-container">
-    <h3 class="frequently-bought-with__title font-body-bolder">{{ 'products.product.frequently_bought_with' | t: default: 'Frequently Bought With:' }}</h3>
-    
-    <frequently-bought-with class="frequently-bought-with-item" data-product-id="{{ fbw_product.id }}" data-variant-id="{{ fbw_variant.id }}">
-      <div class="frequently-bought-with-card flex gap-3 items-start bg-secondary block-radius p-2-5">
-        
+    <h3 class="frequently-bought-with__title font-body-bolder">{{ block.settings.frequently_bought_with_title }}</h3>
+
+    <frequently-bought-with
+      class="frequently-bought-with-item"
+      data-product-id="{{ fbw_product.id }}"
+      data-variant-id="{{ fbw_variant.id }}"
+    >
+      <div
+        class="frequently-bought-with-card flex gap-3 items-start block-radius p-2-5"
+        style="background-color: {{ block.settings.background_color }};"
+      >
         {%- if fbw_featured_media -%}
-          <div class="frequently-bought-with-image">
-            <input
-              type="checkbox"
-              id="FBW-Checkbox-{{ block.id }}"
-              class="frequently-bought-with-checkbox"
-              data-product-id="{{ fbw_product.id }}"
-              data-variant-id="{{ fbw_variant.id }}"
-              data-product-title="{{ fbw_product.title | escape }}"
-              data-product-price="{{ fbw_variant.price }}"
-            >
-            <label for="FBW-Checkbox-{{ block.id }}" class="frequently-bought-with-image-wrapper">
-              {% capture image_alt %}{{ fbw_product.title }}{% endcapture %}
-              {%- if fbw_featured_media.media_type == 'image' -%}
-                <img
-                  src="{{ fbw_featured_media | image_url: width: 80 }}"
-                  alt="{{ image_alt }}"
-                  loading="lazy"
-                  width="80"
-                  height="{%- if image_ratio > 0 -%}{{ 80 | divided_by: image_ratio | round }}{%- else -%}80{%- endif -%}"
-                  class="frequently-bought-with-image-img"
-                >
-              {%- else -%}
-                <img
-                  src="{{ fbw_featured_media.preview_image | image_url: width: 80 }}"
-                  alt="{{ image_alt }}"
-                  loading="lazy"
-                  width="80"
-                  height="{%- if image_ratio > 0 -%}{{ 80 | divided_by: image_ratio | round }}{%- else -%}80{%- endif -%}"
-                  class="frequently-bought-with-image-img"
-                >
-              {%- endif -%}
-            </label>
+          <div class="frequently-bought-with-col frequently-bought-with-col--checkbox">
+            <div class="frequently-bought-with-image">
+              <input
+                type="checkbox"
+                id="FBW-Checkbox-{{ block.id }}"
+                class="frequently-bought-with-checkbox"
+                data-product-id="{{ fbw_product.id }}"
+                data-variant-id="{{ fbw_variant.id }}"
+                data-product-title="{{ fbw_product.title | escape }}"
+                data-product-price="{{ fbw_variant.price }}"
+              >
+              <label for="FBW-Checkbox-{{ block.id }}" class="frequently-bought-with-image-wrapper">
+                {% capture image_alt %}{{ fbw_product.title }}{% endcapture %}
+                {%- if fbw_featured_media.media_type == 'image' -%}
+                  <img
+                    src="{{ fbw_featured_media | image_url: width: 80 }}"
+                    alt="{{ image_alt }}"
+                    loading="lazy"
+                    width="80"
+                    height="{%- if image_ratio > 0 -%}{{ 80 | divided_by: image_ratio | round }}{%- else -%}80{%- endif -%}"
+                    class="frequently-bought-with-image-img"
+                  >
+                {%- else -%}
+                  <img
+                    src="{{ fbw_featured_media.preview_image | image_url: width: 80 }}"
+                    alt="{{ image_alt }}"
+                    loading="lazy"
+                    width="80"
+                    height="{%- if image_ratio > 0 -%}{{ 80 | divided_by: image_ratio | round }}{%- else -%}80{%- endif -%}"
+                    class="frequently-bought-with-image-img"
+                  >
+                {%- endif -%}
+              </label>
+            </div>
           </div>
         {%- endif -%}
 
-        <div class="frequently-bought-with-content flex flex-col gap-2 flex-grow">
+        <div class="frequently-bought-with-col frequently-bought-with-col--details">
           <label for="FBW-Checkbox-{{ block.id }}" class="frequently-bought-with-title font-body-bolder text-sm-extra">
             {{ fbw_product.title | escape }}
           </label>
@@ -68,14 +76,15 @@
               </span>
             {%- endif -%}
           </div>
+        </div>
 
+        <div class="frequently-bought-with-col frequently-bought-with-col--link">
           <div class="frequently-bought-with-links">
-            <a href="{{ fbw_product.url }}" class="btn btn--text text-sm-extra">
-              {{ 'products.product.more_details' | t: default: 'More Details' }}
+            <a href="{{ fbw_product.url }}" class="btn--text text-sm-extra">
+              {{ 'products.product.more_details' | t }}
             </a>
           </div>
         </div>
-
       </div>
     </frequently-bought-with>
   </div>
