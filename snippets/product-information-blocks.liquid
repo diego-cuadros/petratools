@@ -431,12 +431,16 @@
           <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
             {%- render 'product-pickup-availability', product: product -%}
           </div>
-        {% when 'frequently_bought_with' %}
-          <div>Frequently bought with product</div>
+        {%- when 'frequently_bought_with' -%}
+          <div class="{{ block_classes }}" {{ block.shopify_attributes }}>
+            <script src="{{ 'frequently-bought-with.js' | asset_url }}" defer="defer"></script>
+            <link rel="stylesheet" href="{{ 'frequently-bought-with.css' | asset_url }}">
+            {%- render 'product-frequently-bought-with', block: block -%}
+          </div>
         {%- when 'badges' -%}
           <div
             class="{{ block_classes }} product__badges flex flex-wrap items-center"
-            id="Badges-{{ section.id }}"
+            id="Badges-{ { section.id }}"
             {{ block.shopify_attributes }}
           >
             {%- render 'product-badges', block: block, product: product, section_id: section.id -%}
