@@ -1,24 +1,45 @@
 {{ 'custom-product-comparison.css' | asset_url | stylesheet_tag }}
 
-<section class="comparison-section">
-  {%- liquid 
-    assign use_metafields = section.settings.use_metafields
-    assign meta_product_2 = product.metafields.custom.comparison_chart_compare_product.value
-    assign meta_title = product.metafields.custom.comparison_chart_title.value
-    
-    assign meta_img_1 = product.metafields.custom.comparison_chart_product_image_1.value
-    assign meta_img_2 = product.metafields.custom.comparison_chart_product_image_2.value
-    
-    assign row_keys_string = "comparison_chart_reviews,comparison_chart_row_1,comparison_chart_row_2,comparison_chart_row_3,comparison_chart_row_4,comparison_chart_row_5,comparison_chart_row_6,comparison_chart_row_7,comparison_chart_row_8,comparison_chart_row_9,comparison_chart_row_10"
-    assign row_list = row_keys_string | split: ','
+{%- liquid
+  assign use_metafields = section.settings.use_metafields
+  assign meta_product_2 = product.metafields.custom.comparison_chart_compare_product.value
+  assign meta_product_3 = product.metafields.custom.comparison_chart_compare_product_2.value
+  assign meta_title = product.metafields.custom.comparison_chart_title.value
 
-    if use_metafields and meta_title != blank
-      assign heading_content = meta_title
-    else
-      assign heading_content = section.settings.heading
+  assign meta_img_1 = product.metafields.custom.comparison_chart_product_image_1.value
+  assign meta_img_2 = product.metafields.custom.comparison_chart_product_image_2.value
+  assign meta_img_3 = product.metafields.custom.comparison_chart_product_image_3.value
+
+  assign row_keys_string = 'comparison_chart_reviews,comparison_chart_row_1,comparison_chart_row_2,comparison_chart_row_3,comparison_chart_row_4,comparison_chart_row_5,comparison_chart_row_6,comparison_chart_row_7,comparison_chart_row_8,comparison_chart_row_9,comparison_chart_row_10'
+  assign row_list = row_keys_string | split: ','
+
+  assign meta_show_third_column = product.metafields.custom.comparison_show_third_column.value
+
+  assign show_product_3 = section.settings.show_third_column
+  if use_metafields and meta_show_third_column != blank
+    assign show_product_3 = false
+    if meta_show_third_column == true or meta_show_third_column == 'true' or meta_show_third_column == 1 or meta_show_third_column == '1'
+      assign show_product_3 = true
     endif
-  -%}
+  endif
 
+  if show_product_3
+    assign comparison_columns = 4
+  else
+    assign comparison_columns = 3
+  endif
+
+  if use_metafields and meta_title != blank
+    assign heading_content = meta_title
+  else
+    assign heading_content = section.settings.heading
+  endif
+-%}
+
+<section
+  class="comparison-section"
+  style="--comparison-columns: {{ comparison_columns }};"
+>
   {% if heading_content != blank %}
     <h2 class="comparison-heading">{{ heading_content }}</h2>
   {% endif %}
@@ -27,7 +48,7 @@
     <div class="comparison-wrapper">
       <div class="comparison-header">
         <div class="header-cell"></div>
-        
+
         <div class="header-cell">
           <div class="product-header">
             {%- liquid
@@ -40,9 +61,16 @@
                 assign p1_image = product.featured_image
               endif
             -%}
-            
+
             {% if p1_image != blank %}
-              <img src="{{ p1_image | img_url: '200x200', crop: 'center' }}" alt="{{ product.title }}" class="product-image" loading="lazy" width="200" height="200">
+              <img
+                src="{{ p1_image | img_url: '200x200', crop: 'center' }}"
+                alt="{{ product.title }}"
+                class="product-image"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
             {% endif %}
             <span class="product-name">{{ product.title }}</span>
           </div>
@@ -51,7 +79,6 @@
         <div class="header-cell">
           <div class="product-header">
             {%- liquid
-
               assign p2_image = none
               if use_metafields and meta_img_2 != blank
                 assign p2_image = meta_img_2
@@ -68,56 +95,121 @@
                 assign p2_name = meta_product_2.title
               endif
             -%}
-            
+
             {% if p2_image != blank %}
-              <img src="{{ p2_image | img_url: '200x200', crop: 'center' }}" alt="{{ p2_name }}" class="product-image" loading="lazy" width="200" height="200">
+              <img
+                src="{{ p2_image | img_url: '200x200', crop: 'center' }}"
+                alt="{{ p2_name }}"
+                class="product-image"
+                loading="lazy"
+                width="200"
+                height="200"
+              >
             {% endif %}
             <span class="product-name">{{ p2_name }}</span>
           </div>
         </div>
+
+        {% if show_product_3 %}
+          <div class="header-cell">
+            <div class="product-header">
+              {%- liquid
+                assign p3_image = none
+                if use_metafields and meta_img_3 != blank
+                  assign p3_image = meta_img_3
+                elsif use_metafields and meta_product_3 != blank
+                  assign p3_image = meta_product_3.featured_image
+                elsif section.settings.product_3_image != blank
+                  assign p3_image = section.settings.product_3_image
+                elsif section.settings.product_3 != blank
+                  assign p3_image = section.settings.product_3.featured_image
+                endif
+
+                assign p3_name = section.settings.product_3_name
+                if use_metafields and meta_product_3 != blank
+                  assign p3_name = meta_product_3.title
+                elsif section.settings.product_3 != blank
+                  assign p3_name = section.settings.product_3.title
+                endif
+              -%}
+
+              {% if p3_image != blank %}
+                <img
+                  src="{{ p3_image | img_url: '200x200', crop: 'center' }}"
+                  alt="{{ p3_name }}"
+                  class="product-image"
+                  loading="lazy"
+                  width="200"
+                  height="200"
+                >
+              {% endif %}
+              <span class="product-name">{{ p3_name }}</span>
+            </div>
+          </div>
+        {% endif %}
       </div>
 
       <div class="comparison-body">
         {% if use_metafields %}
           {% comment %} --- MODE: METAFIELDS --- {% endcomment %}
           {% for row_key in row_list %}
-            {% assign row_value = product.metafields.custom[row_key].value | default: product.metafields.custom[row_key] %}
+            {% assign row_value = product.metafields.custom[row_key].value
+              | default: product.metafields.custom[row_key]
+            %}
             {% if row_value != blank %}
               {% assign parts = row_value | split: '_' %}
               <div class="comparison-row">
                 <div class="row-cell">{{ parts[0] | strip }}</div>
                 <div class="row-cell">
                   {% if row_key == 'comparison_chart_reviews' %}
-                    <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/></svg>
+                    <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/>
+                    </svg>
                   {% endif %}
                   {{ parts[1] | strip }}
                 </div>
                 <div class="row-cell">
                   {% if row_key == 'comparison_chart_reviews' %}
-                    <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/></svg>
+                    <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/>
+                    </svg>
                   {% endif %}
                   {{ parts[2] | strip }}
                 </div>
+                {% if show_product_3 %}
+                  <div class="row-cell">
+                    {% if row_key == 'comparison_chart_reviews' %}
+                      <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/>
+                      </svg>
+                    {% endif %}
+                    {{ parts[3] | strip }}
+                  </div>
+                {% endif %}
               </div>
             {% endif %}
           {% endfor %}
-          
+
           {% comment %} Metafield Mode Button Row {% endcomment %}
           {% for block in section.blocks %}
             {% if block.type == 'button_row' %}
-               <div class="comparison-row" {{ block.shopify_attributes }}>
-                 <div class="row-cell button-row"></div>
-                 <div class="row-cell button-row">
-                    {% if block.settings.product_1 %}
-                      <a href="{{ block.settings.product_1 }}" class="shop-btn">
-                        {{ block.settings.button_text }}
-                      </a>
-                    {% else %}
-                      <button class="shop-btn">{{ block.settings.button_text }}</button>
-                    {% endif %}
-                 </div>
-                 <div class="row-cell button-row"></div>
-               </div>
+              <div class="comparison-row" {{ block.shopify_attributes }}>
+                <div class="row-cell button-row"></div>
+                <div class="row-cell button-row">
+                  {% if block.settings.product_1 %}
+                    <a href="{{ block.settings.product_1 }}" class="shop-btn">
+                      {{ block.settings.button_text }}
+                    </a>
+                  {% else %}
+                    <button class="shop-btn">{{ block.settings.button_text }}</button>
+                  {% endif %}
+                </div>
+                <div class="row-cell button-row"></div>
+                <div class="row-cell button-row"></div>
+                {% if show_product_3 %}
+                  <div class="row-cell button-row"></div>
+                {% endif %}
+              </div>
             {% endif %}
           {% endfor %}
 
@@ -130,23 +222,46 @@
                   <div class="row-cell">{{ block.settings.row_label }}</div>
                   <div class="row-cell">
                     {% if block.settings.showStar %}
-                       <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/></svg>
+                      <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/>
+                      </svg>
                     {% endif %}
                     {{ block.settings.product_1_value }}
                   </div>
                   <div class="row-cell">
                     {% if block.settings.showStar %}
-                       <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/></svg>
+                      <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/>
+                      </svg>
                     {% endif %}
                     {{ block.settings.product_2_value }}
                   </div>
+                  {% if show_product_3 %}
+                    <div class="row-cell">
+                      {% if block.settings.showStar %}
+                        <svg width="88" height="14" viewBox="0 0 88 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.86875 14L4.0875 8.82368L0 5.34211L5.4 4.88158L7.5 0L9.6 4.88158L15 5.34211L10.9125 8.82368L12.1313 14L7.5 11.2553L2.86875 14Z" fill="#FF5413"/><path d="M21.2792 14L22.4979 8.82368L18.4104 5.34211L23.8104 4.88158L25.9104 0L28.0104 4.88158L33.4104 5.34211L29.3229 8.82368L30.5417 14L25.9104 11.2553L21.2792 14Z" fill="#FF5413"/><path d="M39.6896 14L40.9083 8.82368L36.8208 5.34211L42.2208 4.88158L44.3208 0L46.4208 4.88158L51.8208 5.34211L47.7333 8.82368L48.9521 14L44.3208 11.2553L39.6896 14Z" fill="#FF5413"/><path d="M58.1 14L59.3187 8.82368L55.2312 5.34211L60.6312 4.88158L62.7312 0L64.8312 4.88158L70.2312 5.34211L66.1437 8.82368L67.3625 14L62.7312 11.2553L58.1 14Z" fill="#FF5413"/><path d="M76.3191 14L77.4566 8.82368L73.6416 5.34211L78.6816 4.88158L80.6416 0L82.6016 4.88158L87.6416 5.34211L83.8266 8.82368L84.9641 14L80.6416 11.2553L76.3191 14Z" fill="#FF5413"/>
+                        </svg>
+                      {% endif %}
+                      {{ block.settings.product_3_value }}
+                    </div>
+                  {% endif %}
                 </div>
 
               {% when 'price_row' %}
                 <div class="comparison-row" {{ block.shopify_attributes }}>
                   <div class="row-cell">{{ block.settings.row_label }}</div>
-                  <div class="row-cell"><span class="price">{{ block.settings.product_1 | default: '$189.99' }}</span></div>
-                  <div class="row-cell"><span class="price">{{ block.settings.product_2 | default: '$299.99' }}</span></div>
+                  <div class="row-cell">
+                    <span class="price">{{ block.settings.product_1 | default: '$189.99' }}</span>
+                  </div>
+                  <div class="row-cell">
+                    <span class="price">{{ block.settings.product_2 | default: '$299.99' }}</span>
+                  </div>
+                  {% if show_product_3 %}
+                    <div class="row-cell">
+                      <span class="price">{{ block.settings.product_3 | default: '' }}</span>
+                    </div>
+                  {% endif %}
                 </div>
 
               {% when 'button_row' %}
@@ -162,6 +277,9 @@
                     {% endif %}
                   </div>
                   <div class="row-cell button-row"></div>
+                  {% if show_product_3 %}
+                    <div class="row-cell button-row"></div>
+                  {% endif %}
                 </div>
             {% endcase %}
           {% endfor %}
@@ -186,6 +304,12 @@
       "id": "heading",
       "label": "Section Heading",
       "default": "Why Use Petramax Mulch Glue Max"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_third_column",
+      "label": "Show third compare product (turn off to control via metafield)",
+      "default": true
     },
     {
       "type": "header",
@@ -226,6 +350,26 @@
       "id": "product_2_name",
       "label": "Product 2 Name",
       "default": "Others"
+    },
+    {
+      "type": "header",
+      "content": "Product 3 Settings"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Select Product 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_3_image",
+      "label": "Product 3 Image"
+    },
+    {
+      "type": "text",
+      "id": "product_3_name",
+      "label": "Product 3 Name",
+      "default": "Others"
     }
   ],
   "blocks": [
@@ -256,6 +400,12 @@
           "id": "product_2_value",
           "label": "Product 2 Value",
           "default": "Value 2"
+        },
+        {
+          "type": "text",
+          "id": "product_3_value",
+          "label": "Product 3 Value",
+          "default": "Value 3"
         }
       ]
     },
@@ -278,6 +428,11 @@
           "type": "text",
           "id": "product_2",
           "label": "Price 2"
+        },
+        {
+          "type": "text",
+          "id": "product_3",
+          "label": "Price 3"
         }
       ]
     },
