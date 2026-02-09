@@ -36,7 +36,7 @@
 }
 
 .comparison-section .comparison-header > * {
-  padding: 17px 24px;
+  padding: 15px 10px;
 }
 .comparison-section .header-cell:first-child {
   display: block;
@@ -77,6 +77,7 @@
 .comparison-section .comparison-row > *:nth-child(2),
 .comparison-section .comparison-header > *:nth-child(2) {
   background: #fff;
+  border-right: 1px solid #ccd2d6;
 }
 .comparison-section .comparison-header > *:first-child,
 .comparison-section .comparison-row > *:first-child {
@@ -187,7 +188,8 @@
     height: 95px;
   }
   .comparison-section .product-name {
-    font-size: 14px;
+    font-size: 12px;
+    line-height: 1.2;
   }
   .comparison-section .stars {
     font-size: 12px;
@@ -250,9 +252,5 @@
   }
   .comparison-section .button-row {
     padding: 20px 5px;
-  }
-
-  .comparison-section .comparison-header > * {
-    padding: 17px 12px;
   }
 }
