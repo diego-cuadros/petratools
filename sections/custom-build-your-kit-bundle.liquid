@@ -1,0 +1,187 @@
+{{ 'custom-build-your-kit-bundle.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-build-your-kit-bundle.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign product_1 = section.settings.product_1
+  assign product_2 = section.settings.product_2
+
+  assign product_1_variant = null
+  if product_1 != blank
+    assign product_1_variant = product_1.selected_or_first_available_variant
+  endif
+
+  assign product_2_variant = null
+  if product_2 != blank
+    assign product_2_variant = product_2.selected_or_first_available_variant
+  endif
+
+  assign product_1_price = product_1_variant.price
+  assign product_2_price = product_2_variant.price
+
+  assign bundle_total = product_1_price | plus: product_2_price
+-%}
+
+<section class="kit-bundle">
+  <p>{{ product_1_price }}</p>
+  <p>{{ product_2_price }}</p>
+  <p>{{ bundle_total | money }}</p>
+
+  <build-your-kit-bundle
+    class="kit-bundle__inner"
+    data-coverage="{{ section.settings.coverage_per_unit | default: 1 }}"
+    data-unit-name="{{ section.settings.unit_name_plural | escape }}"
+    data-money-format="{{ shop.money_format }}"
+    {% if product_1_variant %}
+      data-product1-variant-id="{{ product_1_variant.id }}"
+      data-product1-price="{{ product_1_price }}"
+    {% endif %}
+    {% if product_2_variant %}
+      data-product2-variant-id="{{ product_2_variant.id }}"
+      data-product2-price="{{ product_2_price }}"
+    {% endif %}
+  >
+    {% if section.settings.heading != blank %}
+      <h2 class="kit-bundle__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="kit-bundle__card">
+      <div class="kit-bundle__calculator">
+        <p class="kit-bundle__calculator-title">Calculate how many you need</p>
+        <div class="kit-bundle__calculator-row">
+          <div class="kit-bundle__input">
+            <label for="kit-bundle-width-{{ section.id }}">Width (m)</label>
+            <input
+              id="kit-bundle-width-{{ section.id }}"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="0.1"
+              data-width
+            >
+          </div>
+          <div class="kit-bundle__input">
+            <label for="kit-bundle-length-{{ section.id }}">Length (m)</label>
+            <input
+              id="kit-bundle-length-{{ section.id }}"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="0.1"
+              data-length
+            >
+          </div>
+          <button class="kit-bundle__calculate" type="button" data-calc>Calculate</button>
+          <div class="kit-bundle__total">
+            <span class="kit-bundle__total-price" data-total>{{ bundle_total | money }}</span>
+          </div>
+          <button class="kit-bundle__add" type="button" data-add-to-cart>Add to cart</button>
+        </div>
+      </div>
+
+      <div class="kit-bundle__products">
+        {% if product_1 != blank %}
+          <div class="kit-bundle__product" data-product="1">
+            <label class="kit-bundle__checkbox">
+              <input type="checkbox" data-product-checkbox="1" checked>
+              <span class="kit-bundle__checkbox-mark" aria-hidden="true"></span>
+            </label>
+            <div class="kit-bundle__product-media">
+              {% if product_1.featured_image %}
+                <img
+                  src="{{ product_1.featured_image | img_url: '120x120', crop: 'center' }}"
+                  alt="{{ product_1.title }}"
+                  loading="lazy"
+                  width="60"
+                  height="60"
+                >
+              {% endif %}
+            </div>
+            <div class="kit-bundle__product-info">
+              <p class="kit-bundle__product-title">{{ product_1.title }}</p>
+              <p class="kit-bundle__product-qty">
+                <span data-qty>1</span>
+                <span data-unit-name>{{ section.settings.unit_name_plural }}</span>
+              </p>
+            </div>
+            <div class="kit-bundle__product-price">
+              {% if product_1_variant %}
+                {{ product_1_variant.price | money }}
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if product_2 != blank %}
+          <div class="kit-bundle__product" data-product="2">
+            <label class="kit-bundle__checkbox">
+              <input type="checkbox" data-product-checkbox="2" checked>
+              <span class="kit-bundle__checkbox-mark" aria-hidden="true"></span>
+            </label>
+            <div class="kit-bundle__product-media">
+              {% if product_2.featured_image %}
+                <img
+                  src="{{ product_2.featured_image | img_url: '120x120', crop: 'center' }}"
+                  alt="{{ product_2.title }}"
+                  loading="lazy"
+                  width="60"
+                  height="60"
+                >
+              {% endif %}
+            </div>
+            <div class="kit-bundle__product-info">
+              <p class="kit-bundle__product-title">{{ product_2.title }}</p>
+              <p class="kit-bundle__product-qty">1</p>
+            </div>
+            <div class="kit-bundle__product-price">
+              {% if product_2_variant %}
+                {{ product_2_variant.price | money }}
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </build-your-kit-bundle>
+</section>
+
+{% schema %}
+{
+  "name": "🔥Build Your Kit Bundle",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Build Your Kit Bundle"
+    },
+    {
+      "type": "number",
+      "id": "coverage_per_unit",
+      "label": "Coverage per unit (Sq. Ft.)",
+      "info": "How many square feet one unit (e.g. 1 gallon) covers.",
+      "default": 200
+    },
+    {
+      "type": "text",
+      "id": "unit_name_plural",
+      "label": "Unit Name (Plural)",
+      "default": "gallons"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "🔥Build Your Kit Bundle"
+    }
+  ]
+}
+{% endschema %}
