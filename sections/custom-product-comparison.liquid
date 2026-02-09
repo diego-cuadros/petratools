@@ -205,7 +205,6 @@
                   {% endif %}
                 </div>
                 <div class="row-cell button-row"></div>
-                <div class="row-cell button-row"></div>
                 {% if show_product_3 %}
                   <div class="row-cell button-row"></div>
                 {% endif %}
@@ -266,7 +265,6 @@
 
               {% when 'button_row' %}
                 <div class="comparison-row" {{ block.shopify_attributes }}>
-                  <div class="row-cell button-row"></div>
                   <div class="row-cell button-row">
                     {% if block.settings.product_1 %}
                       <a href="{{ block.settings.product_1 }}" class="shop-btn">
@@ -276,11 +274,6 @@
                       <button class="shop-btn">{{ block.settings.button_text }}</button>
                     {% endif %}
                   </div>
-                  <div class="row-cell button-row"></div>
-                  {% if show_product_3 %}
-                    <div class="row-cell button-row"></div>
-                  {% endif %}
-                </div>
             {% endcase %}
           {% endfor %}
         {% endif %}

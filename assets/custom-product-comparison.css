@@ -72,7 +72,6 @@
   display: grid;
   grid-template-columns: repeat(var(--comparison-columns, 3), 1fr);
   border-bottom: 1px solid #e5e5e5;
-  /*{% comment %} min-height: 56px; {% endcomment %}-*/
   align-items: center;
 }
 .comparison-section .comparison-row > *:nth-child(2),
@@ -192,6 +191,10 @@
     font-size: 12px;
     gap: 5px;
   }
+  .comparison-section .comparison-row svg {
+    width: 65px;
+    height: auto;
+  }
   .comparison-section .star {
     font-size: 14px;
   }
@@ -235,10 +238,16 @@
     font-size: 15px;
   }
   .comparison-section .shop-btn {
-    padding: 9px 8px;
-    font-size: 11px;
+    padding: 5px 5px;
+    font-size: 9px;
+    height: 30px;
+    line-height: 1;
   }
   .comparison-section .button-row {
     padding: 20px 5px;
+  }
+
+  .comparison-section .comparison-header > * {
+    padding: 17px 12px;
   }
 }
