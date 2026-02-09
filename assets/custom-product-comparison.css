@@ -172,6 +172,8 @@
   .comparison-section .comparison-heading {
     font-size: 32px;
     margin-bottom: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
   .comparison-section .row-cell {
     padding: 12px 8px;
@@ -204,6 +206,9 @@
   .comparison-section .shop-btn {
     padding: 10px 30px;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .comparison-section {
     padding: 32px 0px;

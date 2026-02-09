@@ -196,17 +196,23 @@
               <div class="comparison-row" {{ block.shopify_attributes }}>
                 <div class="row-cell button-row"></div>
                 <div class="row-cell button-row">
-                  {% if block.settings.product_1 %}
-                    <a href="{{ block.settings.product_1 }}" class="shop-btn">
+                  <a href="#ComparisonTop" class="shop-btn">{{ block.settings.button_text }}</a>
+                </div>
+                <div class="row-cell button-row">
+                  {% if meta_product_2 %}
+                    <a href="{{ meta_product_2.url  }}" class="shop-btn">
                       {{ block.settings.button_text }}
                     </a>
-                  {% else %}
-                    <button class="shop-btn">{{ block.settings.button_text }}</button>
                   {% endif %}
                 </div>
-                <div class="row-cell button-row"></div>
                 {% if show_product_3 %}
-                  <div class="row-cell button-row"></div>
+                  <div class="row-cell button-row">
+                    {% if meta_product_3 %}
+                      <a href="{{ meta_product_3.url }}" class="shop-btn">
+                        {{ block.settings.button_text }}
+                      </a>
+                    {% endif %}
+                  </div>
                 {% endif %}
               </div>
             {% endif %}
@@ -265,15 +271,37 @@
 
               {% when 'button_row' %}
                 <div class="comparison-row" {{ block.shopify_attributes }}>
+                  <div class="row-cell button-row"></div>
                   <div class="row-cell button-row">
-                    {% if block.settings.product_1 %}
-                      <a href="{{ block.settings.product_1 }}" class="shop-btn">
+                    {% if section.settings.product_1 %}
+                      <a href="{{ section.settings.product_1.url }}" class="shop-btn">
                         {{ block.settings.button_text }}
                       </a>
                     {% else %}
-                      <button class="shop-btn">{{ block.settings.button_text }}</button>
+                      <a href="#ComparisonTop" class="shop-btn">{{ block.settings.button_text }}</a>
                     {% endif %}
                   </div>
+                  <div class="row-cell button-row">
+                    {% unless section.settings.show_button_product_2 == false %}
+                      {% if section.settings.product_2 %}
+                        <a href="{{ section.settings.product_2.url }}" class="shop-btn">
+                          {{ block.settings.button_text }}
+                        </a>
+                      {% endif %}
+                    {% endunless %}
+                  </div>
+                  {% if show_product_3 %}
+                    <div class="row-cell button-row">
+                      {% unless section.settings.show_button_product_3 == false %}
+                        {% if section.settings.product_3 %}
+                          <a href="{{ section.settings.product_3.url }}" class="shop-btn">
+                            {{ block.settings.button_text }}
+                          </a>
+                        {% endif %}
+                      {% endunless %}
+                    </div>
+                  {% endif %}
+                </div>
             {% endcase %}
           {% endfor %}
         {% endif %}
@@ -345,6 +373,12 @@
       "default": "Others"
     },
     {
+      "type": "checkbox",
+      "id": "show_button_product_2",
+      "default": true,
+      "label": "Show button for Product 2"
+    },
+    {
       "type": "header",
       "content": "Product 3 Settings"
     },
@@ -363,6 +397,12 @@
       "id": "product_3_name",
       "label": "Product 3 Name",
       "default": "Others"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button_product_3",
+      "default": true,
+      "label": "Show button for Product 3"
     }
   ],
   "blocks": [
@@ -438,11 +478,6 @@
           "id": "button_text",
           "label": "Button Text",
           "default": "SHOP NOW"
-        },
-        {
-          "type": "url",
-          "id": "product_1",
-          "label": "Button URL"
         }
       ]
     }
