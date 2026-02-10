@@ -70,7 +70,7 @@
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "container": "full",
-        "image": "shopify://shop_images/petra_h.png",
+        "image": "shopify://shop_images/Desktop_Banner.png",
         "desktop_height": "medium",
         "overlay_opacity": 0,
         "enable_parallax": false,
@@ -80,7 +80,7 @@
         "container_color": "#ffffff",
         "content_position": "middle-left",
         "content_alignment": "left",
-        "image_mobile": "shopify://shop_images/petra_hero_mobile.png",
+        "image_mobile": "shopify://shop_images/Mobile_Banner.png",
         "mobile_height": "extra-large",
         "content_position_mobile": "top-center-mobile",
         "content_alignment_mobile": "center",
@@ -183,7 +183,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "cart-sprayers",
-            "image": "shopify://shop_images/cart_sprayers.webp",
+            "image": "shopify://shop_images/Cart_Sprayers.png",
             "title": ""
           }
         },
@@ -191,7 +191,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "backpack-sprayers",
-            "image": "shopify://shop_images/backpack_sprayers_category.webp",
+            "image": "shopify://shop_images/Backpack_Sprayers.png",
             "title": ""
           }
         },
@@ -199,7 +199,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "small-sprayers",
-            "image": "shopify://shop_images/small_sprayers_category.webp",
+            "image": "shopify://shop_images/Small_Sprayers.png",
             "title": ""
           }
         },
@@ -207,7 +207,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "lawn-garden-solutions",
-            "image": "shopify://shop_images/small_sprayers_category.webp",
+            "image": "shopify://shop_images/Solutions.png",
             "title": "Solutions"
           }
         }
@@ -676,7 +676,8 @@
         "text": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam .",
         "body_text_color": "#b5b5b5",
         "border_color_grid": "#313131",
-        "logo": "shopify://shop_images/Petra_logo.png"
+        "logo": "shopify://shop_images/Petra_logo.png",
+        "left_column_title": ""
       }
     }
   },
