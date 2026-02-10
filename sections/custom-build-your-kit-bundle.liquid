@@ -22,10 +22,11 @@
 -%}
 
 <section class="kit-bundle">
-  <p>{{ product_1_price }}</p>
-  <p>{{ product_2_price }}</p>
-  <p>{{ bundle_total | money }}</p>
-
+  {% comment %}
+    <p>{{ product_1_price }}</p>
+    <p>{{ product_2_price }}</p>
+    <p>{{ bundle_total | money }}</p>
+  {% endcomment %}
   <build-your-kit-bundle
     class="kit-bundle__inner"
     data-coverage="{{ section.settings.coverage_per_unit | default: 1 }}"
@@ -34,10 +35,12 @@
     {% if product_1_variant %}
       data-product1-variant-id="{{ product_1_variant.id }}"
       data-product1-price="{{ product_1_price }}"
+      data-product1-compare-price="{{ product_1_variant.compare_at_price | default: 0 }}"
     {% endif %}
     {% if product_2_variant %}
       data-product2-variant-id="{{ product_2_variant.id }}"
       data-product2-price="{{ product_2_price }}"
+      data-product2-compare-price="{{ product_2_variant.compare_at_price | default: 0 }}"
     {% endif %}
   >
     {% if section.settings.heading != blank %}
@@ -48,36 +51,42 @@
       <div class="kit-bundle__calculator">
         <p class="kit-bundle__calculator-title">Calculate how many you need</p>
         <div class="kit-bundle__calculator-row">
-          <div class="kit-bundle__input">
-            <label for="kit-bundle-width-{{ section.id }}">Width (m)</label>
-            <input
-              id="kit-bundle-width-{{ section.id }}"
-              type="number"
-              inputmode="decimal"
-              min="0"
-              step="0.1"
-              data-width
-            >
+          <div class="kit-bundle__calculator-row-top">
+            <div class="kit-bundle__input">
+              <label for="kit-bundle-width-{{ section.id }}">Width (m)</label>
+              <input
+                id="kit-bundle-width-{{ section.id }}"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                step="0.1"
+                data-width
+              >
+            </div>
+            <div class="kit-bundle__input">
+              <label for="kit-bundle-length-{{ section.id }}">Length (m)</label>
+              <input
+                id="kit-bundle-length-{{ section.id }}"
+                type="number"
+                inputmode="decimal"
+                min="0"
+                step="0.1"
+                data-length
+              >
+            </div>
+            <button class="kit-bundle__calculate" type="button" data-calc>Calculate</button>
           </div>
-          <div class="kit-bundle__input">
-            <label for="kit-bundle-length-{{ section.id }}">Length (m)</label>
-            <input
-              id="kit-bundle-length-{{ section.id }}"
-              type="number"
-              inputmode="decimal"
-              min="0"
-              step="0.1"
-              data-length
-            >
+          <div class="kit-bundle__calculator-row-bottom">
+            <div class="kit-bundle__total">
+              <span class="kit-bundle__total-price" data-total>{{ bundle_total | money }}</span>
+              <span class="kit-bundle__total-compare" data-total-compare></span>
+            </div>
+            <button class="kit-bundle__add" type="button" data-add-to-cart>Add to cart</button>
           </div>
-          <button class="kit-bundle__calculate" type="button" data-calc>Calculate</button>
-          <div class="kit-bundle__total">
-            <span class="kit-bundle__total-price" data-total>{{ bundle_total | money }}</span>
-          </div>
-          <button class="kit-bundle__add" type="button" data-add-to-cart>Add to cart</button>
         </div>
       </div>
 
+      <p class="kit-bundle__calculator-title">Product Quantities</p>
       <div class="kit-bundle__products">
         {% if product_1 != blank %}
           <div class="kit-bundle__product" data-product="1">
@@ -98,15 +107,34 @@
             </div>
             <div class="kit-bundle__product-info">
               <p class="kit-bundle__product-title">{{ product_1.title }}</p>
+              <p class="kit-bundle__product-price-mobile">
+                <span class="kit-bundle__product-price-value-mobile" data-price-mobile>
+                  {% if product_1_variant %}
+                    {{ product_1_variant.price | money }}
+                  {% endif %}
+                </span>
+                <span class="kit-bundle__product-compare-mobile" data-compare-price-mobile>
+                  {% if product_1_variant and product_1_variant.compare_at_price %}
+                    {{ product_1_variant.compare_at_price | money }}
+                  {% endif %}
+                </span>
+              </p>
               <p class="kit-bundle__product-qty">
                 <span data-qty>1</span>
                 <span data-unit-name>{{ section.settings.unit_name_plural }}</span>
               </p>
             </div>
             <div class="kit-bundle__product-price">
-              {% if product_1_variant %}
-                {{ product_1_variant.price | money }}
-              {% endif %}
+              <span class="kit-bundle__product-price-value" data-price>
+                {% if product_1_variant %}
+                  {{ product_1_variant.price | money }}
+                {% endif %}
+              </span>
+              <span class="kit-bundle__product-compare" data-compare-price>
+                {% if product_1_variant and product_1_variant.compare_at_price %}
+                  {{ product_1_variant.compare_at_price | money }}
+                {% endif %}
+              </span>
             </div>
           </div>
         {% endif %}
@@ -130,12 +158,30 @@
             </div>
             <div class="kit-bundle__product-info">
               <p class="kit-bundle__product-title">{{ product_2.title }}</p>
-              <p class="kit-bundle__product-qty">1</p>
+              <p class="kit-bundle__product-price-mobile">
+                <span class="kit-bundle__product-price-value-mobile" data-price-mobile>
+                  {% if product_2_variant %}
+                    {{ product_2_variant.price | money }}
+                  {% endif %}
+                </span>
+                <span class="kit-bundle__product-compare-mobile" data-compare-price-mobile>
+                  {% if product_2_variant and product_2_variant.compare_at_price %}
+                    {{ product_2_variant.compare_at_price | money }}
+                  {% endif %}
+                </span>
+              </p>
             </div>
             <div class="kit-bundle__product-price">
-              {% if product_2_variant %}
-                {{ product_2_variant.price | money }}
-              {% endif %}
+              <span class="kit-bundle__product-price-value" data-price>
+                {% if product_2_variant %}
+                  {{ product_2_variant.price | money }}
+                {% endif %}
+              </span>
+              <span class="kit-bundle__product-compare" data-compare-price>
+                {% if product_2_variant and product_2_variant.compare_at_price %}
+                  {{ product_2_variant.compare_at_price | money }}
+                {% endif %}
+              </span>
             </div>
           </div>
         {% endif %}
