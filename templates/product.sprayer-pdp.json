@@ -60,19 +60,6 @@
           "disabled": true,
           "settings": {}
         },
-        "unlock_free_gift_QH9PP3": {
-          "type": "unlock_free_gift",
-          "settings": {
-            "control_content_from_metafields": true,
-            "free_gift_title_tag": "Free Gift Unlocked",
-            "free_gift_product": "",
-            "free_gift_product_feature": "4lts more than usual",
-            "bg_color": "#f4faf3",
-            "border_color": "#116903",
-            "tag_bg_color": "#116903",
-            "tag_text_color": "#ffffff"
-          }
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -138,23 +125,6 @@
             "show_below_product_media": false
           }
         },
-        "discount_level_table_Gtj3pT": {
-          "type": "discount_level_table",
-          "settings": {
-            "title": "{{ product.metafields.custom.discount_level_table_title.value }}",
-            "subtitle": "{{ product.metafields.custom.discount_level_table_subtitle.value }}",
-            "heading_left": "Discount",
-            "heading_right": "Total",
-            "left_column_row_1": "5% Off",
-            "right_column_row_1": "1",
-            "left_column_row_2": "10% Off",
-            "right_column_row_2": "2-4",
-            "left_column_row_3": "15% Off",
-            "right_column_row_3": "5+",
-            "text_before_timer": "Sale ends soon",
-            "timer_start": "01:24:08"
-          }
-        },
         "collapsible_trust_card_irQwq8": {
           "type": "collapsible_trust_card",
           "settings": {
@@ -163,10 +133,13 @@
             "text_content_color": "#636363",
             "header_text": "STILL DECIDING?",
             "info_title_1": "Free shipping on all U.S. orders of $40+",
+            "info_icon_1": "shopify://shop_images/Frame_03ee538c-d741-414f-9ab0-18a920d58e10.png",
             "info_paragraph_1": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "info_title_2": "Easy returns and exchanges",
+            "info_icon_2": "shopify://shop_images/Frame_1_cd4c63c2-acb7-4c65-b938-126e23f9ab1a.png",
             "info_paragraph_2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "info_title_3": "30-day money-back Guarantee",
+            "info_icon_3": "shopify://shop_images/Frame_2_211f4814-5096-44b3-a6a2-f93c50001d1a.png",
             "info_paragraph_3": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. S",
             "margin_top": 16,
             "margin_bottom": 16
@@ -232,14 +205,6 @@
             "margin_bottom": 16,
             "show_below_product_media": true
           }
-        },
-        "frequently_bought_with_7VyWfV": {
-          "type": "frequently_bought_with",
-          "settings": {
-            "frequently_bought_with_product": "{{ product.metafields.custom.frequently_bought_with.value }}",
-            "frequently_bought_with_title": "Frequently Bought With:",
-            "background_color": "#f4faf3"
-          }
         }
       },
       "block_order": [
@@ -247,16 +212,13 @@
         "price",
         "text_VLLzk3",
         "description",
-        "unlock_free_gift_QH9PP3",
         "variant_picker",
         "buy_buttons",
         "grid_icon_box_kpRHWF",
         "divider_pPz3Kw",
-        "discount_level_table_Gtj3pT",
         "collapsible_trust_card_irQwq8",
         "what_makes_it_special_t8RYPd",
-        "collapsible_with_table_WeYK9m",
-        "frequently_bought_with_7VyWfV"
+        "collapsible_with_table_WeYK9m"
       ],
       "custom_css": [],
       "settings": {
@@ -271,33 +233,6 @@
         "enable_video_looping": true,
         "padding_top": 60,
         "padding_bottom": 60
-      }
-    },
-    "17696171177c1b06c9": {
-      "type": "apps",
-      "blocks": {
-        "storista_pdp_UzWeka": {
-          "type": "shopify://apps/storista/blocks/pdp/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
-          "settings": {
-            "widget_id": "",
-            "heading": "",
-            "heading_tag": "h2",
-            "heading_position": "center",
-            "heading_css": "",
-            "subtitle": "",
-            "subtitle_tag": "h5",
-            "subtitle_position": "center",
-            "suibtitle_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "storista_pdp_UzWeka"
-      ],
-      "settings": {
-        "include_margins": true,
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     },
     "sc_pdp_img_text_wFMzWk": {
@@ -355,89 +290,31 @@
         "mobile_padding_bottom": 32
       }
     },
-    "custom_build_your_kit_bundle_93U7GT": {
-      "type": "custom-build-your-kit-bundle",
-      "name": "🔥Build Your Kit Bundle",
-      "settings": {
-        "heading": "Build Your Kit Bundle",
-        "coverage_per_unit": 200,
-        "unit_name_plural": "gallons",
-        "product_1": "",
-        "product_2": ""
-      }
-    },
-    "compatible_accesories_cAaBkL": {
-      "type": "compatible-accesories",
+    "17696171177c1b06c9": {
+      "type": "apps",
       "blocks": {
-        "product_YhYBYa": {
-          "type": "product",
+        "storista_pdp_UzWeka": {
+          "type": "shopify://apps/storista/blocks/pdp/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
           "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_1.value }}"
-          }
-        },
-        "product_9BQVJy": {
-          "type": "product",
-          "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_2.value }}"
-          }
-        },
-        "product_dLFHkp": {
-          "type": "product",
-          "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_3.value }}"
-          }
-        },
-        "product_pM3H9N": {
-          "type": "product",
-          "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_4.value }}"
-          }
-        },
-        "product_qeGbtx": {
-          "type": "product",
-          "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_5.value }}"
-          }
-        },
-        "product_wEeTm6": {
-          "type": "product",
-          "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_6.value }}"
-          }
-        },
-        "product_TwUP9m": {
-          "type": "product",
-          "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_7.value }}"
-          }
-        },
-        "product_xqPQRH": {
-          "type": "product",
-          "settings": {
-            "product": "{{ product.metafields.custom.compatible_accesory_8.value }}"
+            "widget_id": "",
+            "heading": "",
+            "heading_tag": "h2",
+            "heading_position": "center",
+            "heading_css": "",
+            "subtitle": "",
+            "subtitle_tag": "h5",
+            "subtitle_position": "center",
+            "suibtitle_css": ""
           }
         }
       },
       "block_order": [
-        "product_YhYBYa",
-        "product_9BQVJy",
-        "product_dLFHkp",
-        "product_pM3H9N",
-        "product_qeGbtx",
-        "product_wEeTm6",
-        "product_TwUP9m",
-        "product_xqPQRH"
+        "storista_pdp_UzWeka"
       ],
-      "name": "🔥 Compatible Accessories",
       "settings": {
-        "container": "fixed",
-        "color_scheme": "scheme-14",
-        "card_background_color": "#2d2d2d",
-        "title": "{{ product.metafields.custom.compatible_accesories_title.value }}",
-        "button_background_color": "#ff5413",
-        "button_label_color": "#ffffff",
-        "padding_top": 50,
-        "padding_bottom": 50
+        "include_margins": true,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "collapsible_tabs_eTAhFK": {
@@ -746,12 +623,12 @@
           "settings": {
             "navigation_title": "{{ product.metafields.custom.whats_included_tab3_images_1_title.value }}",
             "label_bg_color": "#f5f5f5",
-            "image_1": "{{ product.metafields.custom.whats_included_tab1_image_1.value }}",
+            "image_1": "{{ product.metafields.custom.whats_included_tab3_image_1.value }}",
             "label_for_image_1": "{{ product.metafields.custom.whats_included_tab3_labels_1.value }}",
-            "image_2": "{{ product.metafields.custom.whats_included_tab1_image_2.value }}",
+            "image_2": "{{ product.metafields.custom.whats_included_tab3_image_2.value }}",
             "label_for_image_2": "{{ product.metafields.custom.whats_included_tab3_labels_1.value }}",
-            "image_3": "{{ product.metafields.custom.whats_included_tab1_image_3.value }}",
-            "label_for_image_3": "{{ product.metafields.custom.whats_included_tab3_labels_1.value }}",
+            "image_3": "{{ product.metafields.custom.whats_included_tab3_image_3.value }}",
+            "label_for_image_3": "",
             "swipe_on_mobile": true
           }
         }
@@ -761,7 +638,6 @@
         "list_of_images_CdQNyF",
         "list_of_images_MB8Aea"
       ],
-      "disabled": true,
       "name": "🔥Custom tabs content",
       "settings": {
         "container": "fixed",
@@ -790,62 +666,6 @@
         "include_margins": true,
         "padding_top": 0,
         "padding_bottom": 0
-      }
-    },
-    "tabs_content_VeqDj6": {
-      "type": "tabs-content",
-      "blocks": {
-        "list_of_images_BYQqNA": {
-          "type": "list_of_images",
-          "settings": {
-            "navigation_title": "4 Gallon",
-            "label_bg_color": "#f5f5f5",
-            "label_for_image_1": "HD 4000",
-            "label_for_image_2": "Nozzle",
-            "label_for_image_3": "Sprayer Stick",
-            "swipe_on_mobile": true
-          }
-        },
-        "tab_PBD48A": {
-          "type": "tab",
-          "settings": {
-            "navigation_title": "4 Gallon With Cart",
-            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
-            "custom_liquid": "",
-            "page": ""
-          }
-        },
-        "tab_QD9Lzz": {
-          "type": "tab",
-          "settings": {
-            "navigation_title": "4 Gallon Prokit",
-            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
-            "custom_liquid": "",
-            "page": ""
-          }
-        }
-      },
-      "block_order": [
-        "list_of_images_BYQqNA",
-        "tab_PBD48A",
-        "tab_QD9Lzz"
-      ],
-      "disabled": true,
-      "custom_css": [
-        ".tabs-nav--headings .tabs__header:before {background: none;}",
-        ".tabs__nav {display: flex; box-shadow: inset 0 -2px 0 0 #e0e0e0; position: relative; padding-left: 0px; padding-right: 0px;}"
-      ],
-      "name": "t:sections.tabs-content.name",
-      "settings": {
-        "container": "fixed",
-        "color_scheme": "",
-        "navigation_style": "headings",
-        "navigation_alignment": "center",
-        "section_heading": "",
-        "padding_top": 50,
-        "padding_bottom": 50,
-        "show_section_divider": false,
-        "divider_width": "fixed"
       }
     },
     "custom_collapsible_tabs_BiVTdN": {
@@ -1048,15 +868,12 @@
   "order": [
     "breadcrumbs",
     "main",
-    "17696171177c1b06c9",
     "sc_pdp_img_text_wFMzWk",
-    "custom_build_your_kit_bundle_93U7GT",
-    "compatible_accesories_cAaBkL",
+    "17696171177c1b06c9",
     "collapsible_tabs_eTAhFK",
     "custom_product_comparison_ThMX3w",
     "custom_tabs_content_Kgafe9",
     "1769618531364edb65",
-    "tabs_content_VeqDj6",
     "custom_collapsible_tabs_BiVTdN",
     "custom_brand_promise_DpUeMH"
   ]

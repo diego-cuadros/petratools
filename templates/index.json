@@ -62,10 +62,9 @@
       ],
       "custom_css": [
         ".dc_wrapper {width: 628px;}",
-        "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - 1440px) / 2); padding-right: 0; width: 50%; }}",
+        "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - var(--page-width)) / 2); padding-right:0; width: 50%; }}",
         "@media only screen and (max-width: 768px) {.image-with-text-ovelay__content-wrapper > div {max-width: 100%; } .rich-text__heading {font-size: 32px; } .image-with-text-ovelay__content-wrapper .btn {width: 100%; }}",
-        "@media screen and (min-width: 748px) and (max-width: 1040px) {.dc_wrapper {padding-left: 0px !important; }}",
-        "@media only screen and (min-width: 1041px) {.dc_wrapper {padding-left: 100px !important; }}"
+        "@media screen and (min-width: 748px) and (max-width: 1439px) {.dc_wrapper {padding-left: 0px !important; }}"
       ],
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
@@ -183,7 +182,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "cart-sprayers",
-            "image": "shopify://shop_images/Cart_Sprayers.png",
+            "image": "shopify://shop_images/cart_sprayers.webp",
             "title": ""
           }
         },
@@ -191,7 +190,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "backpack-sprayers",
-            "image": "shopify://shop_images/Backpack_Sprayers.png",
+            "image": "shopify://shop_images/backpack_sprayers_category.webp",
             "title": ""
           }
         },
@@ -199,7 +198,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "small-sprayers",
-            "image": "shopify://shop_images/Small_Sprayers.png",
+            "image": "shopify://shop_images/small_sprayers_category.webp",
             "title": ""
           }
         },
@@ -207,7 +206,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "lawn-garden-solutions",
-            "image": "shopify://shop_images/Solutions.png",
+            "image": "shopify://shop_images/small_sprayers_category.webp",
             "title": "Solutions"
           }
         }

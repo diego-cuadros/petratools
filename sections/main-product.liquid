@@ -91,6 +91,10 @@
     {{ 'custom-template-liquid-pdp.css' | asset_url | stylesheet_tag }}
   {% endif %}
 
+  {% if template.suffix == 'sprayer-pdp' %}
+    {{ 'custom-template-sprayer-pdp.css' | asset_url | stylesheet_tag }}
+  {% endif %}
+
   <div id="ComparisonTop" class="product flex flex-wrap {{ product_class }}">
     {%- if product.media.size > 0 -%}
       <div class="product__media-wrapper block w-full relative">

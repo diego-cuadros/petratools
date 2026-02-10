@@ -68,7 +68,7 @@
 }
 
 .dc_brand-promise__icon img {
-  width: 72px !important;
+  width: 20px !important;
   object-fit: contain; /* This prevents the stretching */
   display: block;
 }
