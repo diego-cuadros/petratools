@@ -141,40 +141,13 @@
     {%- if compare_at_price > price -%}
       <div
         class="dc_discount_tag"
-        style="
-          background-color: {{ block.settings.tag_color }};
-          color: {{ block.settings.tag_text_color }};
-          padding: 3px 8px;
-          border-radius: 4px;
-          font-size: 14px;
-          display: inline-block;
-          font-weight: 600;
-          margin-left: 10px;
-          line-height: 110%;
-        "
+        style="background-color: {{ block.settings.tag_color }};color: {{ block.settings.tag_text_color }};"
       >
         {{ discount_percentage }}% OFF
       </div>
     {% endif %}
   {%- endif -%}
-  <style>
-    .dc_season-price-box {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      opacity: 1;
-    }
-    .dc_season-price-box span {
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 110%;
-      letter-spacing: 0;
-      vertical-align: middle;
-    }
-  </style>
+
   {% assign discount_percentage = block.settings.season_discount_percentage | plus: 0 %}
   {% assign discount_decimal = discount_percentage | divided_by: 100.0 %}
   {% assign multiplier = 1 | minus: discount_decimal %}
@@ -186,16 +159,6 @@
     </div>
   {% endif %}
   {% if block.settings.use_season_tag %}
-    <style>
-      .dc_season-tag {
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 140%;
-        letter-spacing: -0.02em;
-        vertical-align: middle;
-        margin-left: 5px;
-      }
-    </style>
     <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
       {{ block.settings.season_tag_text | escape }}
     </div>

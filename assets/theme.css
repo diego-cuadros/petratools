@@ -9125,3 +9125,40 @@ body.search-template #MainContent,
 .menu-drawer__menus .menu-drawer__item {
   border-bottom: 1px solid #474747;
 }
+
+/* Price block customization for Season price styles  */
+.dc_season-price-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  opacity: 1;
+}
+.dc_season-price-box span {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 110%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.dc_season-tag {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -0.02em;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.dc_discount_tag {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 10px;
+  line-height: 110%;
+}
