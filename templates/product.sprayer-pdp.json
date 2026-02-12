@@ -32,21 +32,6 @@
             "show_above_product_media_mobile": true
           }
         },
-        "season_price_fyQBxQ": {
-          "type": "season-price",
-          "settings": {
-            "season_compare_at_color": "#919191",
-            "season_regular_price_color": "#222222",
-            "season_price_background": "#fff3ee",
-            "season_price_color": "#ff5413",
-            "season_tag_color": "#bf5a33",
-            "season_font_family": "Helvetica Neue",
-            "season_compare_at_text": "$299.99",
-            "season_regular_price_text": "$199.99",
-            "season_tag_text": "🔥Black Friday Price",
-            "show_above_product_media_mobile": true
-          }
-        },
         "text_VLLzk3": {
           "type": "text",
           "settings": {
@@ -210,7 +195,6 @@
       },
       "block_order": [
         "title",
-        "season_price_fyQBxQ",
         "text_VLLzk3",
         "description",
         "variant_picker",
