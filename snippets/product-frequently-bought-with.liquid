@@ -63,26 +63,24 @@
           <label for="FBW-Checkbox-{{ block.id }}" class="frequently-bought-with-title font-body-bolder text-sm-extra">
             {{ fbw_product.title | escape }}
           </label>
-
-          <div class="frequently-bought-with-price flex items-center gap-2">
-            {%- if fbw_variant.price -%}
-              <span class="frequently-bought-with-sale-price price font-body-bolder">
-                {{ fbw_variant.price | money }}
-              </span>
-            {%- endif -%}
-            {%- if fbw_variant.compare_at_price and fbw_variant.compare_at_price > fbw_variant.price -%}
-              <span class="frequently-bought-with-compare-price price-compare line-through text-subtext">
-                {{ fbw_variant.compare_at_price | money }}
-              </span>
-            {%- endif -%}
-          </div>
-        </div>
-
-        <div class="frequently-bought-with-col frequently-bought-with-col--link">
-          <div class="frequently-bought-with-links">
-            <a href="{{ fbw_product.url }}" class="btn--text text-sm-extra">
-              {{ 'products.product.more_details' | t }}
-            </a>
+          <div class="frequently-bought-with-bottom-row">
+            <div class="frequently-bought-with-price flex items-center gap-2">
+              {%- if fbw_variant.price -%}
+                <span class="frequently-bought-with-sale-price price font-body-bolder">
+                  {{ fbw_variant.price | money }}
+                </span>
+              {%- endif -%}
+              {%- if fbw_variant.compare_at_price and fbw_variant.compare_at_price > fbw_variant.price -%}
+                <span class="frequently-bought-with-compare-price price-compare line-through text-subtext">
+                  {{ fbw_variant.compare_at_price | money }}
+                </span>
+              {%- endif -%}
+            </div>
+            <div class="frequently-bought-with-links">
+              <a href="{{ fbw_product.url }}" class="btn--text text-sm-extra">
+                {{ 'products.product.more_details' | t }}
+              </a>
+            </div>
           </div>
         </div>
       </div>
