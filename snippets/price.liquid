@@ -145,6 +145,49 @@
       </div>
     {% endif %}
   {%- endif -%}
+  <style>
+    .dc_season-price-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      opacity: 1;
+    }
+    .dc_season-price-box span {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 110%;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+  </style>
+  {% assign discount_percentage = block.settings.season_discount_percentage | plus: 0 %}
+  {% assign discount_decimal = discount_percentage | divided_by: 100.0 %}
+  {% assign multiplier = 1 | minus: discount_decimal %}
+  {% assign final_season_price = product.price | times: multiplier %}
+
+  {% if block.settings.show_season_price %}
+    <div class="dc_season-price-box" style="background-color: {{ block.settings.season_price_background }};">
+      <span style="color: {{ block.settings.season_price_color }};">{{ final_season_price | money }}</span>
+    </div>
+  {% endif %}
+  {% if block.settings.use_season_tag %}
+    <style>
+      .dc_season-tag {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 140%;
+        letter-spacing: -0.02em;
+        vertical-align: middle;
+        margin-left: 5px;
+      }
+    </style>
+    <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
+      {{ block.settings.season_tag_text | escape }}
+    </div>
+  {% endif %}
   <div class="f-price__unit-wrapper{% if selected_variant.unit_price_measurement == nil %} hidden{% endif %}">
     <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
     <div class="f-price__unit">

@@ -32,18 +32,19 @@
             "show_above_product_media_mobile": true
           }
         },
-        "price": {
-          "type": "price",
+        "season_price_fyQBxQ": {
+          "type": "season-price",
           "settings": {
-            "show_above_product_media_mobile": true,
-            "price_color": "#222222",
-            "strike_through_price_color": "#919191",
-            "price_font_size": 24,
-            "use_same_size_for_compare_at_price": true,
-            "price_font_family": "manrope_n6",
-            "use_percentage_discount_tag": true,
-            "tag_color": "#ff5413",
-            "tag_text_color": "#ffffff"
+            "season_compare_at_color": "#919191",
+            "season_regular_price_color": "#222222",
+            "season_price_background": "#fff3ee",
+            "season_price_color": "#ff5413",
+            "season_tag_color": "#bf5a33",
+            "season_font_family": "Helvetica Neue",
+            "season_compare_at_text": "$299.99",
+            "season_regular_price_text": "$199.99",
+            "season_tag_text": "🔥Black Friday Price",
+            "show_above_product_media_mobile": true
           }
         },
         "text_VLLzk3": {
@@ -52,7 +53,7 @@
             "text": "",
             "richtext_field": "{{ product.metafields.custom.short_description | metafield_tag }}",
             "text_style": "body",
-            "show_above_product_media_mobile": true
+            "show_above_product_media_mobile": false
           }
         },
         "description": {
@@ -209,7 +210,7 @@
       },
       "block_order": [
         "title",
-        "price",
+        "season_price_fyQBxQ",
         "text_VLLzk3",
         "description",
         "variant_picker",
