@@ -38,7 +38,7 @@
             "show_above_product_media_mobile": true,
             "price_color": "#222222",
             "strike_through_price_color": "#919191",
-            "price_font_size": 24,
+            "price_font_size": 18,
             "use_same_size_for_compare_at_price": true,
             "regular_price_first": false,
             "price_font_family": "manrope_n6",

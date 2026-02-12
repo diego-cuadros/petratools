@@ -148,7 +148,11 @@
     {% endif %}
   {%- endif -%}
 
-  {% assign discount_percentage = block.settings.season_discount_percentage | plus: 0 %}
+  {% if product.metafields.custom.season_price_discount_percentage.value != blank %}
+    {% assign discount_percentage = product.metafields.custom.season_price_discount_percentage.value | plus: 0 %}
+  {% else %}
+    {% assign discount_percentage = block.settings.season_discount_percentage | plus: 0 %}
+  {% endif %}
   {% assign discount_decimal = discount_percentage | divided_by: 100.0 %}
   {% assign multiplier = 1 | minus: discount_decimal %}
   {% assign final_season_price = product.price | times: multiplier %}
@@ -169,14 +173,17 @@
     }
   </style>
 
-  {% if block.settings.show_season_price or block.settings.use_season_tag %}
+  {% if block.settings.show_season_price
+    or block.settings.use_season_tag
+    or product.metafields.custom.use_season_price.value
+  %}
     <div class="dc_season-row">
-      {% if block.settings.show_season_price %}
+      {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
         <div class="dc_season-price-box" style="background-color: {{ block.settings.season_price_background }};">
           <span style="color: {{ block.settings.season_price_color }};">{{ final_season_price | money }}</span>
         </div>
       {% endif %}
-      {% if block.settings.use_season_tag %}
+      {% if block.settings.use_season_tag or product.metafields.custom.use_season_price.value %}
         <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
           {{ block.settings.season_tag_text | escape }}
         </div>
