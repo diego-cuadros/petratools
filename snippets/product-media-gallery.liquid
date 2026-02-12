@@ -11,6 +11,15 @@
 
 {%- liquid
   assign media_count = product.media.size
+  assign price_block = section.blocks | where: 'type', 'price' | first
+  assign price_variant = product.selected_or_first_available_variant
+  assign compare_at_price = price_variant.compare_at_price
+  assign price = price_variant.price | default: 1999
+  assign discount_percentage = 0
+  if compare_at_price > price
+    assign difference = compare_at_price | minus: price
+    assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
+  endif
 
   assign has_only_once_media = false
   if media_count < 2
@@ -60,6 +69,20 @@
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <div class="product__media-gallery-viewer-wrap relative{{ slider_css_class }}">
+    {%- if section.settings.use_percentage_tag_on_viewer and compare_at_price > price -%}
+      <div
+        class="dc_media_discount_tag"
+        style="background-color: {{ price_block.settings.tag_color }};color: {{ price_block.settings.tag_text_color }};"
+      >
+        <img
+          src="https://cdn.shopify.com/s/files/1/0015/4976/2632/files/tag-white-icon.png?v=1770928786"
+          class="dc_media_discount_tag_icon"
+          width="17"
+          height="17"
+        >
+        {{- discount_percentage }}% OFF
+      </div>
+    {%- endif -%}
     <div
       id="GalleryViewer-{{ section.id }}"
       class="product__media-gallery-viewer blocks-radius swiper"
