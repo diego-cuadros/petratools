@@ -94,36 +94,48 @@
     {%- endif -%}
   </div>
   <div class="f-price__sale{% if price_sale_class %} {{ price_sale_class }}{% endif %}">
-    <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-    <span
-      class="f-price-item f-price-item--sale"
-      style="
-        color: {{ block.settings.price_color }}; font-size: {{ block.settings.price_font_size }}px; font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
-        font-weight: {{ price_font.weight }};
-      "
-    >
-      {{ money_price }}
-    </span>
-    {%- unless target.price_varies == false and target.compare_at_price_varies %}
-      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-      <span class="f-price-item f-price-item--regular">
-        <s
-          style="
-               color: {{ block.settings.strike_through_price_color }}; {% if block.settings.use_same_size_for_compare_at_price %}
-                 font-size: {{ block.settings.price_font_size }}px;
-               {% endif %}
-                font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
-            font-weight: {{ price_font.weight }};;
-          "
-        >
-          {% if settings.currency_code_enabled %}
-            {{ compare_at_price | money_with_currency }}
-          {% else %}
-            {{ compare_at_price | money }}
-          {% endif %}
-        </s>
+    {%- capture regular_price_markup -%}
+      <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
+      <span
+        class="f-price-item f-price-item--sale"
+        style="
+          color: {{ block.settings.price_color }}; font-size: {{ block.settings.price_font_size }}px; font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
+          font-weight: {{ price_font.weight }};
+        "
+      >
+        {{ money_price }}
       </span>
-    {%- endunless -%}
+    {%- endcapture -%}
+    {%- capture compare_at_markup -%}
+      {%- unless target.price_varies == false and target.compare_at_price_varies %}
+        <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
+        <span class="f-price-item f-price-item--regular">
+          <s
+            style="
+                 color: {{ block.settings.strike_through_price_color }}; {% if block.settings.use_same_size_for_compare_at_price %}
+                   font-size: {{ block.settings.price_font_size }}px;
+                 {% endif %}
+                  font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
+              font-weight: {{ price_font.weight }};;
+            "
+          >
+            {% if settings.currency_code_enabled %}
+              {{ compare_at_price | money_with_currency }}
+            {% else %}
+              {{ compare_at_price | money }}
+            {% endif %}
+          </s>
+        </span>
+      {%- endunless -%}
+    {%- endcapture -%}
+
+    {%- if block.settings.regular_price_first -%}
+      {{ regular_price_markup }}
+      {{ compare_at_markup }}
+    {%- else -%}
+      {{ compare_at_markup }}
+      {{ regular_price_markup }}
+    {%- endif -%}
   </div>
   {% if block.settings.use_percentage_discount_tag %}
     {%- if compare_at_price > price -%}
