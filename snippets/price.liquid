@@ -153,14 +153,34 @@
   {% assign multiplier = 1 | minus: discount_decimal %}
   {% assign final_season_price = product.price | times: multiplier %}
 
-  {% if block.settings.show_season_price %}
-    <div class="dc_season-price-box" style="background-color: {{ block.settings.season_price_background }};">
-      <span style="color: {{ block.settings.season_price_color }};">{{ final_season_price | money }}</span>
-    </div>
-  {% endif %}
-  {% if block.settings.use_season_tag %}
-    <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
-      {{ block.settings.season_tag_text | escape }}
+  <style>
+    .dc_season-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media screen and (max-width: 767px) {
+      .dc_season-row {
+        display: flex;
+        width: 100%;
+        margin-top: 6px;
+      }
+    }
+  </style>
+
+  {% if block.settings.show_season_price or block.settings.use_season_tag %}
+    <div class="dc_season-row">
+      {% if block.settings.show_season_price %}
+        <div class="dc_season-price-box" style="background-color: {{ block.settings.season_price_background }};">
+          <span style="color: {{ block.settings.season_price_color }};">{{ final_season_price | money }}</span>
+        </div>
+      {% endif %}
+      {% if block.settings.use_season_tag %}
+        <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
+          {{ block.settings.season_tag_text | escape }}
+        </div>
+      {% endif %}
     </div>
   {% endif %}
   <div class="f-price__unit-wrapper{% if selected_variant.unit_price_measurement == nil %} hidden{% endif %}">
