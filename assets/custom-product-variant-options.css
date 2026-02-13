@@ -14,12 +14,13 @@
 
 .product-form__input--button {
   display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 8px !important; 
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 8px !important;
 }
 
 /* Sprayer PDP: Always 3 columns on all screen sizes */
-variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
+variant-selects[data-template="sprayer-pdp"] .product-form__input--button,
+body.sprayer-pdp variant-selects .product-form__input--button {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 8px !important;
@@ -36,7 +37,7 @@ variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
   border-color: #222 !important;
 }
 
-.product-form__input--button input[type='radio'] + label {
+.product-form__input--button input[type="radio"] + label {
   justify-content: flex-start !important;
 }
 
@@ -44,8 +45,8 @@ variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
   flex-wrap: nowrap;
 }
 
-.product-form__input .form__label{
-  font-size:16px !important;
+.product-form__input .form__label {
+  font-size: 16px !important;
 }
 
 .button-with-image {
@@ -72,6 +73,21 @@ variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
   font-weight: 500;
 }
 
+@media (min-width: 785px) and (max-width: 1185px) {
+  .product-form__input--button .button-with-image {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto !important;
+    text-align: center;
+  }
+
+  .product-form__input--button .variant-label {
+    text-align: center;
+    width: 100%;
+  }
+}
+
 /* Desktop: 2 buttons per row when there are more than 3 */
 @media (min-width: 769px) {
   .product-form__input--button.has-more-than-3 {
@@ -79,7 +95,7 @@ variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
-  
+
   .product-form__input--button.has-more-than-3 .button-with-image {
     width: 100% !important;
   }
@@ -104,13 +120,20 @@ variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
 
 /* Mobile: Sprayer PDP specific layout - 3 buttons per row with specific dimensions */
 @media (max-width: 768px) {
-  variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
+  variant-selects[data-template="sprayer-pdp"] .product-form__input--button,
+  body.sprayer-pdp variant-selects .product-form__input--button {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px !important;
   }
 
-  variant-selects[data-template="sprayer-pdp"] .product-form__input--button .button-with-image {
+  variant-selects[data-template="sprayer-pdp"]
+    .product-form__input--button
+    .button-with-image,
+  body.sprayer-pdp
+    variant-selects
+    .product-form__input--button
+    .button-with-image {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,7 +147,8 @@ variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
     border-radius: 4px;
   }
 
-  variant-selects[data-template="sprayer-pdp"] .variant-image-wrapper {
+  variant-selects[data-template="sprayer-pdp"] .variant-image-wrapper,
+  body.sprayer-pdp variant-selects .variant-image-wrapper {
     width: 98px;
     height: 98px;
     border-radius: 4px;
@@ -132,7 +156,8 @@ variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
     flex-shrink: 0;
   }
 
-  variant-selects[data-template="sprayer-pdp"] .variant-label {
+  variant-selects[data-template="sprayer-pdp"] .variant-label,
+  body.sprayer-pdp variant-selects .variant-label {
     font-size: 12px;
     font-weight: 500;
     text-align: center;
