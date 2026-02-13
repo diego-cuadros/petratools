@@ -153,6 +153,14 @@
             "margin_bottom": 16
           }
         },
+        "frequently_bought_with_tAPrQY": {
+          "type": "frequently_bought_with",
+          "settings": {
+            "frequently_bought_with_product": "{{ product.metafields.custom.frequently_bought_with.value }}",
+            "frequently_bought_with_title": "Frequently Bought With:",
+            "background_color": "#f4faf3"
+          }
+        },
         "what_makes_it_special_t8RYPd": {
           "type": "what_makes_it_special",
           "settings": {
@@ -225,6 +233,7 @@
         "grid_icon_box_kpRHWF",
         "divider_pPz3Kw",
         "collapsible_trust_card_irQwq8",
+        "frequently_bought_with_tAPrQY",
         "what_makes_it_special_t8RYPd",
         "collapsible_with_table_WeYK9m"
       ],
@@ -239,6 +248,7 @@
         "show_image_border": false,
         "enable_image_zoom": true,
         "enable_video_looping": true,
+        "use_percentage_tag_on_viewer": true,
         "padding_top": 60,
         "padding_bottom": 60
       }

@@ -88,7 +88,10 @@
       </span>
     {%- else -%}
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-      <span class="f-price-item f-price-item--regular">
+      <span
+        class="f-price-item f-price-item--regular"
+        style="color: {{ block.settings.price_color }}; font-size: {{ block.settings.price_font_size }}px;"
+      >
         {{ money_price }}
       </span>
     {%- endif -%}

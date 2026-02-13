@@ -18,6 +18,13 @@
     gap: 8px !important; 
 }
 
+/* Sprayer PDP: Always 3 columns on all screen sizes */
+variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 8px !important;
+}
+
 .product-form__input--button .button-with-image:hover {
   border-color: #222 !important;
   background-color: transparent !important;
@@ -92,5 +99,48 @@
 
   .product-form__input--button .button-with-image {
     width: 100% !important;
+  }
+}
+
+/* Mobile: Sprayer PDP specific layout - 3 buttons per row with specific dimensions */
+@media (max-width: 768px) {
+  variant-selects[data-template="sprayer-pdp"] .product-form__input--button {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px !important;
+  }
+
+  variant-selects[data-template="sprayer-pdp"] .product-form__input--button .button-with-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 149px !important;
+    width: 100% !important;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid #e0e0e0 !important;
+    background-color: transparent !important;
+    border-radius: 4px;
+  }
+
+  variant-selects[data-template="sprayer-pdp"] .variant-image-wrapper {
+    width: 98px;
+    height: 98px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  variant-selects[data-template="sprayer-pdp"] .variant-label {
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    width: 100%;
   }
 }

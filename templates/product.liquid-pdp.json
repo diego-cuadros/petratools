@@ -40,10 +40,18 @@
             "strike_through_price_color": "#919191",
             "price_font_size": 24,
             "use_same_size_for_compare_at_price": true,
+            "regular_price_first": true,
             "price_font_family": "manrope_n6",
             "use_percentage_discount_tag": true,
             "tag_color": "#ff5413",
-            "tag_text_color": "#ffffff"
+            "tag_text_color": "#ffffff",
+            "use_season_tag": false,
+            "season_tag_text": "🔥Black Friday Offer",
+            "season_tag_color": "#bf5a33",
+            "show_season_price": false,
+            "season_discount_percentage": 30,
+            "season_price_color": "#bf5a33",
+            "season_price_background": "#bf5a33"
           }
         },
         "text_VLLzk3": {
@@ -269,6 +277,7 @@
         "show_image_border": false,
         "enable_image_zoom": true,
         "enable_video_looping": true,
+        "use_percentage_tag_on_viewer": true,
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -362,8 +371,8 @@
         "heading": "Build Your Kit Bundle",
         "coverage_per_unit": 200,
         "unit_name_plural": "gallons",
-        "product_1": "",
-        "product_2": ""
+        "product_1": "{{ section.settings.product_2.metafields.custom.build_your_kit_bundle_product1.value }}",
+        "product_2": "{{ section.settings.product_1.metafields.custom.build_your_kit_bundle_product2.value }}"
       }
     },
     "compatible_accesories_cAaBkL": {

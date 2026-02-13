@@ -25,6 +25,9 @@
     data-section="{{ section.id }}"
     data-url="{{ product.url }}"
     data-update-url="{% if update_url == false %}false{% else %}true{% endif %}"
+    {% if template.suffix == 'sprayer-pdp' %}
+      data-template="sprayer-pdp"
+    {% endif %}
   >
     {%- for option in product.options_with_values -%}
       {%- liquid
