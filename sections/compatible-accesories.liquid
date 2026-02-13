@@ -21,7 +21,10 @@
               class="dc_compatible-accessorie__product-container"
               style="background-color: {{ section.settings.card_background_color }};"
             >
-              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+              <div class="dc_compatible-accessorie__image-wrapper">
+                {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+                <div class="dc_compatible-accessorie__product-title">{{ product.title }}</div>
+              </div>
 
               <div class="dc_compatible-accessorie__btn-container">
                 <div
