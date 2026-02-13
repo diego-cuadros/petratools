@@ -37,9 +37,15 @@
 
 .comparison-section .comparison-header > * {
   padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
 }
 .comparison-section .header-cell:first-child {
   display: block;
+  min-height: auto;
 }
 
 .comparison-section .product-header {
@@ -47,12 +53,15 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  height: 100%;
+  justify-content: center;
 }
 
 .comparison-section .product-image {
   width: 100px;
   height: 100px;
   object-fit: contain;
+  flex-shrink: 0;
 }
 
 .comparison-section .product-name {
@@ -60,6 +69,14 @@
   font-weight: 600;
   color: #1a1a1a;
   text-align: center;
+  line-height: 1.3;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Body Rows */
