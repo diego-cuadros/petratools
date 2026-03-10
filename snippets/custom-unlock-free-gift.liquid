@@ -18,6 +18,9 @@
         and block.settings.control_content_from_metafields == true
       %}
         {{ product.metafields.custom.free_gift_product.value.title }}
+        <span class = "dc_free-gift-price">
+        ({{ product.metafields.custom.free_gift_product.value.price | money }} value)
+        </span>
       {% else %}
         {% if block.settings.free_gift_product != blank %}
           {{ block.settings.free_gift_product.title }}

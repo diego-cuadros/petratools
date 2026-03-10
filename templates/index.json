@@ -62,7 +62,7 @@
       ],
       "custom_css": [
         ".dc_wrapper {width: 628px;}",
-        "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - var(--page-width)) / 2); padding-right:0; width: 50%; }}",
+        "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - var(--page-width)) / 2); padding-right: 0; width: 50%; }}",
         "@media only screen and (max-width: 768px) {.image-with-text-ovelay__content-wrapper > div {max-width: 100%; } .rich-text__heading {font-size: 32px; } .image-with-text-ovelay__content-wrapper .btn {width: 100%; }}",
         "@media screen and (min-width: 748px) and (max-width: 1439px) {.dc_wrapper {padding-left: 0px !important; }}"
       ],
@@ -170,9 +170,7 @@
         "padding_top": 0,
         "padding_bottom": 50,
         "show_section_divider": false,
-        "divider_width": "fixed",
-        "best_seller_bg_color": "#ffc954",
-        "best_seller_text_color": "#131314"
+        "divider_width": "fixed"
       }
     },
     "collection_list_8H4MWF": {
@@ -190,7 +188,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "backpack-sprayers",
-            "image": "shopify://shop_images/backpack_sprayers_category.webp",
+            "image": "shopify://shop_images/Backpack_Sprayers.png",
             "title": ""
           }
         },
@@ -205,9 +203,9 @@
         "featured_collection_hiPccV": {
           "type": "featured_collection",
           "settings": {
-            "collection": "lawn-garden-solutions",
-            "image": "shopify://shop_images/small_sprayers_category.webp",
-            "title": "Solutions"
+            "collection": "grass-liquid-fertilizers",
+            "image": "shopify://shop_images/Solutions.png",
+            "title": "Fertilizers and Lawn Care"
           }
         }
       },
@@ -423,7 +421,7 @@
         "button_link": "",
         "button_style": "btn--underline",
         "button_icon": "none",
-        "image": "shopify://shop_images/Diseno_sin_titulo.png",
+        "image": "shopify://shop_images/sprayer.png",
         "icon_style": "plus",
         "icon_color": "dark",
         "card_color_scheme": "",
@@ -460,6 +458,67 @@
         "padding_bottom": 0
       }
     },
+    "rich_text_9TPDVA": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_iJ9CEb": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Customer Videos",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_iJ9CEb"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "use_color_scheme_in_container": false,
+        "content_spacing": "standard",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
+    "1772461838984342df": {
+      "type": "apps",
+      "blocks": {
+        "storista_stories_cjr88k": {
+          "type": "shopify://apps/storista/blocks/stories/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
+          "settings": {
+            "stories_widget_id": "4V1YMH0Tlv4Bw0V",
+            "heading": "heading",
+            "heading_tag": "h2",
+            "heading_position": "center",
+            "heading_css": "",
+            "subtitle": "",
+            "subtitle_tag": "h5",
+            "subtitle_position": "center",
+            "suibtitle_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "storista_stories_cjr88k"
+      ],
+      "custom_css": [
+        ".atTSbW_arrowIcon {border-radius: 100%; border: 1px solid #b5b5b5;}"
+      ],
+      "settings": {
+        "include_margins": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "image_with_text_overlay_e8gK4d": {
       "type": "image-with-text-overlay",
       "blocks": {
@@ -484,7 +543,7 @@
         "button_kgQDBx": {
           "type": "button",
           "settings": {
-            "button_label": "Contact Us",
+            "button_label": "Support Center",
             "button_link": "shopify://pages/contact",
             "button_style": "btn--secondary",
             "button_icon": "none"
@@ -621,50 +680,66 @@
         "card_background_color": "#ffffff",
         "background_color_for_title_on_mobile": "#333333",
         "background_color_for_title_text_on_mobile": "#ffffff",
-        "color_for_stars": "#d06835",
-        "section_title": "Over 2,000,000+ Happy customers",
+        "color_for_stars": "#ff5413",
+        "section_title": "Over 2 Million Happy customers",
         "verified_badge_color": "#333232"
       }
     },
     "custom_brand_promise_HRKqYw": {
       "type": "custom-brand-promise",
       "blocks": {
-        "feature_YyEJUc": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/Frame.png",
-            "label": "Worldwide Shipping"
-          }
-        },
         "feature_NTTjpc": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Frame_1.png",
-            "label": "30-Days Free Returns"
+            "icon": "shopify://shop_images/Frame.png",
+            "label": "30-Days Free Returns",
+            "sublabel": "30 Days to Decide"
           }
         },
         "feature_eWxR4e": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_2.png",
-            "label": "1 Year Warranty"
+            "label": "1 Year Warranty",
+            "sublabel": "We've got your back"
+          }
+        },
+        "feature_fThcwQ": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "label": "Worldwide Shipping",
+            "sublabel": "Feature subtext here"
+          }
+        },
+        "feature_qmARNj": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "label": "Worldwide Shipping",
+            "sublabel": "Feature subtext here"
           }
         },
         "feature_eYnUKp": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_3.png",
-            "label": "24/7 Friendly Support"
+            "label": "24/7 Friendly Support",
+            "sublabel": "Real Humans. Real Help."
           }
         }
       },
       "block_order": [
-        "feature_YyEJUc",
         "feature_NTTjpc",
         "feature_eWxR4e",
+        "feature_fThcwQ",
+        "feature_qmARNj",
         "feature_eYnUKp"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".dc_brand-promise__icon {width: 26px !important;}",
+        ".dc_brand-promise__inner {padding: 20px !important;}"
+      ],
       "name": "🔥Custom brand promise",
       "settings": {
         "section_background_color": "#f5f5f5",
@@ -672,7 +747,7 @@
         "text_color": "#b5b5b5",
         "heading": "The Petra Brand Promise",
         "heading_color": "#ffffff",
-        "text": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam .",
+        "text": "We deliver the power, durability, and reliability of commercial equipment without the complexity or the price tag. And when something goes wrong, we actually stand behind our promise - exactly what you'd expect from a family business.",
         "body_text_color": "#b5b5b5",
         "border_color_grid": "#313131",
         "logo": "shopify://shop_images/Petra_logo.png",
@@ -687,6 +762,8 @@
     "collection_list_8H4MWF",
     "custom_hero_lookbook_banner_YJnKNw",
     "17695409095f380edc",
+    "rich_text_9TPDVA",
+    "1772461838984342df",
     "image_with_text_overlay_e8gK4d",
     "custom_reviews_grid_77yVbd",
     "custom_brand_promise_HRKqYw"

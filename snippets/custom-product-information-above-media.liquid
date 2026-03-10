@@ -12,6 +12,11 @@
     -%}
     {%- case block.type -%}
       {%- when 'title' -%}
+        <div class="jdgm-widget jdgm-preview-badge dc_hide_on_desktop" 
+            data-id="{{ product.id }}" 
+            data-auto-install="false">
+          {{ product.metafields.judgeme.badge }}
+        </div>  
         <div class="{{ block_classes }} dc_hide_on_desktop" {{ block.shopify_attributes }}>
           <h1 class="product__title {{ block.settings.heading_size }}">{{ product.title | escape }}</h1>
           <a href="{{ product.url }}" class="product__title">

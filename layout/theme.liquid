@@ -9,7 +9,7 @@
       assign enable_rtl = true
     else
       assign enable_rtl = false
-    endif 
+    endif
   endif
 %}
 <!doctype html>
@@ -64,7 +64,7 @@
         echo 'compare.css' | asset_url | stylesheet_tag: preload: true
       endif
 
-      if enable_rtl 
+      if enable_rtl
         echo 'rtl.css' | asset_url | stylesheet_tag: preload: true
       endif
     -%}
@@ -141,5 +141,7 @@
     {%- if settings.enable_product_compare -%}
       <script src="{{ 'compare.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    <!-- TEMP DEV: remove before deploying -->
+    <script src="{{ 'TEMP-keep-mega-menu-open.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

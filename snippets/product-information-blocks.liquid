@@ -84,6 +84,11 @@
             {{- block.settings.text -}}
           </div>
         {%- when 'title' -%}
+         <div class="jdgm-widget jdgm-preview-badge dc_hide_on_mobile" 
+            data-id="{{ product.id }}" 
+            data-auto-install="false">
+          {{ product.metafields.judgeme.badge }}
+        </div>     
           <div
             class="{{ block_classes }} {% if block.settings.show_above_product_media_mobile %}dc_hide_on_mobile{% endif %}"
             {{ block.shopify_attributes }}

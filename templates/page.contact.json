@@ -177,6 +177,25 @@
     },
     "form": {
       "type": "contact-form",
+      "blocks": {
+        "custom_field_RikP9X": {
+          "type": "custom_field",
+          "settings": {
+            "field_type": "select",
+            "heading": "Subject",
+            "placeholder": "Select Subject",
+            "required": true,
+            "full_width": true,
+            "select_options": "Option 1, Option 2, Option 3",
+            "checkbox_checked_value": "Yes",
+            "checkbox_uncheck_value": "No",
+            "radio_options": ""
+          }
+        }
+      },
+      "block_order": [
+        "custom_field_RikP9X"
+      ],
       "custom_css": [
         "@media only screen and {.contact-form__form {margin: auto; max-width: 668px; }}",
         "form {margin-top: 56px; margin-bottom: 56px;}"

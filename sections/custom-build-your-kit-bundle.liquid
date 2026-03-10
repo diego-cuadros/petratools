@@ -5,6 +5,13 @@
   assign product_1 = section.settings.product_1
   assign product_2 = section.settings.product_2
 
+  if product.metafields.custom.build_your_bundle_coverage_per_unit != blank
+    assign coverage_per_unit = product.metafields.custom.build_your_bundle_coverage_per_unit | plus: 0
+  else
+    assign coverage_per_unit = section.settings.coverage_per_unit | default: 1
+  endif
+
+
   if product_1 != blank and product_1.value != blank
     assign product_1 = product_1.value
   endif
@@ -45,7 +52,7 @@
   {% endcomment %}
   <build-your-kit-bundle
     class="kit-bundle__inner"
-    data-coverage="{{ section.settings.coverage_per_unit | default: 1 }}"
+    data-coverage="{{ coverage_per_unit }}"
     data-unit-name="{{ section.settings.unit_name_plural | escape }}"
     data-money-format="{{ shop.money_format }}"
     {% if product_1_variant %}

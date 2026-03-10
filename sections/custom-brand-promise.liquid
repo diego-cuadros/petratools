@@ -51,7 +51,9 @@
               class="dc_brand-promise__label"
               style="color:{{ section.settings.body_text_color }};"
             >
-              {{ block.settings.label }}
+              <span>{{ block.settings.label }}</span>
+              <br>
+              <p class = "dc_brand-promise-label-subtext">{{ block.settings.sublabel }}</p>
             </div>
           </div>
         {% endfor %}
@@ -132,6 +134,12 @@
           "id": "label",
           "label": "Feature text",
           "default": "Worldwide Shipping"
+        },
+        {
+          "type": "text",
+          "id": "sublabel",
+          "label": "Feature subtext",
+          "default":"Feature subtext here"
         }
       ]
     }

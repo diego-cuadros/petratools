@@ -91,8 +91,9 @@
       ],
       "name": "🔥Custom banner",
       "settings": {
-        "image": "shopify://shop_images/collections_desktop_banner.webp",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+        "image": "{{ collection.image }}",
+        "image_mobile": "{{ collection.metafields.custom.image_for_banner_mobile.value }}",
+        "description": "",
         "title_color": "#ffffff",
         "collection_description_color": "#ffffff"
       }
@@ -164,49 +165,49 @@
         "feature_qNc4Nj": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Frame.png",
-            "label": "Worldwide Shipping"
+            "icon": "shopify://shop_images/Frame_1.png",
+            "label": "30-Days Free Returns",
+            "sublabel": "30 Days to Decide"
           }
         },
         "feature_GHi3Gd": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_2.png",
-            "label": "30-Days Free Returns"
+            "label": "1 Year Warranty",
+            "sublabel": "We've got your back"
           }
         },
         "feature_8Ch3eF": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_3.png",
-            "label": "1 Year Warranty"
-          }
-        },
-        "feature_zUCRjp": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/Frame_1.png",
-            "label": "24/7 Friendly Support"
+            "label": "24/7 Friendly Support",
+            "sublabel": "Real Humans. Real Help."
           }
         }
       },
       "block_order": [
         "feature_qNc4Nj",
         "feature_GHi3Gd",
-        "feature_8Ch3eF",
-        "feature_zUCRjp"
+        "feature_8Ch3eF"
+      ],
+      "custom_css": [
+        ".dc_brand-promise__icon {width: 26px !important;}",
+        ".dc_brand-promise__inner {padding: 20px !important;}"
       ],
       "name": "🔥Custom brand promise",
       "settings": {
         "section_background_color": "#f5f5f5",
         "background_color": "#222222",
         "text_color": "#b5b5b5",
-        "heading": "The Beest Brand Promise",
+        "heading": "The Petra Brand Promise",
         "heading_color": "#ffffff",
-        "text": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam.",
+        "text": "We deliver the power, durability, and reliability of commercial equipment without the complexity or the price tag. And when something goes wrong, we actually stand behind our promise - exactly what you'd expect from a family business.",
         "body_text_color": "#b5b5b5",
         "border_color_grid": "#2f2f2f",
-        "logo": "shopify://shop_images/Petra_logo.png"
+        "logo": "shopify://shop_images/Petra_logo.png",
+        "left_column_title": ""
       }
     }
   },

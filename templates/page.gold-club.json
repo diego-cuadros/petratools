@@ -43,7 +43,7 @@
         "button_8FydfA": {
           "type": "button",
           "settings": {
-            "button_label": "Join Now",
+            "button_label": "JOIN NOW",
             "button_link": "shopify://collections",
             "button_style": "btn--primary",
             "button_icon": "none"
@@ -56,6 +56,7 @@
         "button_8FydfA"
       ],
       "custom_css": [
+        ".dc_h2 {font-weight: 500;}",
         ".dc_wrapper {width: 528px;}",
         "@media (min-width: 1440px) {.dc_wrapper {padding-left: calc((100vw - 1440px) / 2); padding-right: 0; width: 50%; }}",
         "@media (min-width: 769px) {.dc_wrapper a {width: 237px; }}",
@@ -64,7 +65,7 @@
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "container": "full",
-        "image": "shopify://shop_images/2f7e4ed6970dc5d8a9db04a9f104581e36bf7b83.jpg",
+        "image": "shopify://shop_images/Frame_1_4.jpg",
         "desktop_height": "extra-medium",
         "overlay_opacity": 30,
         "enable_parallax": false,
@@ -74,6 +75,7 @@
         "container_color": "#ffffff",
         "content_position": "middle-left",
         "content_alignment": "left",
+        "image_mobile": "shopify://shop_images/Frame_1_2.jpg",
         "mobile_height": "extra-large",
         "content_position_mobile": "top-center-mobile",
         "content_alignment_mobile": "center",
@@ -89,14 +91,16 @@
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Group_3629_2.png",
-            "label": "6 Month Full Warranty"
+            "label": "6 Month Full Warranty",
+            "sublabel": "A standard 6-month full warranty for manufacturer defects"
           }
         },
         "feature_4bnaNA": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Group_3629_3.png",
-            "label": "3 Month Extended Warranty"
+            "label": "3 Month Extended Warranty",
+            "sublabel": "And an additional 3-month extended warranty."
           }
         }
       },
@@ -104,14 +108,7 @@
         "feature_JPDRyq",
         "feature_4bnaNA"
       ],
-      "custom_css": [
-        "@media only screen and (max-width: 768px) {.dc_brand-promise__heading {text-align: center; font-size: 32px; }}",
-        ".dc_brand-promise__features {background-color: #222;}",
-        ".dc_brand-promise__feature {gap: 20px;}",
-        ".dc_brand-promise__icon {width: 72px; height: 72px;}",
-        ".dc_brand-promise__icon img {width: 72px; height: 72px;}",
-        ".dc_brand-promise__left-column-title {border-bottom: 1px solid rgba(255, 255, 255, 0.07);}"
-      ],
+      "custom_css": [],
       "name": "🔥Custom brand promise",
       "settings": {
         "section_background_color": "#000000",
@@ -149,7 +146,7 @@
         "column_xHiViQ": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/backpack_1.png",
+            "image": "shopify://shop_images/backpack_1_2.png",
             "title": "Free Petratools Products Just for You",
             "highlight_style": "none",
             "highlight_font_style": "italic",
@@ -189,6 +186,8 @@
         "column_NbMnWz"
       ],
       "custom_css": [
+        ".rich-text h2 {font-weight: 500;}",
+        ".multicolumn-card__title {font-weight: 500;}",
         ".f-column {background-color: #f9f9f9; padding: 16px 24px; border-radius: 12px;}",
         ".multicolumn-card__image {width: 100px; height: 100px;}",
         "@media only screen and (max-width: 768px) {.f-column {display: flex; align-items: center; gap: 16px; } .multicolumn-card__image {width: 64px; height: 64px; }}"
@@ -256,8 +255,8 @@
         "text_rLFGjW"
       ],
       "custom_css": [
-        "@media only screen and (min-width: 749px) {.rich-text {display: flex; gap: 70px; } .rich-text__heading {flex: 0 0 25%; } .rich-text__text {flex: 0 0 60%; } .rich-text__text {margin-top: 0px; }}",
-        ".rich-text h2 {font-size: 32px;}"
+        ".rich-text h2 {font-weight: 500; font-size: 32px !important;}",
+        "@media only screen and (min-width: 749px) {.rich-text {display: flex; gap: 70px; } .rich-text__heading {flex: 0 0 40%; } .rich-text__text {flex: 0 0 50%; } .rich-text h2 {font-size: 40px !important; margin-top: 10px; }}"
       ],
       "name": "t:sections.rich-text.name",
       "settings": {
@@ -275,25 +274,25 @@
     "collapsible_tabs_PmJJ83": {
       "type": "collapsible-tabs",
       "blocks": {
-        "collapsible_item_GGMmqU": {
+        "collapsible_item_z3WjLd": {
           "type": "collapsible_item",
           "settings": {
             "icon": "none",
             "heading": "Standard 6-Month Warranty(Automatically Applies to All Purchases)",
-            "content": "<ul><li>Coverage Duration:</li></ul><p> 6 months from the date of purchase.</p><ul><li>What’s Covered:</li></ul><p>Manufacturing defects in materials and workmanship, including the sprayer unit, pump, battery, electronic components, and seals.</p><ul><li>Resolution:</li></ul><p>We will provide replacement parts or a full unit replacement as necessary.</p><ul><li>Shipping Costs:</li></ul><p>We will cover all shipping costs for approved warranty claims.</p><ul><li>What’s Not Covered:</li></ul><p>Labor costs.Misuse, abuse, neglect, improper storage, or failure to follow operating instructions.Unauthorized repairs or modifications.Damage caused by chemicals or solutions not approved for use with the sprayer.</p>",
-            "custom_liquid": "",
+            "content": "",
+            "custom_liquid": "<ul>\n    <li class=\"dc_content-text \">\n      <span class=\"dc_content-bullet \">Coverage Duration:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text \">6 months from the date of purchase.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">What's Covered:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text \">Manufacturing defects in materials and\n          workmanship, including the sprayer unit, pump, battery, electronic components, and seals.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">Resolution:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text\">We will provide replacement parts or a full\n          unit replacement as necessary.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">Shipping Costs:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text \">We will cover all shipping costs for approved\n          warranty claims.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">What's Not Covered:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text \"><span class=\"dc_bullet-icon\">◦</span>Labor costs.</li>\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>Misuse, abuse, neglect, improper storage, or\n          failure to follow operating instructions.</li>\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>Unauthorized repairs or modifications.</li>\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>Damage caused by chemicals or solutions not\n          approved for use with the sprayer.</li>\n      </ul>\n    </li>\n  </ul>",
             "page": "",
             "open": false,
             "use_subtext_color": false
           }
         },
-        "collapsible_item_z3WjLd": {
+        "collapsible_item_Qrrhfn": {
           "type": "collapsible_item",
           "settings": {
             "icon": "none",
             "heading": "Free Extended 1-Year Warranty(Opt-In Registration Required)",
-            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
-            "custom_liquid": "",
+            "content": "",
+            "custom_liquid": "<ul>\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet dc_margin-top \">Coverage Duration:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li>\n          Extends coverage to <span class =\"dc_content-bold-text\">1 year from the date of purchase</span> when the product is registered within <span class =\"dc_content-bold-text\">30 days of purchase</span>.</span>\n        </li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">What's Covered:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>Manufacturing defects in the sprayer unit, pump, battery, electronic components, and\n          other functional components.</li>\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>We will provide replacement parts or <span class=\"dc_content-bold-text\">Up to one full unit replacement</span> within the 1\n          year based on our determination.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">Shipping Costs:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text\">We will cover all shipping costs for approved warranty claims.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">What's Not Covered:</span>\n      <ul class = \"dc_hide-bullets dc_margin-top\">\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>Misuse, abuse, neglect, improper storage, or failure to follow operating\n          instructions.</li>\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>Unauthorized repairs or modifications.</li>\n        <li class=\"dc_content-text\"><span class=\"dc_bullet-icon\">◦</span>Damage caused by chemicals or solutions not approved for use with the sprayer.</li>\n      </ul>\n    </li>\n  </ul>",
             "page": "",
             "open": false,
             "use_subtext_color": false
@@ -304,8 +303,8 @@
           "settings": {
             "icon": "none",
             "heading": "How to Register for the Extended Warranty",
-            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
-            "custom_liquid": "",
+            "content": "",
+            "custom_liquid": "<span class=\"dc_content-text\">\n    To activate the <span class=\"dc_content-bold-text\">free extended 1-year warranty</span>, register your product\n    within <span class=\"dc_content-bold-text\">30 days of purchase.</span> at: www.petratools.com/warranty\n  </span>",
             "page": "",
             "open": false,
             "use_subtext_color": false
@@ -316,8 +315,8 @@
           "settings": {
             "icon": "none",
             "heading": "Warranty Claim Process",
-            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
-            "custom_liquid": "",
+            "content": "",
+            "custom_liquid": "<ul>\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">Contact Us:</span>\n      <ul class = \"dc_margin-top dc_hide-bullets\">\n        <li class=\"dc_content-text\">Reach out to our support team at support@petratools.com for assistance.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">Provide Proof of Purchase & Details:</span>\n      <ul class = \"dc_margin-top dc_hide-bullets\">\n        <li class=\"dc_content-text\">Proof of purchase is required for all claims.</li>\n      </ul>\n    </li>\n\n    <li class=\"dc_content-text\">\n      <span class=\"dc_content-bullet\">Shipping & Replacement:</span>\n      <ul class = \"dc_margin-top dc_hide-bullets\">\n        <li class=\"dc_content-text\">Once approved, we will provide replacement parts or a full unit replacement at no\n          cost, including shipping.</li>\n      </ul>\n    </li>\n  </ul>",
             "page": "",
             "open": false,
             "use_subtext_color": false
@@ -328,8 +327,8 @@
           "settings": {
             "icon": "none",
             "heading": "Important Notes",
-            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
-            "custom_liquid": "",
+            "content": "",
+            "custom_liquid": "<ul>\n    <li class=\"dc_content-text dc_margin-top \">\n      This warranty is <span class=\"dc_content-bold-text\">non-transferable</span>and applies only to the<span class=\"dc_content-bold-text\">original purchaser.</span>\n    </li>\n    <li class=\"dc_content-text dc_margin-top \">\n      The warranty does <span class=\"dc_content-bold-text\">not cover labor costs</span> associated with installation or\n      repairs.\n    </li>\n    <li class=\"dc_content-text dc_margin-top \">\n      Damage caused by <span class=\"dc_content-bold-text\">misuse, abuse, alterations, or unapproved chemicals</span> will\n      void the warranty.\n    </li>\n  </ul>",
             "page": "",
             "open": false,
             "use_subtext_color": false
@@ -337,16 +336,18 @@
         }
       },
       "block_order": [
-        "collapsible_item_GGMmqU",
         "collapsible_item_z3WjLd",
+        "collapsible_item_Qrrhfn",
         "collapsible_item_fnMQgk",
         "collapsible_item_dwRtxR",
         "collapsible_item_yymbaT"
       ],
       "custom_css": [
-        "@media only screen and (min-width: 769px) {.section__heading {margin-top: 40px; }}",
+        ".accordion-details__summary h2 {font-weight: 500 !important;}",
+        ".rich-text h2 {font-weight: 500; font-size: 32px;}",
         "a.rich-text--fitted,.rich-text--tight {padding-bottom: 0px !important;}",
-        ".accordion-item svg {color: #ff5413;}"
+        ".accordion-item svg {color: #ff5413;}",
+        "@media only screen and (min-width: 769px) {.section__heading {margin-top: 40px; } .rich-text h2 {font-size: 40px; } .section__wrapper {grid-template-columns: minmax(0, 2fr) minmax(0, 2.5fr) !important; }}"
       ],
       "name": "t:sections.collapsible-tabs.name",
       "settings": {
@@ -420,14 +421,29 @@
             "open": false,
             "use_subtext_color": false
           }
+        },
+        "collapsible_item_fp6Pt9": {
+          "type": "collapsible_item",
+          "settings": {
+            "icon": "none",
+            "heading": "Is there a warranty on each item?",
+            "content": "<p>Fill in the text content of the collapsible item here. You can provide details and explanation for the question here.</p>",
+            "custom_liquid": "",
+            "page": "",
+            "open": false,
+            "use_subtext_color": false
+          }
         }
       },
       "block_order": [
         "collapsible_item_8aekTK",
         "collapsible_item_UeJ7Wk",
-        "collapsible_item_VdGGCt"
+        "collapsible_item_VdGGCt",
+        "collapsible_item_fp6Pt9"
       ],
       "custom_css": [
+        ".rich-text h2 {font-weight: 500;}",
+        ".accordion-details__summary h2 {font-weight: 500 !important;}",
         "a.rich-text--fitted,.rich-text--tight {padding-bottom: 0px !important;}",
         ".accordion-item svg {color: #ff5413;}"
       ],

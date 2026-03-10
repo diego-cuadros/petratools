@@ -170,12 +170,15 @@
             "text_color": "#222222",
             "text_content_color": "#636363",
             "header_text": "STILL DECIDING?",
-            "info_title_1": "Free shipping on all U.S. orders of $40+",
-            "info_paragraph_1": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "info_title_2": "Easy returns and exchanges",
-            "info_paragraph_2": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "info_title_3": "30-day money-back Guarantee",
-            "info_paragraph_3": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. S",
+            "info_title_1": "Free Shipping On All U.S. Orders Of $50+",
+            "info_icon_1": "shopify://shop_images/Frame_03ee538c-d741-414f-9ab0-18a920d58e10.png",
+            "info_paragraph_1": "Stock up on sprayers, parts, and lawn care solutions without paying extra for shipping. Orders over $40 ship free anywhere in the U.S.",
+            "info_title_2": "Easy Returns And Exchanges",
+            "info_icon_2": "shopify://shop_images/Frame_1_cd4c63c2-acb7-4c65-b938-126e23f9ab1a.png",
+            "info_paragraph_2": "Ordered the wrong item or need help finding the right tool? Our team makes returns and exchanges easy, so you can get back to your project.",
+            "info_title_3": "30-Day Money-Back Guarantee",
+            "info_icon_3": "shopify://shop_images/Frame_2_211f4814-5096-44b3-a6a2-f93c50001d1a.png",
+            "info_paragraph_3": "We stand behind our tools. If you’re not satisfied within 30 days, we’ll make it right with a full refund.",
             "margin_top": 16,
             "margin_bottom": 16
           }
@@ -216,8 +219,8 @@
             "table_1_row_content_1": "{{ product.metafields.custom.collapsible_with_table1_row_1.value }}",
             "table_1_row_content_2": "{{ product.metafields.custom.collapsible_with_table1_row_2.value }}",
             "table_1_row_content_3": "{{ product.metafields.custom.collapsible_with_table1_row_3.value }}",
-            "table_1_row_content_4": "",
-            "table_1_row_content_5": "",
+            "table_1_row_content_4": "{{ product.metafields.custom.collapsible_with_table1_row_4.value }}",
+            "table_1_row_content_5": "{{ product.metafields.custom.collapsible_with_table1_row_5.value }}",
             "info_title_2": "{{ product.metafields.custom.collapsible_with_table2_title_2.value }}",
             "info_paragraph_2": "{{ product.metafields.custom.collapsible_with_table2_content_2.value }}",
             "use_content_table_from_metafields_2": true,
@@ -225,8 +228,8 @@
             "table_2_row_content_1": "{{ product.metafields.custom.collapsible_with_table2_row_1.value }}",
             "table_2_row_content_2": "{{ product.metafields.custom.collapsible_with_table2_row_2.value }}",
             "table_2_row_content_3": "{{ product.metafields.custom.collapsible_with_table2_row_3.value }}",
-            "table_2_row_content_4": "",
-            "table_2_row_content_5": "",
+            "table_2_row_content_4": "{{ product.metafields.custom.collapsible_with_table2_row_4.value }}",
+            "table_2_row_content_5": "{{ product.metafields.custom.collapsible_with_table2_row_5.value }}",
             "info_title_3": "{{ product.metafields.custom.collapsible_with_table3_title_3.value }}",
             "info_paragraph_3": "{{ product.metafields.custom.collapsible_with_table3_content_3.value }}",
             "use_content_table_from_metafields_3": true,
@@ -234,8 +237,8 @@
             "table_3_row_content_1": "{{ product.metafields.custom.collapsible_with_table3_row_1.value }}",
             "table_3_row_content_2": "{{ product.metafields.custom.collapsible_with_table3_row_2.value }}",
             "table_3_row_content_3": "{{ product.metafields.custom.collapsible_with_table3_row_3.value }}",
-            "table_3_row_content_4": "",
-            "table_3_row_content_5": "",
+            "table_3_row_content_4": "{{ product.metafields.custom.collapsible_with_table3_row_4.value }}",
+            "table_3_row_content_5": "{{ product.metafields.custom.collapsible_with_table3_row_5.value }}",
             "margin_top": 16,
             "margin_bottom": 16,
             "show_below_product_media": true
@@ -266,7 +269,9 @@
         "collapsible_with_table_WeYK9m",
         "frequently_bought_with_7VyWfV"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".sealsubs-target-element {display: none;}"
+      ],
       "settings": {
         "color_scheme": "scheme-7",
         "use_color_scheme_in_container": false,
@@ -282,13 +287,44 @@
         "padding_bottom": 60
       }
     },
+    "rich_text_XHFmTh": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_CzCdwL": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Customer Videos",
+            "highlight_style": "none",
+            "highlight_font_style": "italic",
+            "highlight_style_color": "",
+            "highlight_text_color": "",
+            "heading_size": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "heading_CzCdwL"
+      ],
+      "name": "t:sections.rich-text.name",
+      "settings": {
+        "container": "fixed",
+        "color_scheme": "",
+        "use_color_scheme_in_container": false,
+        "content_spacing": "standard",
+        "content_alignment": "center",
+        "padding_top": 50,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed"
+      }
+    },
     "17696171177c1b06c9": {
       "type": "apps",
       "blocks": {
         "storista_pdp_UzWeka": {
           "type": "shopify://apps/storista/blocks/pdp/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
           "settings": {
-            "widget_id": "",
+            "widget_id": "4V1YMH0Tlv4Bw0V",
             "heading": "",
             "heading_tag": "h2",
             "heading_position": "center",
@@ -356,7 +392,7 @@
         "bg-color": "#222222",
         "text-color": "#ffffff",
         "box-bg-color": "#2d2d2d",
-        "box-text-color": "#ffffff",
+        "box-text-color": "#b5b5b5",
         "heading": "{{ product.metafields.custom.pdp_image_text_title.value }}",
         "padding_top": 64,
         "padding_bottom": 64,
@@ -500,7 +536,7 @@
           "type": "collapsible_item",
           "settings": {
             "icon": "none",
-            "heading": "{{ product.metafields.custom.tabs_with_image_question_1.value }}",
+            "heading": "{{ product.metafields.custom.tabs_with_image_question_2.value }}",
             "content": "{{ product.metafields.custom.tabs_with_image_answer_2 | metafield_tag }}",
             "custom_liquid": "",
             "page": "",
@@ -784,23 +820,6 @@
         "divider_width": "fixed"
       }
     },
-    "1769618531364edb65": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_snippet_widget_hPBA6t": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_snippet_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_snippet_widget_hPBA6t"
-      ],
-      "settings": {
-        "include_margins": true,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "tabs_content_VeqDj6": {
       "type": "tabs-content",
       "blocks": {
@@ -855,6 +874,16 @@
         "padding_bottom": 50,
         "show_section_divider": false,
         "divider_width": "fixed"
+      }
+    },
+    "custom_liquid_TBGVzP": {
+      "type": "custom-liquid",
+      "name": "Reviews From JudgeMe",
+      "settings": {
+        "custom_liquid": "<!-- Start of Judge.me code -->\n<div class=\"dc_jdme_container\">\n  {% assign has_legacy = false -%}\n  {%- if product.metafields.judgeme.widget.size > 20 %}{% assign has_legacy = true %}{% endif %}\n  <div style=\"clear:both\"></div>\n  <div\n    id=\"judgeme_product_reviews\"\n    class=\"jdgm-widget jdgm-review-widget\"\n    data-product-title=\"{{ product.title | escape }}\"\n    data-id=\"{{ product.id }}\"\n    data-product-id=\"{{ product.id }}\"\n    data-widget=\"review\"\n    data-auto-install=\"false\"\n    data-shop-reviews-count=\"{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}\"\n    data-entry-point=\"review_widget.js\"\n    data-entry-key=\"review-widget/main.js\"\n  >\n    {% if has_legacy %}\n      <div class=\"jdgm-legacy-widget-content\" style=\"display: none;\">{{ product.metafields.judgeme.widget }}</div>\n    {% endif %}\n  </div>\n  {% if product.metafields.judgeme.review_widget_data %}\n    <script>\n      jdgm.data ||= {}; jdgm.data.reviewWidget ||= {}; jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }}\n    </script>\n  {% endif %}\n</div>\n<!-- End of Judge.me code -->",
+        "color_scheme": "",
+        "padding_top": 50,
+        "padding_bottom": 50
       }
     },
     "custom_collapsible_tabs_BiVTdN": {
@@ -967,6 +996,10 @@
         "collapsible_item_GFbpGi",
         "collapsible_item_yqPqdE"
       ],
+      "custom_css": [
+        ".icon-plus-toggle {color: #ff5413;}",
+        ".accordion-details__summary {border-bottom: 1px solid #00000033;}"
+      ],
       "name": "🔥Custom Collapsible Tabs",
       "settings": {
         "container": "fixed",
@@ -1008,45 +1041,44 @@
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame.png",
-            "label": "Worldwide Shipping"
+            "label": "30-Days Free Returns",
+            "sublabel": "30 Days to Decide"
           }
         },
         "feature_LdXzUj": {
           "type": "feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_2.png",
-            "label": "30-Days Free Returns"
-          }
-        },
-        "feature_qMFRnG": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/Frame_3.png",
-            "label": "1 Year Warranty"
+            "label": "1 Year Warranty",
+            "sublabel": "We've got your back"
           }
         },
         "feature_HAnrdQ": {
           "type": "feature",
           "settings": {
-            "icon": "shopify://shop_images/Frame_1.png",
-            "label": "24/7 Friendly Support"
+            "icon": "shopify://shop_images/Frame_3.png",
+            "label": "24/7 Friendly Support",
+            "sublabel": "Real Humans. Real Help."
           }
         }
       },
       "block_order": [
         "feature_i7eKhK",
         "feature_LdXzUj",
-        "feature_qMFRnG",
         "feature_HAnrdQ"
+      ],
+      "custom_css": [
+        ".dc_brand-promise__icon {width: 26px !important;}",
+        ".dc_brand-promise__inner {padding: 20px !important;}"
       ],
       "name": "🔥Custom brand promise",
       "settings": {
         "section_background_color": "#f5f5f5",
         "background_color": "#222222",
         "text_color": "#b5b5b5",
-        "heading": "The Beest Brand Promise",
+        "heading": "The Petra Brand Promise",
         "heading_color": "#ffffff",
-        "text": "Lorem ipsum dolor sit amet consectetur. Feugiat in duis egestas suscipit sit nisi urna sapien pellentesque. Convallis auctor orci gravida nullam.",
+        "text": "We deliver the power, durability, and reliability of commercial equipment without the complexity or the price tag. And when something goes wrong, we actually stand behind our promise - exactly what you'd expect from a family business.",
         "body_text_color": "#b5b5b5",
         "border_color_grid": "#2f2f2f",
         "logo": "shopify://shop_images/Petra_logo.png",
@@ -1057,6 +1089,7 @@
   "order": [
     "breadcrumbs",
     "main",
+    "rich_text_XHFmTh",
     "17696171177c1b06c9",
     "sc_pdp_img_text_wFMzWk",
     "custom_build_your_kit_bundle_93U7GT",
@@ -1064,8 +1097,8 @@
     "collapsible_tabs_eTAhFK",
     "custom_product_comparison_ThMX3w",
     "custom_tabs_content_Kgafe9",
-    "1769618531364edb65",
     "tabs_content_VeqDj6",
+    "custom_liquid_TBGVzP",
     "custom_collapsible_tabs_BiVTdN",
     "custom_brand_promise_DpUeMH"
   ]

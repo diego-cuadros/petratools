@@ -65,6 +65,15 @@
     assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
   endif
 -%}
+{% if template.name != "product" %} 
+    <style>
+      @media only screen and (max-width:749px){
+        .f-price__sale, .f-price-item, .f-price-item--regular{
+          font-size:14px !important;
+        }        
+      }
+    </style>  
+  {% endif %}
 <div
   class="
     f-price
@@ -96,7 +105,9 @@
       </span>
     {%- endif -%}
   </div>
-  <div class="f-price__sale{% if price_sale_class %} {{ price_sale_class }}{% endif %}">
+
+  
+  <div class="f-price__sale{% if price_sale_class %} {{ price_sale_class }}{% endif %}" >
     {%- capture regular_price_markup -%}
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
       <span
@@ -105,6 +116,7 @@
           color: {{ block.settings.price_color }}; font-size: {{ block.settings.price_font_size }}px; font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
           font-weight: {{ price_font.weight }};
         "
+
       >
         {{ money_price }}
       </span>
