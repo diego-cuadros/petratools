@@ -28,6 +28,8 @@
       assign promotion_columns = number_of_columns
     when 'custom_product_list'
       assign custom_product_list_on = true
+      assign product_list_2 = block.settings.product_list_2
+      assign collection_list = block.settings.collection_list
   endcase
 -%}
 
@@ -409,7 +411,7 @@
                 assign is_carousel = true
               endif
             -%}
-            {% if product_list != blank %}
+            {% if product_list != blank or product_list_2 != blank or collection_list != blank %}
               <div class="dc_mega-menu__promos-container">
                 <div class="dc_links-list-grid">
                   {% if block.settings.collection_list_heading != blank %}
@@ -424,10 +426,10 @@
                         | default: ''
                         | split: '_'
                       -%}
-                      {% if block.settings.collection_list != blank %}
+                      {% if collection_list != blank %}
                         <ul>
                           {% if custom_col_links_labels != blank %}
-                            {%- for col in block.settings.collection_list -%}
+                            {%- for col in collection_list -%}
                               {%- assign custom_col_label = custom_col_links_labels[forloop.index0]
                                 | default: col.title
                                 | strip
@@ -440,7 +442,7 @@
                               </li>
                             {% endfor %}
                           {% else %}
-                            {% for collection in block.settings.collection_list %}
+                            {% for collection in collection_list %}
                               <li>
                                 <a href="{{ collection.url }}">{{ collection.title }}</a>
                               </li>
@@ -490,7 +492,7 @@
                         | split: '_'
                       -%}
                       <ul>
-                        {%- for product in block.settings.product_list_2 -%}
+                        {%- for product in product_list_2 -%}
                           {%- assign custom_label = custom_links_labels_2[forloop.index0]
                             | default: product.title
                             | strip
