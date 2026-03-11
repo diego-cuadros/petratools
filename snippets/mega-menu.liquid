@@ -420,13 +420,32 @@
                       >
                         <h2 class="h6 promotion-item">{{ block.settings.collection_list_heading }}</h2>
                       </div>
+                      {%- assign custom_col_links_labels = block.settings.custom_collection_labels
+                        | default: ''
+                        | split: '_'
+                      -%}
                       {% if block.settings.collection_list != blank %}
                         <ul>
-                          {% for collection in block.settings.collection_list %}
-                            <li>
-                              <a href="{{ collection.url }}">{{ collection.title }}</a>
-                            </li>
-                          {% endfor %}
+                          {% if custom_col_links_labels != blank %}
+                            {%- for col in block.settings.collection_list -%}
+                              {%- assign custom_col_label = custom_col_links_labels[forloop.index0]
+                                | default: col.title
+                                | strip
+                              -%}
+                              {%- if custom_col_label == blank -%}
+                                {%- assign custom_col_label = col.title -%}
+                              {%- endif -%}
+                              <li>
+                                <a href="{{ col.url }}">{{ custom_col_label | escape }}</a>
+                              </li>
+                            {% endfor %}
+                          {% else %}
+                            {% for collection in block.settings.collection_list %}
+                              <li>
+                                <a href="{{ collection.url }}">{{ collection.title }}</a>
+                              </li>
+                            {% endfor %}
+                          {% endif %}
                         </ul>
                       {% endif %}
                     </div>
