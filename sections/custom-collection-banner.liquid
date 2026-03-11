@@ -58,7 +58,15 @@
       </p>
     {% endif %}
 
-    <div class="features-grid">
+    {%- liquid
+      assign visible_feature_count = 0
+      for block in section.blocks
+        if block.type == 'feature'
+          assign visible_feature_count = visible_feature_count | plus: 1
+        endif
+      endfor
+    -%}
+    <div class="features-grid" style="--feature-columns: {{ visible_feature_count | at_most: 4 }};">
       {% for block in section.blocks %}
         <div
           class="feature-item"

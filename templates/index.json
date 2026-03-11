@@ -566,9 +566,9 @@
       "custom_css": [
         ".dc_main > div {border-radius: 12px;}",
         ".dc_wrapper {max-width: 473px; border-radius: 20px; padding: 24px;}",
-        ".btn {height: 50px; width: 196px;}",
+        ".btn {height: 50px;}",
         ".text-subheading {font-size: 14px; font-weight: 500; margin: 6px; width: 196px; text-align: center;}",
-        "@media only screen and (max-width: 749px) {.dc_h2 {font-size: 24px; text-align: center; text-align: center; } .btn {width: 100%; } .btn__text {font-size: 16px; } .text-subheading {text-align: center; } .dc_wrapper > motion-element:nth-of-type(3) {width: 100%; }}",
+        "@media only screen and (max-width: 749px) {.dc_h2 {font-size: 24px; text-align: center; } .dc_p {text-align: center; } .btn {width: 100%; } .btn__text {font-size: 16px; } .text-subheading {text-align: center; } .dc_wrapper > motion-element:nth-of-type(3) {width: 100%; }}",
         ".image-with-text-ovelay__content p {color: #b5b5b5;}"
       ],
       "name": "t:sections.image-with-text-overlay.name",
@@ -600,9 +600,9 @@
           "type": "review",
           "settings": {
             "stars": "★★★★★",
-            "date": "07/11/2025",
-            "review": "Outstanding sprayer sustem. Great assortment of application nozzles. Great capacity and easy to carry",
-            "buyer_name": "Jim Bradley",
+            "date": "02/25/2026",
+            "review": "Very well built and powerful",
+            "buyer_name": "Eugene Tountasakis",
             "verified": true,
             "image": "shopify://shop_images/7d777eb48f8fe3ec7a783f8ec768fe2b6e1ebcfb.png"
           }
@@ -617,9 +617,9 @@
           "type": "review",
           "settings": {
             "stars": "★★★★★",
-            "date": "07/11/2025",
-            "review": "Love it works great! No issues so far.",
-            "buyer_name": "Jim Mozzarella",
+            "date": "02/04/2026",
+            "review": "So far working great!!",
+            "buyer_name": "Ernesto Quintano",
             "verified": true,
             "image": "shopify://shop_images/29f6d19a76d5a60707227e1d23cc7fe9fcf2a959.png"
           }
@@ -628,9 +628,9 @@
           "type": "review",
           "settings": {
             "stars": "★★★★★",
-            "date": "07/11/2025",
-            "review": "Working well so far, ive only had it for a couple of weeks.",
-            "buyer_name": "Sierra Johnson",
+            "date": "06/30/2025",
+            "review": "Outstanding sprayer sustem. Great assortment of application nozzles. Great capacity and easy to carry",
+            "buyer_name": "Jim Bradley",
             "verified": true,
             "image": "shopify://shop_images/e75d7cebbf5e66829a3716368ddf13bf211e2877.png"
           }
@@ -655,9 +655,9 @@
           "type": "review",
           "settings": {
             "stars": "★★★★★",
-            "date": "07/11/2025",
-            "review": "Changed my life no joke. as someone with arthritis, pumping my old sprayer was TORTURE. this thing has literally chnaged how i feel about yard work.",
-            "buyer_name": "Nancyb",
+            "date": "11/18/2025",
+            "review": "Best sprayer i have ever used , felt like a pro doing over 2200 sq feet of concrete sealer . Who has time to constantly be pumping it up when your attention needs to be on where your spraying.",
+            "buyer_name": "Michael Mahoney",
             "verified": true
           }
         }
