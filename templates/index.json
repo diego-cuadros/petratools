@@ -196,7 +196,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "small-sprayers",
-            "image": "shopify://shop_images/small_sprayers_category.webp",
+            "image": "shopify://shop_images/Guy_with_flag.webp",
             "title": ""
           }
         },
@@ -270,6 +270,7 @@
       "blocks": {
         "extra_feature_ife9Hi": {
           "type": "extra_feature",
+          "disabled": true,
           "settings": {
             "icon": "shopify://shop_images/Frame.png",
             "title": "Worldwide Shipping",
@@ -284,8 +285,8 @@
           "type": "extra_feature",
           "settings": {
             "icon": "shopify://shop_images/Frame_1.png",
-            "title": "30-Days Free Returns",
-            "text": "Your satisfaction is our priority. Enjoy free returns within 30 days, making every purchase completely risk-free.",
+            "title": "30-Day Money-Back Guarantee",
+            "text": "We stand behind our tools. If you’re not satisfied within 30 days, we’ll make it right with a full refund.",
             "card_color": "#222222",
             "card_border_color": "#313131",
             "title_color": "#ffffff",
@@ -297,7 +298,7 @@
           "settings": {
             "icon": "shopify://shop_images/Frame_2.png",
             "title": "1 Year Warranty",
-            "text": "Lorem ipsum dolor sit amet consectetur. Dictumst dictum dignissim sapien congue mattis ut.",
+            "text": "We've got your back",
             "card_color": "#222222",
             "card_border_color": "#313131",
             "title_color": "#ffffff",
@@ -309,7 +310,7 @@
           "settings": {
             "icon": "shopify://shop_images/Frame_3.png",
             "title": "24/7 Friendly Support",
-            "text": "Whether it's day or night, our supportive team is just a click away, ready to provide friendly help.",
+            "text": "Real Humans. Real Help.",
             "card_color": "#222222",
             "card_border_color": "#313131",
             "title_color": "#ffffff",
@@ -525,7 +526,7 @@
         "heading_ai3mnB": {
           "type": "heading",
           "settings": {
-            "heading": "Personalized Support Documents",
+            "heading": "American Owned, Family Operated.",
             "highlight_style": "none",
             "highlight_font_style": "italic",
             "highlight_style_color": "",
@@ -536,14 +537,14 @@
         "text_d3XjhR": {
           "type": "text",
           "settings": {
-            "text": "<p>Get Lawn Care Expert advice for your landscape. Schedule your free consultation today!</p>",
+            "text": "<p>When you buy PetraTools, you’re backed by real people who care about your equipment working the way it should. American owned. Family operated.</p>",
             "text_size": "text-base"
           }
         },
         "button_kgQDBx": {
           "type": "button",
           "settings": {
-            "button_label": "Support Center",
+            "button_label": "SUPPORT CENTER",
             "button_link": "shopify://pages/contact",
             "button_style": "btn--secondary",
             "button_icon": "none"
@@ -573,8 +574,8 @@
       "name": "t:sections.image-with-text-overlay.name",
       "settings": {
         "container": "fixed",
-        "image": "shopify://shop_images/Senior_caring_image.webp",
-        "desktop_height": "extra-small",
+        "image": "shopify://shop_images/Guy_with_tools_3.jpg",
+        "desktop_height": "small",
         "overlay_opacity": 0,
         "enable_parallax": false,
         "parallax_direction": "vertical",
@@ -583,7 +584,7 @@
         "container_color": "#222222",
         "content_position": "middle-left",
         "content_alignment": "left",
-        "image_mobile": "shopify://shop_images/Senior_caring_image_MOBILE.webp",
+        "image_mobile": "shopify://shop_images/guy_with_tools_mobile.jpg",
         "mobile_height": "extra-large",
         "content_position_mobile": "bottom-center-mobile",
         "content_alignment_mobile": "left",
@@ -681,7 +682,7 @@
         "background_color_for_title_on_mobile": "#333333",
         "background_color_for_title_text_on_mobile": "#ffffff",
         "color_for_stars": "#ff5413",
-        "section_title": "Over 2 Million Happy customers",
+        "section_title": "Over 2 Million Happy Customers",
         "verified_badge_color": "#333232"
       }
     },

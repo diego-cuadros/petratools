@@ -266,11 +266,7 @@
             "heading": "",
             "promotions_width": 38,
             "number_of_columns": 3,
-            "product_list": [
-              "battery-12v1-3ah-hd1000-s-hd2000-s",
-              "battery-18v4ah-upgraded-battery-ltpro",
-              "battery-2000mah-3-7v-litium-ion-ez1"
-            ],
+            "product_list": [],
             "custom_links_labels": "",
             "show_product_vendor": false,
             "show_product_type": false,

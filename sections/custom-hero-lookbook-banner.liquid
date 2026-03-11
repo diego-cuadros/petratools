@@ -187,39 +187,56 @@
       {%- endfor -%}
     </div>
   </div>
-  <section class="dc_section-container">
-    <div class="dc_extra-features__container">
-      {% for block in section.blocks %}
-        {% if block.type == 'extra_feature' %}
-          <div
-            class="dc_extra-features__card"
-            {{ block.shopify_attributes }}
-            style="background-color:{{ block.settings.card_color }};  border: 1px solid {{ block.settings.card_border_color }};"
-          >
-            <div class="dc_extra-features__icon">
-              {% if block.settings.icon != blank %}
-                <img
-                  src="{{ block.settings.icon | image_url: width: 64 }}"
-                  alt=""
-                  width="{{ section.settings.logo.width }}"
-                  height="{{ section.settings.logo.height }}"
-                >
-              {% endif %}
-            </div>
-            <div class="dc_extra-features__written-content">
-              <h3 class="dc_extra-features__title" style="color: {{ block.settings.title_color }}">
-                {{ block.settings.title }}
-              </h3>
+  {%- liquid
+    assign visible_extra_feature_count = 0
+    for block in section.blocks
+      if block.type == 'extra_feature'
+        if block.settings.icon != blank or block.settings.title != blank or block.settings.text != blank
+          assign visible_extra_feature_count = visible_extra_feature_count | plus: 1
+        endif
+      endif
+    endfor
+  -%}
+  {% if visible_extra_feature_count > 0 %}
+    <section class="dc_section-container">
+      <div
+        class="dc_extra-features__container"
+        style="--extra-features-columns: {{ visible_extra_feature_count | at_most: 4 }};"
+      >
+        {% for block in section.blocks %}
+          {% if block.type == 'extra_feature' %}
+            {% if block.settings.icon != blank or block.settings.title != blank or block.settings.text != blank %}
+              <div
+                class="dc_extra-features__card"
+                {{ block.shopify_attributes }}
+                style="background-color:{{ block.settings.card_color }};  border: 1px solid {{ block.settings.card_border_color }};"
+              >
+                <div class="dc_extra-features__icon">
+                  {% if block.settings.icon != blank %}
+                    <img
+                      src="{{ block.settings.icon | image_url: width: 64 }}"
+                      alt=""
+                      width="{{ section.settings.logo.width }}"
+                      height="{{ section.settings.logo.height }}"
+                    >
+                  {% endif %}
+                </div>
+                <div class="dc_extra-features__written-content">
+                  <h3 class="dc_extra-features__title" style="color: {{ block.settings.title_color }}">
+                    {{ block.settings.title }}
+                  </h3>
 
-              <p class="dc_extra-features__text" style="color: {{ block.settings.text_color }}">
-                {{ block.settings.text }}
-              </p>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </section>
+                  <p class="dc_extra-features__text" style="color: {{ block.settings.text_color }}">
+                    {{ block.settings.text }}
+                  </p>
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
 </div>
 {% schema %}
 {
