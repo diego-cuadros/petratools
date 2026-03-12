@@ -8825,6 +8825,7 @@ body.search-template #MainContent,
   justify-content: left;
   gap: 8px;
   margin-top: 12px;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 767px) {
@@ -9185,27 +9186,26 @@ body.search-template #MainContent,
   height: 14px;
 }
 
-
 .dc_jdme_container {
-    max-width: 1224px;
-    margin: auto;
-  }
+  max-width: 1224px;
+  margin: auto;
+}
 
+.jdgm-rev-widg__title {
+  text-align: center;
+  font-weight: 500 !important;
+  font-size: 40px !important;
+}
+
+@media only screen and (max-width: 748px) {
   .jdgm-rev-widg__title {
-    text-align: center;
-    font-weight: 500 !important;
-    font-size: 40px !important;
+    font-size: 32px !important;
   }
+}
 
-  @media only screen and (max-width: 748px) {
-    .jdgm-rev-widg__title {
-      font-size: 32px !important;
-    }
-  }
-
-.jdgm-prev-badge__text{
-  display:flex;
-  gap:4px;
+.jdgm-prev-badge__text {
+  display: flex;
+  gap: 4px;
 }
 
 .jdgm-widget.jdgm-preview-badge .jdgm-prev-badge {
@@ -9216,7 +9216,7 @@ body.search-template #MainContent,
   justify-content: flex-start !important;
 }
 
-.jdgm-prev-badge__stars, 
+.jdgm-prev-badge__stars,
 .jdgm-prev-badge__text {
   display: inline-flex !important;
   vertical-align: middle !important;
@@ -9228,23 +9228,22 @@ body.search-template #MainContent,
   float: none !important;
 }
 
-div:has(> .jdgm-widget){
-  margin-bottom:0px !important;
+div:has(> .jdgm-widget) {
+  margin-bottom: 0px !important;
 }
 
-div:has(> .product__title){
-  margin-top:0px !important; 
+div:has(> .product__title) {
+  margin-top: 0px !important;
 }
-
 
 /*Best seller tag styles*/
 .product-card__image-wrapper {
-position: relative;
+  position: relative;
 }
 
 .dc_best-seller-tag {
-  background-color:#FFC954;
-  color:#222222;
+  background-color: #ffc954;
+  color: #222222;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -9260,8 +9259,6 @@ position: relative;
   align-items: center;
   justify-content: center;
 }
-
-
 
 /* Warranty terms and conditions content styles */
 .dc_content-bullet {

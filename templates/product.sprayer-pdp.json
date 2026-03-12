@@ -45,10 +45,10 @@
             "use_percentage_discount_tag": false,
             "tag_color": "#ff5413",
             "tag_text_color": "#ffffff",
-            "use_season_tag": true,
+            "use_season_tag": false,
             "season_tag_text": "{{ product.metafields.custom.season_tag_text.value }}",
             "season_tag_color": "#bf5a33",
-            "show_season_price": true,
+            "show_season_price": false,
             "season_discount_percentage": 30,
             "season_price_color": "#ff5413",
             "season_price_background": "#fff3ee"

@@ -186,6 +186,32 @@
     </div>
   </div>
 </div>
+<script>
+  (function () {
+    const sectionElement = document.getElementById('shopify-section-{{ section.id }}');
+
+    if (!sectionElement) {
+      return;
+    }
+
+    sectionElement.addEventListener('click', function (event) {
+      const scoreContainer = event.target.closest('.dc_score-container');
+
+      if (!scoreContainer || !sectionElement.contains(scoreContainer)) {
+        return;
+      }
+
+      const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
+      const targetScrollTop = Math.round(maxScrollTop * 0.85);
+
+      window.scrollTo({
+        top: targetScrollTop,
+        left: 0,
+        behavior: 'smooth',
+      });
+    });
+  })();
+</script>
 {% schema %}
 {
   "name": "t:sections.image-with-text-overlay.name",
