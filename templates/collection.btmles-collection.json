@@ -46,15 +46,6 @@
     "custom_collection_banner_MCUihw": {
       "type": "custom-collection-banner",
       "blocks": {
-        "feature_dn9Qxn": {
-          "type": "feature",
-          "settings": {
-            "icon": "shopify://shop_images/Frame.png",
-            "text": "Worldwide Shipping",
-            "feature_text_color": "#ffffff",
-            "feature_container_color": "#242525"
-          }
-        },
         "feature_cGmH3k": {
           "type": "feature",
           "settings": {
@@ -84,7 +75,6 @@
         }
       },
       "block_order": [
-        "feature_dn9Qxn",
         "feature_cGmH3k",
         "feature_kEnJXC",
         "feature_peh6m7"

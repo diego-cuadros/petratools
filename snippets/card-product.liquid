@@ -110,45 +110,44 @@
   endif
 -%}
 <style>
-.product-card__title {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Change this to 1 or 3 depending on preference */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-height: 3em; /* Adjust based on your line-height to ensure 2 lines of space always exist */
-  line-height: 1.5;
-}
+  .product-card__title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Change this to 1 or 3 depending on preference */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 3em; /* Adjust based on your line-height to ensure 2 lines of space always exist */
+    line-height: 1.5;
+  }
 
-.product-card__wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+  .product-card__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
-.product-card__info {
-  flex-grow: 1; /* This forces the info section to expand and fill space */
-  display: flex;
-  flex-direction: column;
-}
+  .product-card__info {
+    flex-grow: 1; /* This forces the info section to expand and fill space */
+    display: flex;
+    flex-direction: column;
+  }
 
-/* Ensure the card itself fills the grid height */
-.product-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
+  /* Ensure the card itself fills the grid height */
+  .product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 
-.product-card__wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
+  .product-card__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
-.dc_custom-atc-btn-collections {
-  margin-top: auto;
-}
-
+  .dc_custom-atc-btn-collections {
+    margin-top: auto;
+  }
 </style>
 <div
   class="product-card product-card-style-{{ pcard_style }}{% if pcard_style == 'card' %} color-{{ settings.pcard_color_scheme }}{% endif %}{{ card_wrapper_class }}{% if list_on_mobile %} product-card-list-on-mobile{% endif %}{% if color_inherit %} color-inherit{% endif %}"
@@ -182,7 +181,7 @@
           {% if product.metafields.custom.mark_as_a_best_seller == true %}
             <div
               class="dc_best-seller-tag"
-            {% comment %}style="background-color:{{ section.settings.best_seller_bg_color }}; color:{{ section.settings.best_seller_text_color }};"{% endcomment %}
+              {% comment %}style="background-color:{{ section.settings.best_seller_bg_color }}; color:{{ section.settings.best_seller_text_color }};"{% endcomment %}
             >
               {{ 'products.product.best_seller' | t }}
             </div>
@@ -385,10 +384,13 @@
         {%- if show_price -%}
           {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
         {%- endif -%}
-        {% unless template.name == "btmles-collection" %}
-        <a href="{{ product.url }}" class="block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}">
-          {{ product.title }}
-        </a>
+        {% unless template.name == 'btmles-collection' %}
+          <a
+            href="{{ product.url }}"
+            class="block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}"
+          >
+            {{ product.title }}
+          </a>
         {% else %}
           <a
             class="reversed-link block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}"
@@ -408,27 +410,31 @@
         -%}
       {%- endif -%}
 
-          <style>
-          .jdgm-prev-badge{
-            margin-top:4px;
-            font-size:14px;
+      <style>
+        .jdgm-prev-badge{
+          margin-top:4px;
+          font-size:14px;
+        }
+
+        {% if template.name == "index" %}
+          .dc_judgeme-num-reviews{
+            display:none;
           }
-          
-          {% if template.name  == "collection" or template.name == "index" %}
-            .dc_judgeme-num-reviews{
-              display:none;
-            }
-          {% else %}
-            .dc_judgeme-num-reviews{
-              display:inline;
-            }
-          {% endif %}
-        </style>
+        {% else %}
+          .dc_judgeme-num-reviews{
+            display:inline;
+          }
+        {% endif %}
+      </style>
 
-        <div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}' data-auto-install='false'>
-            {{ product.metafields.judgeme.badge }}
-        </div>
-
+      <div
+        style="{{ jm_style }}"
+        class="jdgm-widget jdgm-preview-badge"
+        data-id="{{ product.id }}"
+        data-auto-install="false"
+      >
+        {{ product.metafields.judgeme.badge }}
+      </div>
 
       {% comment %}ATC Button should go here{% endcomment %}
       {% if section.settings.enable_static_atc_btn %}
