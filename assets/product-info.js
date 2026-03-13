@@ -146,16 +146,21 @@ if (!customElements.get('product-info')) {
 
           this.updateMedia(variant);
 
-          const updateSourceFromDestination = (id, shouldHide = (source) => false) => {
+          const updateSourceFromDestination = (id, shouldHide = (source) => false, destinationIds = [id]) => {
             const source = html.getElementById(`${id}-${this.sectionId}`);
-            const destination = this.querySelector(`#${id}-${this.dataset.section}`);
-            if (source && destination) {
+            if (!source) return;
+
+            destinationIds.forEach((destinationId) => {
+              const destination = this.querySelector(`#${destinationId}-${this.dataset.section}`);
+              if (!destination) return;
+
               destination.innerHTML = source.innerHTML;
               destination.classList.toggle('hidden', shouldHide(source));
-            }
+            });
           };
 
           updateSourceFromDestination('price');
+          updateSourceFromDestination('price-above-media', undefined, ['price-above-media']);
           updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Barcode', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');
