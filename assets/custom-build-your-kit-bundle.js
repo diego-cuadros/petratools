@@ -171,6 +171,7 @@ if (!customElements.get('build-your-kit-bundle')) {
 
       handleAddToCart = (event) => {
         event.preventDefault();
+        this.lastSubmittedElement = event.currentTarget;
 
         const items = [];
         if (this.product1Checkbox?.checked && this.product1VariantId) {
@@ -209,8 +210,6 @@ if (!customElements.get('build-your-kit-bundle')) {
 
         this.addToCartButton?.setAttribute('aria-disabled', 'true');
         this.addToCartButton?.classList.add('is-loading');
-        const lastClicked = event.currentTarget;
-
         fetch(window.FoxTheme?.routes?.cart_add_url || `${window.Shopify.routes.root}cart/add.js`, config)
           .then((response) => response.json())
           .then(async (parsedState) => {
@@ -218,25 +217,101 @@ if (!customElements.get('build-your-kit-bundle')) {
               return;
             }
 
-            const cartJson = await (
-              await fetch(window.FoxTheme?.routes?.cart_url || `${window.Shopify.routes.root}cart.js`)
-            ).json();
-            cartJson.sections = parsedState.sections;
-
-            if (window.FoxTheme?.pubsub) {
-              window.FoxTheme.pubsub.publish(window.FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate, { cart: cartJson });
+            const cartJson = await this.fetchCartStateAfterAdd(parsedState);
+            if (cartJson) {
+              this.updateCartState(cartJson);
             }
 
-            const cartDrawer = document.querySelector('cart-drawer');
-            if (cartDrawer && typeof cartDrawer.show === 'function') {
-              cartDrawer.show(lastClicked);
-            }
+            this.dispatchProductAddedEvent(parsedState);
+            this.refreshCartDrawer();
+            this.showCartDrawer();
           })
-          .catch(() => {})
+          .catch((error) => {
+            console.error(error);
+          })
           .finally(() => {
             this.addToCartButton?.removeAttribute('aria-disabled');
             this.addToCartButton?.classList.remove('is-loading');
           });
+      };
+
+      updateCartState = (cartJson) => {
+        if (window.FoxTheme?.pubsub) {
+          window.FoxTheme.pubsub.publish(window.FoxTheme.pubsub.PUB_SUB_EVENTS.cartUpdate, { cart: cartJson });
+        }
+      };
+
+      dispatchProductAddedEvent = (parsedState) => {
+        document.dispatchEvent(
+          new CustomEvent('product-ajax:added', {
+            detail: {
+              product: parsedState,
+            },
+          })
+        );
+      };
+
+      fetchCartStateAfterAdd = async (parsedState) => {
+        const fallbackRoot = window.Shopify?.routes?.root || '/';
+        const preferredCartJsonUrl = `${fallbackRoot}cart.js`;
+        const routeCartUrl = window.FoxTheme?.routes?.cart_url;
+        const urlsToTry = [preferredCartJsonUrl];
+
+        if (routeCartUrl && routeCartUrl !== preferredCartJsonUrl) {
+          urlsToTry.push(routeCartUrl);
+        }
+
+        for (const url of urlsToTry) {
+          try {
+            const response = await fetch(url, { headers: { Accept: 'application/json' } });
+            const cartJson = await response.json();
+            cartJson.sections = parsedState.sections;
+
+            return cartJson;
+          } catch (error) {
+            console.error(error);
+          }
+        }
+
+        return null;
+      };
+
+      refreshCartDrawer = () => {
+        document.dispatchEvent(
+          new CustomEvent('cart:refresh', {
+            detail: {
+              open: true,
+            },
+          })
+        );
+      };
+
+      showCartDrawer = () => {
+        const cartDrawerElement = document.querySelector('cart-drawer');
+        const quickViewModal = this.closest('quick-view-modal');
+
+        if (quickViewModal) {
+          if (cartDrawerElement && !cartDrawerElement.open && typeof cartDrawerElement.show === 'function') {
+            document.body.addEventListener(
+              quickViewModal.events.handleAfterHide,
+              () => {
+                setTimeout(() => {
+                  cartDrawerElement.show(this.lastSubmittedElement);
+                });
+              },
+              { once: true }
+            );
+          }
+
+          quickViewModal.hide(true);
+        } else if (cartDrawerElement && typeof cartDrawerElement.show === 'function') {
+          cartDrawerElement.show(this.lastSubmittedElement);
+        } else {
+          const cartDrawerButton = document.querySelector('[aria-controls="CartDrawer"]');
+          if (cartDrawerButton) {
+            cartDrawerButton.click();
+          }
+        }
       };
     }
   );
