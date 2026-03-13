@@ -165,6 +165,7 @@ if (!customElements.get('product-info')) {
           updateSourceFromDestination('Barcode', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');
           updateSourceFromDestination('Badges', ({ classList }) => classList.contains('hidden'));
+          updateSourceFromDestination('MediaDiscount', ({ innerText }) => innerText.trim() === '');
           updateSourceFromDestination('PricePerItem', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Volume');
 

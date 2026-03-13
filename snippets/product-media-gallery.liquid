@@ -69,20 +69,22 @@
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <div class="product__media-gallery-viewer-wrap relative{{ slider_css_class }}">
-    {%- if section.settings.use_percentage_tag_on_viewer and compare_at_price > price -%}
-      <div
-        class="dc_media_discount_tag"
-        style="background-color: {{ price_block.settings.tag_color }};color: {{ price_block.settings.tag_text_color }};"
-      >
-        <img
-          src="https://cdn.shopify.com/s/files/1/0015/4976/2632/files/tag-white-icon.png?v=1770928786"
-          class="dc_media_discount_tag_icon"
-          width="17"
-          height="17"
+    <div id="MediaDiscount-{{ section.id }}">
+      {%- if section.settings.use_percentage_tag_on_viewer and compare_at_price > price -%}
+        <div
+          class="dc_media_discount_tag"
+          style="background-color: {{ price_block.settings.tag_color }};color: {{ price_block.settings.tag_text_color }};"
         >
-        {{- discount_percentage }}% OFF
-      </div>
-    {%- endif -%}
+          <img
+            src="https://cdn.shopify.com/s/files/1/0015/4976/2632/files/tag-white-icon.png?v=1770928786"
+            class="dc_media_discount_tag_icon"
+            width="17"
+            height="17"
+          >
+          {{- discount_percentage }}% OFF
+        </div>
+      {%- endif -%}
+    </div>
     <div
       id="GalleryViewer-{{ section.id }}"
       class="product__media-gallery-viewer blocks-radius swiper"
