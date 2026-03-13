@@ -4,6 +4,34 @@ const dc_modal = document.getElementById('dc_calculator-modal');
   const dc_calcBtn = document.getElementById('dc_do-calculate');
   const dc_addToOrderBtn = document.getElementById('dc_add-to-cart-trigger');
 
+  const dc_showCartDrawer = (focusElement = null) => {
+    const cartDrawerElement = document.querySelector('cart-drawer');
+    const quickViewModal = document.querySelector('quick-view-modal[open]');
+
+    if (quickViewModal) {
+      if (cartDrawerElement && !cartDrawerElement.open && typeof cartDrawerElement.show === 'function') {
+        document.body.addEventListener(
+          quickViewModal.events.handleAfterHide,
+          () => {
+            setTimeout(() => {
+              cartDrawerElement.show(focusElement);
+            });
+          },
+          { once: true }
+        );
+      }
+
+      quickViewModal.hide(true);
+    } else if (cartDrawerElement && typeof cartDrawerElement.show === 'function') {
+      cartDrawerElement.show(focusElement);
+    } else {
+      const cartDrawerButton = document.querySelector('[aria-controls="CartDrawer"]');
+      if (cartDrawerButton) {
+        cartDrawerButton.click();
+      }
+    }
+  };
+
   // Store reference to what opened the modal
   let dc_previousActiveElement = null;
 
@@ -68,7 +96,7 @@ const dc_modal = document.getElementById('dc_calculator-modal');
 
       const areaM2 = w * l;
       const areaSqFt = areaM2 * 10.764;
-      const total = Math.ceil(areaSqFt / cov);
+      const total = areaSqFt > 0 ? Math.ceil(areaSqFt / cov) : 0;
 
       document.getElementById('dc_area-display').innerHTML = `
         <strong>${areaM2}m2 = ${Math.round(areaSqFt)} Sq. Ft.</strong>
@@ -84,7 +112,11 @@ const dc_modal = document.getElementById('dc_calculator-modal');
       e.stopPropagation();
 
       // 1. Get the target quantity from the calculator
-      const targetQty = parseInt(document.getElementById('dc_gallons-display').innerText) || 1;
+      const parsedTargetQty = parseInt(document.getElementById('dc_gallons-display').innerText, 10);
+      if (!Number.isFinite(parsedTargetQty) || parsedTargetQty < 1) {
+        return;
+      }
+      const targetQty = parsedTargetQty;
 
       // 2. Find the UI elements on the product page
       const quantityInput = document.querySelector('.quantity__input');
@@ -124,6 +156,19 @@ const dc_modal = document.getElementById('dc_calculator-modal');
 
       // 5. Final Step: Simulate clicking the main "Add to Cart" button
       // This allows the theme's native Ajax and Drawer logic to take over
+      const drawerFallbackTimer = setTimeout(() => {
+        dc_showCartDrawer(mainAddToCartButton);
+      }, 900);
+
+      document.addEventListener(
+        'product-ajax:added',
+        () => {
+          clearTimeout(drawerFallbackTimer);
+          dc_showCartDrawer(mainAddToCartButton);
+        },
+        { once: true }
+      );
+
       setTimeout(() => {
         mainAddToCartButton.click();
       }, 100);

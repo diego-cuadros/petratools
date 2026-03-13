@@ -30,11 +30,11 @@
       <div class="dc_calc-inputs-row">
         <div class="dc_input-group">
           <label>Width (m)</label>
-          <input type="number" id="dc_calc-width" value="5">
+          <input type="number" id="dc_calc-width" value="" placeholder="">
         </div>
         <div class="dc_input-group">
           <label>Length (m)</label>
-          <input type="number" id="dc_calc-length" value="7">
+          <input type="number" id="dc_calc-length" value="" placeholder="">
         </div>
         <button
           id="dc_do-calculate"
@@ -47,13 +47,13 @@
 
       <div class="dc_calc-result-line">
         <span>Your project area</span>
-        <span id="dc_area-display"><strong>35m2 = 376 Sq. Ft.</strong></span>
+        <span id="dc_area-display"><strong></strong></span>
       </div>
 
       <div class="dc_calc-result-line dc_total-row">
         <span>Total {{ block.settings.dc_unit_name }} you need</span>
         <div class="dc_total-actions">
-          <span id="dc_gallons-display" class="dc_gallons-box">3</span>
+          <span id="dc_gallons-display" class="dc_gallons-box"></span>
           <a href="#" id="dc_add-to-cart-trigger" class="dc_add-to-order">Add To Order</a>
         </div>
       </div>
@@ -61,4 +61,4 @@
   </div>
 </div>
 
-<script src="{{ 'custom-calculator.js' | asset_url }} defer"></script>
+<script src="{{ 'custom-calculator.js' | asset_url }}" defer></script>
