@@ -223,7 +223,6 @@ if (!customElements.get('build-your-kit-bundle')) {
             }
 
             this.dispatchProductAddedEvent(parsedState);
-            this.refreshCartDrawer();
             this.showCartDrawer();
           })
           .catch((error) => {
@@ -274,16 +273,6 @@ if (!customElements.get('build-your-kit-bundle')) {
         }
 
         return null;
-      };
-
-      refreshCartDrawer = () => {
-        document.dispatchEvent(
-          new CustomEvent('cart:refresh', {
-            detail: {
-              open: true,
-            },
-          })
-        );
       };
 
       showCartDrawer = () => {
