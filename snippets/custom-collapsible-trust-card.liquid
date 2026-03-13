@@ -39,7 +39,9 @@
               </p>
             </div>
 
-            <span class="dc-trust-item__chevron" style="color: {{ block.settings.text_color }};">›</span>
+            <span class="dc-trust-item__chevron" style="color: {{ block.settings.text_color }}; width: 24px;">
+              {%- render 'icon-chevron' -%}
+            </span>
           </button>
 
           {% if paragraph != blank %}
