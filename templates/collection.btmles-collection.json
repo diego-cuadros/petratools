@@ -122,6 +122,8 @@
       "type": "main-collection-product-grid",
       "custom_css": [
         ".dc_custom-atc-btn-collections {height: 46px;}",
+        "@media only screen and (max-width:768px){button, .btn {padding:0px;} }",
+        ".product-card__atc-icon {display: none;}",
         ".f-price__regular .f-price-item--regular {font-weight: 600; letter-spacing: 1px;}",
         ".btn__text:hover {color: #222222 !important;}",
         ".form-control:focus {background: none !important;}"
@@ -141,7 +143,7 @@
         "enable_sorting": true,
         "enable_sorting_on_mobile_drawer": false,
         "enable_layout_switching": false,
-        "enable_static_atc_btn": true,
+        "enable_static_atc_btn": false,
         "columns_mobile": "2",
         "padding_top": 28,
         "padding_bottom": 60,

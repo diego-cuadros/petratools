@@ -131,6 +131,7 @@
         "collection_3KPkcF"
       ],
       "custom_css": [
+        ".dc_custom-atc-btn-collections {display:none;}",
         ".rich-text__heading {font-size: 32px;}",
         ".f-column {max-width: 296px;}",
         ".f-price__regular .f-price-item--regular {font-weight: 600; color: #ff5413; letter-spacing: 1px;}",
