@@ -139,7 +139,7 @@
             "background_color": "#f5f5f5",
             "text_color": "#222222",
             "text_content_color": "#636363",
-            "header_text": "STILL DECIDING?",
+            "header_text": "Still Deciding?",
             "info_title_1": "Free Shipping On All U.S. Orders Of $50+",
             "info_icon_1": "shopify://shop_images/Frame_03ee538c-d741-414f-9ab0-18a920d58e10.png",
             "info_paragraph_1": "Stock up on sprayers, parts, and lawn care solutions without paying extra for shipping. Orders over $40 ship free anywhere in the U.S.",
@@ -238,7 +238,8 @@
         "collapsible_with_table_WeYK9m"
       ],
       "custom_css": [
-        ".dc_quantity-label,.dc_product-form__quantity {display: none;}"
+        ".dc_quantity-label,.dc_product-form__quantity {display: none;}",
+        ".dc-trust-item__content {font-size: 14px;}"
       ],
       "settings": {
         "color_scheme": "scheme-7",
@@ -824,7 +825,10 @@
       ],
       "custom_css": [
         ".icon-plus-toggle {color: #ff5413;}",
-        ".accordion-details__summary {border-bottom: 1px solid #00000033;}"
+        ".accordion-details__summary {border-bottom: 1px solid #00000033;}",
+        ".accordion-details__summary h2 {font-size: 18px; font-weight: 500 !important;}",
+        ".accordion-details__content {font-size: 16px;}",
+        "@media only screen and (max-width: 768px) {.accordion-details__summary h2 {font-size: 16px; padding: 15px 0px; } .accordion-details__content {font-size: 14px; padding-top: 15px !important; } .accordion-details__summary svg.icon {--icon-size: 50px !important; }}"
       ],
       "name": "🔥Custom Collapsible Tabs",
       "settings": {

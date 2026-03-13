@@ -124,6 +124,9 @@
         "column_m3GHtB"
       ],
       "custom_css": [
+        "h2,.btn__text,.multicolumn-card__title {font-weight: 500;}",
+        ".multicolumn-card__title {font-size: 18px; color: #676767;}",
+        ".btn--secondary:hover .btn__text {color: #fff !important;}",
         ".f-column {background-color: #f9f9f9; padding: 16px 24px; border-radius: 12px;}",
         ".multicolumn-card__image {width: 48px; height: 48px;}",
         ".multicolumn__items .btn {width: 100%; background-color: transparent; border: 1px solid #ff5413; color: black; opacity: 1; font-weight: 400;}",
