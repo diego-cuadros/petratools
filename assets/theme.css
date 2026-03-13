@@ -9216,6 +9216,17 @@ body.search-template #MainContent,
   justify-content: flex-start !important;
 }
 
+@media only screen and (max-width: 748px) {
+  .jdgm-widget.jdgm-preview-badge .jdgm-prev-badge {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+
+  .jdgm-prev-badge__text {
+    font-size: 12px !important;
+  }
+}
+
 .jdgm-prev-badge__stars,
 .jdgm-prev-badge__text {
   display: inline-flex !important;

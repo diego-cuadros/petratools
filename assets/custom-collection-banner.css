@@ -101,6 +101,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .feature-item--full-mobile {
+    grid-column: 1 / -1;
+  }
+
   .feature-icon {
     width: 16px;
     height: 16px;

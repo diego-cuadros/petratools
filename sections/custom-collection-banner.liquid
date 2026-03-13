@@ -65,11 +65,23 @@
           assign visible_feature_count = visible_feature_count | plus: 1
         endif
       endfor
+
+      assign feature_count_modulo = visible_feature_count | modulo: 2
+      assign has_odd_feature_count = false
+      if feature_count_modulo == 1
+        assign has_odd_feature_count = true
+      endif
+
+      assign rendered_feature_index = 0
     -%}
     <div class="features-grid" style="--feature-columns: {{ visible_feature_count | at_most: 4 }};">
       {% for block in section.blocks %}
+        {%- if block.type != 'feature' -%}
+          {%- continue -%}
+        {%- endif -%}
+        {%- assign rendered_feature_index = rendered_feature_index | plus: 1 -%}
         <div
-          class="feature-item"
+          class="feature-item{% if has_odd_feature_count and rendered_feature_index == visible_feature_count %} feature-item--full-mobile{% endif %}"
           {{ block.shopify_attributes }}
           style="background-color:{{ block.settings.feature_container_color }};"
         >
