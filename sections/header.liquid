@@ -65,33 +65,35 @@
     is="basic-header"
   {% endif %}
 >
-  <style>
-        .dc_extra-menu-on-top__selected{
-        border-bottom: 2px solid {{  section.settings.extra_menu_label_selector }};
-    }
-  </style>
-  <div
-    class="dc_extra-menu-on-top__container page-width"
-    style="background-color: {{ section.settings.extra_menu_background_color }};"
-  >
-    <ul class="dc_extra-menu-on-top__menu">
-      {% for i in (1..3) %}
-        {% assign label_key = 'extra_menu_label_' | append: forloop.index %}
-        {% assign link_key = 'extra_menu_url_' | append: forloop.index %}
+  {% if section.settings.show_extra_menu_on_top %}
+    <style>
+          .dc_extra-menu-on-top__selected{
+          border-bottom: 2px solid {{  section.settings.extra_menu_label_selector }};
+      }
+    </style>
+    <div
+      class="dc_extra-menu-on-top__container page-width"
+      style="background-color: {{ section.settings.extra_menu_background_color }};"
+    >
+      <ul class="dc_extra-menu-on-top__menu">
+        {% for i in (1..3) %}
+          {% assign label_key = 'extra_menu_label_' | append: forloop.index %}
+          {% assign link_key = 'extra_menu_url_' | append: forloop.index %}
 
-        {% assign extra_menu_label = section.settings[label_key] %}
-        {% assign extra_menu_link = section.settings[link_key] %}
+          {% assign extra_menu_label = section.settings[label_key] %}
+          {% assign extra_menu_link = section.settings[link_key] %}
 
-        {% if extra_menu_label != blank %}
-          <li class="dc_extra-menu-on-top-menu__link {% if extra_menu_link contains 'petratools' %}dc_extra-menu-on-top__selected{% endif %}">
-            <a href="{{ extra_menu_link | default: '#' }}">
-              {{ extra_menu_label }}
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </div>
+          {% if extra_menu_label != blank %}
+            <li class="dc_extra-menu-on-top-menu__link {% if extra_menu_link contains 'petratools' %}dc_extra-menu-on-top__selected{% endif %}">
+              <a href="{{ extra_menu_link | default: '#' }}">
+                {{ extra_menu_label }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
   <div class="header__top header__top--{{ header_layout }} items-center relative section--padding page-width page-width--{{ section.settings.container }}">
     {%- if request.page_type == 'index' -%}
       <h1 class="header__logo flex justify-center items-center z-1">
@@ -495,6 +497,12 @@
     {
       "type": "header",
       "content": "Extra menu on top"
+    },
+    {
+      "type": "checkbox",
+      "default": true,
+      "id": "show_extra_menu_on_top",
+      "label": "Show extra menu on top"
     },
     {
       "type": "url",

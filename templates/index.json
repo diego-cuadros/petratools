@@ -131,7 +131,7 @@
         "collection_3KPkcF"
       ],
       "custom_css": [
-        ".dc_custom-atc-btn-collections {display:none;}",
+        ".dc_custom-atc-btn-collections {display: none;}",
         ".rich-text__heading {font-size: 32px;}",
         ".f-column {max-width: 296px;}",
         ".f-price__regular .f-price-item--regular {font-weight: 600; color: #ff5413; letter-spacing: 1px;}",
@@ -738,10 +738,7 @@
         "feature_qmARNj",
         "feature_eYnUKp"
       ],
-      "custom_css": [
-        ".dc_brand-promise__icon {width: 26px !important;}",
-        ".dc_brand-promise__inner {padding: 20px !important;}"
-      ],
+      "custom_css": [],
       "name": "🔥Custom brand promise",
       "settings": {
         "section_background_color": "#f5f5f5",

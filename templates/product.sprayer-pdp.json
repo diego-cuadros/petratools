@@ -897,10 +897,7 @@
         "feature_LdXzUj",
         "feature_qMFRnG"
       ],
-      "custom_css": [
-        ".dc_brand-promise__icon {width: 26px !important;}",
-        ".dc_brand-promise__inner {padding: 20px !important;}"
-      ],
+      "custom_css": [],
       "name": "🔥Custom brand promise",
       "settings": {
         "section_background_color": "#f5f5f5",
