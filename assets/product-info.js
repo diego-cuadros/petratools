@@ -160,6 +160,7 @@ if (!customElements.get('product-info')) {
           updateSourceFromDestination('price');
           updateSourceFromDestination('price-above-media');
           updateSourceFromDestination('season-price-above-media');
+          updateSourceFromDestination('MediaDiscount');
           updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Barcode', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');

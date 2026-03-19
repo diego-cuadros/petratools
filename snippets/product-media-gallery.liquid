@@ -15,10 +15,46 @@
   assign price_variant = product.selected_or_first_available_variant
   assign compare_at_price = price_variant.compare_at_price
   assign price = price_variant.price | default: 1999
+
+  assign season_discount_percentage = 0
+  if product.metafields.custom.season_price_discount_percentage.value != blank
+    assign season_discount_percentage = product.metafields.custom.season_price_discount_percentage.value | plus: 0
+  else
+    assign season_discount_percentage = price_block.settings.season_discount_percentage | plus: 0
+  endif
+  assign season_discount_decimal = season_discount_percentage | divided_by: 100.0
+  assign season_multiplier = 1 | minus: season_discount_decimal
+  assign final_season_price = price | times: season_multiplier
+
+  assign use_season_price_for_discount = false
+  if price_block.settings.show_season_price or product.metafields.custom.use_season_price.value
+    assign use_season_price_for_discount = true
+  endif
+
+  assign discount_price_source = price
+  if use_season_price_for_discount
+    assign discount_price_source = final_season_price
+  endif
+
   assign discount_percentage = 0
-  if compare_at_price > price
-    assign difference = compare_at_price | minus: price
-    assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
+  assign show_percentage_discount_tag = false
+  assign has_compare_at_price = false
+  if compare_at_price != blank and compare_at_price > 0
+    assign has_compare_at_price = true
+  endif
+
+  if has_compare_at_price
+    if compare_at_price > discount_price_source
+      assign difference = compare_at_price | minus: discount_price_source
+      assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
+      assign show_percentage_discount_tag = true
+    endif
+  elsif use_season_price_for_discount
+    if price > final_season_price and price > 0
+      assign difference = price | minus: final_season_price
+      assign discount_percentage = difference | times: 100 | divided_by: price
+      assign show_percentage_discount_tag = true
+    endif
   endif
 
   assign has_only_once_media = false
@@ -70,7 +106,7 @@
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
   <div class="product__media-gallery-viewer-wrap relative{{ slider_css_class }}">
     <div id="MediaDiscount-{{ section.id }}">
-      {%- if section.settings.use_percentage_tag_on_viewer and compare_at_price > price -%}
+      {%- if section.settings.use_percentage_tag_on_viewer and show_percentage_discount_tag -%}
         <div
           class="dc_media_discount_tag"
           style="background-color: {{ price_block.settings.tag_color }};color: {{ price_block.settings.tag_text_color }};"
@@ -81,7 +117,7 @@
             width="17"
             height="17"
           >
-          {{- discount_percentage }}% OFF
+          {{- discount_percentage | round }}% OFF
         </div>
       {%- endif -%}
     </div>
