@@ -24,8 +24,8 @@
         "announcement_bar_aDyKVa": {
           "type": "announcement_bar",
           "settings": {
-            "text": "SHOP RV ROOF SEALANT",
-            "link": "https://www.beestusa.com/product/beest-rv-roof-sealant-liquid-rubber-coating"
+            "text": "SPRING DAY SALE IS LIVE <span style=\"text-decoration:underline\">(SHOP HERE)</span>",
+            "link": "shopify://collections/all-sprayers"
           }
         }
       },
@@ -320,6 +320,7 @@
         "enable_language_selector": false,
         "enable_country_selector": false,
         "show_custom_product_list_products": false,
+        "show_extra_menu_on_top": false,
         "extra_menu_url_1": "https://www.petratools.com",
         "extra_menu_label_1": "PetraTools",
         "extra_menu_url_2": "https://www.petramax.com/",

@@ -302,7 +302,11 @@
           }
 
           .dc_product-form__quantity {
-            display: flex;
+            {% if template.suffix == 'sprayer-pdp' or template.suffix == blank%}
+              display:none;
+            {% else %}
+              display: flex;
+            {% endif %}
             flex-direction: row;
             gap:5px;
             width: 100%;
@@ -350,6 +354,9 @@
           }
 
           .dc_quantity-label {
+            {% if template.suffix == 'sprayer-pdp' or template.suffix == blank%}
+              display:none;
+            {% endif %}
             font-size: 16px;
             font-weight: 600;
           }

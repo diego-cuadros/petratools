@@ -1,3 +1,20 @@
+{%- liquid
+  # 1. DEFINE CONTENT AND PRIORITIZATION
+  # We check all 3 possible slots to see if we should render the section at all.
+  assign has_any_content = false
+  
+  # We'll pre-calculate the titles and paragraphs to check for existence
+  # Adjust the metafield keys ('collapsible_title_1', etc.) to match your actual Shopify admin settings
+  assign title_1 = product.metafields.custom.collapsible_title_1.value | default: block.settings.info_title_1
+  assign title_2 = product.metafields.custom.collapsible_title_2.value | default: block.settings.info_title_2
+  assign title_3 = product.metafields.custom.collapsible_title_3.value | default: block.settings.info_title_3
+  
+  if title_1 != blank or title_2 != blank or title_3 != blank
+    assign has_any_content = true
+  endif
+-%}
+
+{% if has_any_content %}
 {{ 'custom-collapsible-with-table.css' | asset_url | stylesheet_tag }}
 
 <div
@@ -20,11 +37,19 @@
 
   <div class="dc-collapsible-with-table__list">
     {% for i in (1..3) %}
-      {% capture title_key %}info_title_{{ i }}{% endcapture %}
-      {% capture paragraph_key %}info_paragraph_{{ i }}{% endcapture %}
+      {%- liquid
+        # Keys for Block Settings
+        assign title_key = 'info_title_' | append: i
+        assign paragraph_key = 'info_paragraph_' | append: i
+        
+        # Keys for Metafields (Prioritized)
+        assign meta_title_key = 'collapsible_title_' | append: i
+        assign meta_para_key = 'collapsible_para_' | append: i
 
-      {% assign title = block.settings[title_key] %}
-      {% assign paragraph = block.settings[paragraph_key] %}
+        # Resolution: Metafield > Customizer
+        assign title = product.metafields.custom[meta_title_key].value | default: block.settings[title_key]
+        assign paragraph = product.metafields.custom[meta_para_key].value | default: block.settings[paragraph_key]
+      -%}
 
       {% if title != blank %}
         <div
@@ -57,43 +82,33 @@
 
           {% if paragraph != blank %}
             <div class="dc-collapsible-with-table__content">
-              <p style="color: {{ block.settings.text_content_color }};">
+              <div style="color: {{ block.settings.text_content_color }};">
                 {{ paragraph }}
-              </p>
+              </div>
 
-              {%- comment -%}
-                TABLE VISIBILITY RESOLUTION
-                --------------------------------
-                1. If "use_content_table_from_metafields_X" is ON:
-                   → use product metafield
-                2. Else:
-                   → use section setting
-              {%- endcomment -%}
+              {%- liquid
+                assign use_content_table = 'use_content_table_' | append: i
+                assign use_content_table_from_metafields = 'use_content_table_from_metafields_' | append: i
+                assign should_show_table = false
 
-              {% assign use_content_table = 'use_content_table_' | append: i %}
-              {% assign use_content_table_from_metafields = 'use_content_table_from_metafields_' | append: i %}
-              {% assign should_show_table = false %}
-
-              {% if block.settings[use_content_table_from_metafields] == true %}
-                {% if product != blank %}
-                  {% case i %}
-                    {% when 1 %}
-                      {% assign should_show_table = product.metafields.custom.collapsible_with_table_table_on_1.value %}
-                    {% when 2 %}
-                      {% assign should_show_table = product.metafields.custom.collapsible_with_table2_table_on_2.value %}
-                    {% when 3 %}
-                      {% assign should_show_table = product.metafields.custom.collapsible_with_table_table3_on_3.value %}
-                  {% endcase %}
-                {% endif %}
-              {% else %}
-                {% assign should_show_table = block.settings[use_content_table] %}
-              {% endif %}
+                if block.settings[use_content_table_from_metafields] == true
+                  if product != blank
+                    case i
+                      when 1
+                        assign should_show_table = product.metafields.custom.collapsible_with_table_table_on_1.value
+                      when 2
+                        assign should_show_table = product.metafields.custom.collapsible_with_table2_table_on_2.value
+                      when 3
+                        assign should_show_table = product.metafields.custom.collapsible_with_table_table3_on_3.value
+                    endcase
+                  endif
+                else
+                  assign should_show_table = block.settings[use_content_table]
+                endif
+              -%}
 
               {% if should_show_table == true %}
                 <div class="dc_inner-table">
-                  {% comment %}
-                    Create the correct table prefix based on which collapsible section we're in
-                  {% endcomment %}
                   {% assign table_prefix = 'table_' | append: i | append: '_row_content_' %}
 
                   {% for j in (1..5) %}
@@ -123,3 +138,4 @@
 </div>
 
 <script src="{{ 'custom-collapsible-with-table.js' | asset_url }}" defer></script>
+{% endif %}

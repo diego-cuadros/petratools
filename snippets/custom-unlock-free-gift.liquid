@@ -45,12 +45,24 @@
     {% if product.metafields.custom.use_free_gift_unlocked == true
       and block.settings.control_content_from_metafields == true
     %}
-      <img
-        src="{{ product.metafields.custom.free_gift_image| image_url: width: 300 }}"
-        alt="{{ product.metafields.custom.free_gift_image.alt | escape }}"
-        width="{{ product.metafields.custom.free_gift_image.width }}"
-        height="{{ product.metafields.custom.free_gift_image.height }}"
-      >
+      {% if product.metafields.custom.free_gift_image != blank %}
+        <img
+          src="{{ product.metafields.custom.free_gift_image| image_url: width: 300 }}"
+          alt="{{ product.metafields.custom.free_gift_image.alt | escape }}"
+          width="{{ product.metafields.custom.free_gift_image.width }}"
+          height="{{ product.metafields.custom.free_gift_image.height }}"
+        >
+      {% else %}
+        {% assign fallback_product = product.metafields.custom.free_gift_product.value %}
+        {% if fallback_product.featured_image != blank %}
+          <img
+            src="{{ fallback_product.featured_image | image_url: width: 300 }}"
+            alt="{{ fallback_product.featured_image.alt | escape }}"
+            width="{{ fallback_product.featured_image.width }}"
+            height="{{ fallback_product.featured_image.height }}"
+          >
+        {% endif %}
+      {% endif %}
     {% else %}
       {% if block.settings.free_gift_image != blank %}
         <img

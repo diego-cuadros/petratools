@@ -9191,6 +9191,19 @@ body.search-template #MainContent,
   margin: auto;
 }
 
+
+.jdgm-widget-actions-wrapper a{
+  width:250px;
+}
+
+@media only screen and  (max-width: 748px) {
+  .dc_jdme_container {
+  width: 350px;
+}
+}
+
+
+
 .jdgm-rev-widg__title {
   text-align: center;
   font-weight: 500 !important;

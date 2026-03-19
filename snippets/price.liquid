@@ -171,7 +171,7 @@
   {% endif %}
   {% assign discount_decimal = discount_percentage | divided_by: 100.0 %}
   {% assign multiplier = 1 | minus: discount_decimal %}
-  {% assign final_season_price = product.price | times: multiplier %}
+  {% assign final_season_price = price | times: multiplier %}
 
   <style>
     .dc_season-row {

@@ -26,6 +26,12 @@
     cursor: pointer;
   }
 
+  @media only screen and (max-width:768px){
+    .dc-collapsible-with-table__header{
+      padding:16px 0px;
+    }
+  }
+
   .dc-collapsible-with-table__left {
     display: flex;
     align-items: center;
@@ -49,21 +55,6 @@
     width: 18px;
     height: 18px;
   }
-/*
-  .dc-collapsible-with-table__chevron {
-    font-size: 18px;
-    color: #333;
-    transform: rotate(0deg);
-  }
-
-  .dc-collapsible-with-table__chevron {
-  transition: transform 0.25s ease;
-}
-
-.dc-collapsible-with-table__item.dc-collapsible-with-table-is-open
-  .dc-collapsible-with-table__chevron {
-  transform: rotate(90deg);
-}*/
 
 .dc-collapsible-with-table__icon {
   width: 18px;
@@ -79,7 +70,8 @@
 }
 
 .dc-collapsible-with-table__icon-plus {
-  display: block;
+  display: flex;
+  align-items:center;
 }
 
 .dc-collapsible-with-table__item.dc-collapsible-with-table-is-open

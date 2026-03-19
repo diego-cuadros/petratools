@@ -144,14 +144,18 @@
             }
           }
         </style>
-        <div class="dc_season-price dc_hide_on_desktop" {{ block.shopify_attributes }}>
+        <div
+          id="season-price-above-media-{{ section.id }}"
+          class="dc_season-price dc_hide_on_desktop"
+          {{ block.shopify_attributes }}
+        >
           <div class="dc_season-price-row">
             <div class="dc_compare-at-price">{{ block.settings.season_compare_at_text | escape }}</div>
             <div class="dc_regular-price">{{ block.settings.season_regular_price_text | escape }}</div>
           </div>
           <div class="dc_season-price-row">
             <div class="dc_season-price-box">
-              <span>{{ product.price | money }}</span>
+              <span>{{ product.selected_or_first_available_variant.price | money }}</span>
             </div>
             <div class="dc_season-tag">{{ block.settings.season_tag_text | escape }}</div>
           </div>

@@ -29,13 +29,13 @@
           "type": "title",
           "settings": {
             "heading_size": "h1",
-            "show_above_product_media_mobile": true
+            "show_above_product_media_mobile": false
           }
         },
         "price": {
           "type": "price",
           "settings": {
-            "show_above_product_media_mobile": true,
+            "show_above_product_media_mobile": false,
             "price_color": "#222222",
             "strike_through_price_color": "#919191",
             "price_font_size": 24,
@@ -51,7 +51,7 @@
             "show_season_price": false,
             "season_discount_percentage": 30,
             "season_price_color": "#bf5a33",
-            "season_price_background": "#bf5a33"
+            "season_price_background": "#fff3ee"
           }
         },
         "text_VLLzk3": {
@@ -60,7 +60,7 @@
             "text": "",
             "richtext_field": "{{ product.metafields.custom.short_description | metafield_tag }}",
             "text_style": "body",
-            "show_above_product_media_mobile": true
+            "show_above_product_media_mobile": false
           }
         },
         "description": {
@@ -270,8 +270,9 @@
         "frequently_bought_with_7VyWfV"
       ],
       "custom_css": [
-        ".sealsubs-target-element {display: none;}",
-        ".dc-trust-item__content {font-size: 14px;}"
+        ".dc-trust-item__content {font-size: 14px;}",
+        ".btn__text {font-family: \"Manrope\", sans-serif; text-transform: uppercase;}",
+        "@media only screen and (max-width: 768px) {product-info {padding-top: 10px; } .product__block--price, product-info .product__block--text {margin-bottom: 16px; } product-info .product__block--text {margin-top: 0px; } product-info .jdgm-prev-badge {flex-direction: row !important; align-items: center !important; } product-info .jdgm-prev-badge__text {font-size: 16px !important; } .dc_custom-product-form_buttons {gap: 20px; }}"
       ],
       "settings": {
         "color_scheme": "scheme-7",

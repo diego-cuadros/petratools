@@ -15,7 +15,7 @@
         "custom_tag_zWkPy8": {
           "type": "custom_tag",
           "settings": {
-            "custom_tag_text": "RESTOCK: HD4000",
+            "custom_tag_text": "LIMITED TIME DEALS",
             "background_color": "#333232",
             "background_opacity": 100,
             "text_color": "#ffffff",
@@ -25,7 +25,7 @@
         "heading_ptaKFR": {
           "type": "heading",
           "settings": {
-            "heading": "Battery Powered Backpack Sprayer",
+            "heading": "UP TO 50% OFF | Spring Day Sale",
             "highlight_style": "none",
             "highlight_font_style": "italic",
             "highlight_style_color": "",
@@ -36,7 +36,7 @@
         "button_DdGDgz": {
           "type": "button",
           "settings": {
-            "button_label": "SHOP HD 4000 NOW",
+            "button_label": "SHOP SPRING SALE",
             "button_link": "shopify://products/petratools-hd4000-battery-powered-backpack-sprayer",
             "button_style": "btn--primary",
             "button_icon": "none"

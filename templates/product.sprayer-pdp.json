@@ -29,13 +29,13 @@
           "type": "title",
           "settings": {
             "heading_size": "h1",
-            "show_above_product_media_mobile": true
+            "show_above_product_media_mobile": false
           }
         },
         "price_KKe3Mg": {
           "type": "price",
           "settings": {
-            "show_above_product_media_mobile": true,
+            "show_above_product_media_mobile": false,
             "price_color": "#222222",
             "strike_through_price_color": "#919191",
             "price_font_size": 18,
@@ -49,7 +49,7 @@
             "season_tag_text": "{{ product.metafields.custom.season_tag_text.value }}",
             "season_tag_color": "#bf5a33",
             "show_season_price": false,
-            "season_discount_percentage": 30,
+            "season_discount_percentage": 50,
             "season_price_color": "#ff5413",
             "season_price_background": "#fff3ee"
           }
@@ -84,7 +84,7 @@
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
-            "show_quantity_selector": true,
+            "show_quantity_selector": false,
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false,
             "use_custom_quantity_selector_style": true,
@@ -238,8 +238,9 @@
         "collapsible_with_table_WeYK9m"
       ],
       "custom_css": [
-        ".dc_quantity-label,.dc_product-form__quantity {display: none;}",
-        ".dc-trust-item__content {font-size: 14px;}"
+        ".dc-trust-item__content {font-size: 14px;}",
+        ".btn__text {font-family: \"Manrope\", sans-serif; text-transform: uppercase;}",
+        "@media only screen and (max-width: 768px) {product-info {padding-top: 10px; } .product__block--price {margin-bottom: 20px; } product-info .product__block--text {margin-top: 0px; } product-info .jdgm-prev-badge {flex-direction: row !important; align-items: center !important; } product-info .jdgm-prev-badge__text {font-size: 16px !important; } .dc_custom-product-form_buttons {gap: 20px; }}"
       ],
       "settings": {
         "color_scheme": "scheme-7",
@@ -252,8 +253,8 @@
         "enable_image_zoom": true,
         "enable_video_looping": true,
         "use_percentage_tag_on_viewer": true,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     },
     "sc_pdp_img_text_wFMzWk": {

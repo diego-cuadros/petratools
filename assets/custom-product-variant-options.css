@@ -142,7 +142,6 @@ body.sprayer-pdp variant-selects .product-form__input--button {
     width: 100% !important;
     gap: 8px;
     padding: 8px;
-    border: 1px solid #e0e0e0 !important;
     background-color: transparent !important;
     border-radius: 4px;
   }

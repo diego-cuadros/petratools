@@ -30,3 +30,9 @@ h1 {
     font-size: 24px !important;
   }
 }
+
+@media only screen and (max-width){
+  .dc_custom-product-form_buttons{
+    gap:20px !important;
+  }
+}

@@ -79,7 +79,7 @@ if (!customElements.get('product-info')) {
       }
 
       get productForm() {
-        return this.querySelector('form[is="product-form"');
+        return this.querySelector('form[is="product-form"]');
       }
 
       resetProductFormState() {
@@ -132,6 +132,7 @@ if (!customElements.get('product-info')) {
             html = quickView.content.cloneNode(true);
           }
           const variant = this.getSelectedVariant(html);
+          this.currentVariant = variant;
 
           this.pickupAvailability?.update(variant);
           this.updateOptionValues(html);
@@ -147,12 +148,16 @@ if (!customElements.get('product-info')) {
           this.updateMedia(variant);
 
           const updateSourceFromDestination = (id, shouldHide = (source) => false, destinationIds = [id]) => {
-            const source = html.getElementById(`${id}-${this.sectionId}`);
+            const source =
+              html.getElementById(`${id}-${this.sectionId}`) || html.getElementById(`${id}-${this.dataset.section}`);
             if (!source) return;
 
             destinationIds.forEach((destinationId) => {
-              const destination = this.querySelector(`#${destinationId}-${this.dataset.section}`);
+              const destination =
+                this.ownerDocument.getElementById(`${destinationId}-${this.dataset.section}`) ||
+                this.ownerDocument.getElementById(`${destinationId}-${this.sectionId}`);
               if (!destination) return;
+              if (!this.contains(destination)) return;
 
               destination.innerHTML = source.innerHTML;
               destination.classList.toggle('hidden', shouldHide(source));
@@ -161,6 +166,7 @@ if (!customElements.get('product-info')) {
 
           updateSourceFromDestination('price');
           updateSourceFromDestination('price-above-media', undefined, ['price-above-media']);
+          updateSourceFromDestination('season-price-above-media', undefined, ['season-price-above-media']);
           updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Barcode', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');

@@ -57,72 +57,84 @@
         "featured_collection_7myDMy": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Sale Items"
           }
         },
         "featured_collection_tTXGhG": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Press Tables"
           }
         },
         "featured_collection_eTmenR": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Lighting"
           }
         },
         "featured_collection_NqmiBp": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Spoke Sofa"
           }
         },
         "featured_collection_cwXGef": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Storage"
           }
         },
         "featured_collection_tnVfbN": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Turn Chairs"
           }
         },
         "featured_collection_Tk8fAX": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Longe Chairs"
           }
         },
         "featured_collection_zMCcHU": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Curve Coat"
           }
         },
         "featured_collection_8gXBqF": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Bend Chairs"
           }
         },
         "featured_collection_bKtVPN": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Accessories"
           }
         },
         "featured_collection_FXHYwn": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Cross Tables"
           }
         },
         "featured_collection_y8fDzC": {
           "type": "featured_collection",
           "settings": {
+            "collection": "",
             "title": "Bar Chairs"
           }
         }
@@ -141,6 +153,7 @@
         "featured_collection_FXHYwn",
         "featured_collection_y8fDzC"
       ],
+      "disabled": true,
       "settings": {
         "container": "fixed",
         "color_scheme": "",
@@ -159,7 +172,17 @@
         "button_link": "",
         "button_style": "btn--underline",
         "button_icon": "none",
+        "card_color_scheme": "",
+        "card_style": "standard",
+        "card_heading_size": "text-base",
+        "card_image_ratio": "1/1",
+        "card_image_width": "medium",
+        "card_image_padding": "none",
         "rounded_card_image": true,
+        "mobile_layout": "vertical",
+        "carousel_item_size": "auto",
+        "columns_desktop": 6,
+        "carousel_control_color_scheme": "",
         "padding_top": 20,
         "padding_bottom": 20,
         "show_section_divider": false,
@@ -180,6 +203,7 @@
             "content_alignment": "center",
             "content_spacing": "small",
             "content_gap": "fitted",
+            "card_link": "",
             "subheading": "Home & Decor",
             "subheading_style": "",
             "heading": "Saving $30 for Lighting",
@@ -217,7 +241,9 @@
         "filter_type": "vertical",
         "expand_filter_groups": "Availability, Price, Color, Size, Category",
         "enable_sorting": true,
+        "enable_sorting_on_mobile_drawer": true,
         "enable_layout_switching": true,
+        "enable_static_atc_btn": false,
         "columns_mobile": "2",
         "padding_top": 28,
         "padding_bottom": 60,
@@ -254,6 +280,7 @@
         "heading_kVf6qj",
         "text_xtLQE8"
       ],
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "container": "fixed",
@@ -274,6 +301,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Living Room",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -281,6 +309,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Planters",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -288,6 +317,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Gravel Rug",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -295,6 +325,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Table Mirror",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -302,6 +333,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Table Wears",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -309,6 +341,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Dining Decor",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -316,6 +349,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Ray Table Lamp",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -323,6 +357,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Chairs",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -330,6 +365,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Living Room",
+            "button_link": "",
             "icon": "check"
           }
         },
@@ -337,6 +373,7 @@
           "type": "button_item",
           "settings": {
             "button_label": "Planters",
+            "button_link": "",
             "icon": "check"
           }
         }
@@ -353,6 +390,7 @@
         "button_item_7tzdU9",
         "button_item_idaFU3"
       ],
+      "disabled": true,
       "settings": {
         "container": "fixed",
         "color_scheme": "",
