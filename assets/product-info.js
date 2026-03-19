@@ -84,7 +84,9 @@ if (!customElements.get('product-info')) {
 
       resetProductFormState() {
         const productForm = this.productForm;
-        productForm?.resetFormState();
+        if (!productForm || typeof productForm.resetFormState !== 'function') return;
+        if (!productForm.submitButtonElement) return;
+        productForm.resetFormState();
       }
 
       handleSwapProduct(productUrl, updateFullPage, viewMode) {
@@ -132,7 +134,6 @@ if (!customElements.get('product-info')) {
             html = quickView.content.cloneNode(true);
           }
           const variant = this.getSelectedVariant(html);
-          this.currentVariant = variant;
 
           this.pickupAvailability?.update(variant);
           this.updateOptionValues(html);
@@ -147,31 +148,22 @@ if (!customElements.get('product-info')) {
 
           this.updateMedia(variant);
 
-          const updateSourceFromDestination = (id, shouldHide = (source) => false, destinationIds = [id]) => {
-            const source =
-              html.getElementById(`${id}-${this.sectionId}`) || html.getElementById(`${id}-${this.dataset.section}`);
-            if (!source) return;
-
-            destinationIds.forEach((destinationId) => {
-              const destination =
-                this.ownerDocument.getElementById(`${destinationId}-${this.dataset.section}`) ||
-                this.ownerDocument.getElementById(`${destinationId}-${this.sectionId}`);
-              if (!destination) return;
-              if (!this.contains(destination)) return;
-
+          const updateSourceFromDestination = (id, shouldHide = (source) => false) => {
+            const source = html.getElementById(`${id}-${this.sectionId}`);
+            const destination = this.querySelector(`#${id}-${this.dataset.section}`);
+            if (source && destination) {
               destination.innerHTML = source.innerHTML;
               destination.classList.toggle('hidden', shouldHide(source));
-            });
+            }
           };
 
           updateSourceFromDestination('price');
-          updateSourceFromDestination('price-above-media', undefined, ['price-above-media']);
-          updateSourceFromDestination('season-price-above-media', undefined, ['season-price-above-media']);
+          updateSourceFromDestination('price-above-media');
+          updateSourceFromDestination('season-price-above-media');
           updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Barcode', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');
           updateSourceFromDestination('Badges', ({ classList }) => classList.contains('hidden'));
-          updateSourceFromDestination('MediaDiscount', ({ innerText }) => innerText.trim() === '');
           updateSourceFromDestination('PricePerItem', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Volume');
 

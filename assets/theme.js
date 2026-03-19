@@ -2399,7 +2399,7 @@ class ProductForm extends HTMLFormElement {
 
   resetFormState() {
     this.hasError = false;
-    this.submitButtonElement.removeAttribute('aria-disabled');
+    this.submitButtonElement?.removeAttribute('aria-disabled');
     this.displayFormErrors();
   }
 
@@ -2424,10 +2424,10 @@ class ProductForm extends HTMLFormElement {
         console.log(error);
       })
       .finally(() => {
-        this.submitButtonElement.classList.remove('btn--loading');
+        this.submitButtonElement?.classList.remove('btn--loading');
         // if (!this.hasError) {
         // }
-        this.submitButtonElement.removeAttribute('aria-disabled'); // Move out of hasError check to make it working with sticky ATC minimalist.
+        this.submitButtonElement?.removeAttribute('aria-disabled'); // Move out of hasError check to make it working with sticky ATC minimalist.
       });
   };
 

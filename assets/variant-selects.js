@@ -7,17 +7,21 @@ if (!customElements.get('variant-selects')) {
       }
 
       get selectedOptionValues() {
+        console.log("🔥VARIANT SELECTS:Getting selected option values...");
         return Array.from(this.querySelectorAll('select option[selected], fieldset input:checked')).map(
           ({ dataset }) => dataset.optionValueId
         );
       }
 
       getInputForEventTarget(target) {
+        console.log("🔥VARIANT SELECTS:Getting input for event target...");
         return target.tagName === 'SELECT' ? target.selectedOptions[0] : target;
       }
 
       connectedCallback() {
+        console.log("🔥VARIANT SELECTS:Connected to the DOM.");
         this.addEventListener('change', (event) => {
+          console.log("🔥Change event detected on variant-selects.");
           const target = this.getInputForEventTarget(event.target);
           this.updateSelectedSwatchValue(event);
           FoxTheme.pubsub.publish(FoxTheme.pubsub.PUB_SUB_EVENTS.optionValueSelectionChange, {
@@ -31,9 +35,11 @@ if (!customElements.get('variant-selects')) {
       }
 
       updateSelectedSwatchValue({ target }) {
+        console.log("🔥VARIANT SELECTS:Updating selected swatch value...");
         const { value, tagName } = target;
 
         if (tagName === 'SELECT' && target.selectedOptions.length) {
+          console.log("🔥VARIANT SELECTS:Updating selected swatch value for select input...");
           Array.from(target.options)
             .find((option) => option.getAttribute('selected'))
             .removeAttribute('selected');
@@ -57,6 +63,7 @@ if (!customElements.get('variant-selects')) {
             target.selectedOptions[0].dataset.optionSwatchFocalPoint || 'unset'
           );
         } else if (tagName === 'INPUT' && target.type === 'radio') {
+          console.log("🔥VARIANT SELECTS:Updating selected swatch value for radio input...");
           const selectedSwatchValue = target.closest(`.product-form__input`).querySelector('[data-selected-value]');
           if (selectedSwatchValue) selectedSwatchValue.innerHTML = value;
         }
