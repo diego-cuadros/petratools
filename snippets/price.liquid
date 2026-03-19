@@ -228,8 +228,8 @@
     {% if template.name != 'product' %}
       <div class="dc_season-row">
         {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
-          <div class="dc_season-price-box" style="background-color: #FFF3EE; padding: 2px; margin-left:2px;">
-            <span style="color: #BF5A33; font-size:16px;">🔥 {{ final_season_price | money }}</span>
+          <div class="dc_season-price-box" style="background-color: #fad6c6; padding: 2px; margin-left:2px;">
+            <span style="color: #FF5413; font-size:16px;">{{ final_season_price | money }}</span>
           </div>
         {% endif %}
       </div>
