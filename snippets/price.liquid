@@ -74,6 +74,11 @@
     assign use_season_price_for_discount = true
   endif
 
+  assign strike_sale_price_for_collection_season = false
+  if template.name != 'product' and use_season_price_for_discount
+    assign strike_sale_price_for_collection_season = true
+  endif
+
   assign discount_price_source = price
   if use_season_price_for_discount
     assign discount_price_source = final_season_price
@@ -149,8 +154,9 @@
       <span
         class="f-price-item f-price-item--sale"
         style="
-          color: {{ block.settings.price_color }}; font-size: {{ block.settings.price_font_size }}px; font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
+          {% if strike_sale_price_for_collection_season %}color:#858484; {% else %} color: {{ block.settings.price_color }};{% endif %} font-size: {{ block.settings.price_font_size }}px; font-family: {{ price_font.family }}, {{ price_font.fallback_families }};
           font-weight: {{ price_font.weight }};
+          {% if strike_sale_price_for_collection_season %}text-decoration: line-through;{% endif %}
         "
 
       >
@@ -219,18 +225,28 @@
     or block.settings.use_season_tag
     or product.metafields.custom.use_season_price.value
   %}
-    <div class="dc_season-row">
-      {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
-        <div class="dc_season-price-box" style="background-color: {{ block.settings.season_price_background }};">
-          <span style="color: {{ block.settings.season_price_color }};">{{ final_season_price | money }}</span>
-        </div>
-      {% endif %}
-      {% if block.settings.use_season_tag or product.metafields.custom.use_season_price.value %}
-        <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
-          {{ block.settings.season_tag_text | escape }}
-        </div>
-      {% endif %}
-    </div>
+    {% if template.name != 'product' %}
+      <div class="dc_season-row">
+        {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
+          <div class="dc_season-price-box" style="background-color: #FFF3EE; padding: 2px; margin-left:2px;">
+            <span style="color: #BF5A33; font-size:16px;">🔥 {{ final_season_price | money }}</span>
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="dc_season-row">
+        {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
+          <div class="dc_season-price-box" style="background-color: {{ block.settings.season_price_background }};">
+            <span style="color: {{ block.settings.season_price_color }};">{{ final_season_price | money }}</span>
+          </div>
+        {% endif %}
+        {% if block.settings.use_season_tag or product.metafields.custom.use_season_price.value %}
+          <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
+            {{ block.settings.season_tag_text | escape }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
   {% endif %}
   <div class="f-price__unit-wrapper{% if selected_variant.unit_price_measurement == nil %} hidden{% endif %}">
     <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
