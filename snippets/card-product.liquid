@@ -116,7 +116,6 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-height: 3em; /* Adjust based on your line-height to ensure 2 lines of space always exist */
     line-height: 1.5;
   }
 
@@ -300,36 +299,6 @@
           </a>
         </p>
       {%- endif -%}
-      <h3 class="product-card__title text-pcard-title">
-        {%- if show_price -%}
-          {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
-        {%- endif -%}
-        {% unless template.name == 'btmles-collection' %}
-          <a
-            href="{{ product.url }}"
-            class="block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}"
-          >
-            {{ product.title }}
-          </a>
-        {% else %}
-          <a
-            class="reversed-link block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}"
-            href="{{ product.url }}"
-          >
-            <span class="reversed-link__text">{{- product.title -}}</span>
-          </a>
-        {% endunless %}
-      </h3>
-      {%- if show_color_swatches -%}
-        {%- render 'pcard-color-swatch',
-          product: product,
-          image_sizes: image_sizes,
-          image_widths: image_widths,
-          enable_quick_view: enable_quick_view,
-          quick_view_modal_id: quick_view_modal_id
-        -%}
-      {%- endif -%}
-
       <style>
         .jdgm-prev-badge{
           margin-top:4px;
@@ -355,6 +324,36 @@
       >
         {{ product.metafields.judgeme.badge }}
       </div>
+
+      <h3 class="product-card__title text-pcard-title">
+        {% unless template.name == 'btmles-collection' %}
+          <a
+            href="{{ product.url }}"
+            class="block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}"
+          >
+            {{ product.title }}
+          </a>
+        {% else %}
+          <a
+            class="reversed-link block {% if settings.pcard_title_line_limit != 'none' %} text-limit-{{ settings.pcard_title_line_limit }}{% endif %}"
+            href="{{ product.url }}"
+          >
+            <span class="reversed-link__text">{{- product.title -}}</span>
+          </a>
+        {% endunless %}
+      </h3>
+      {%- if show_color_swatches -%}
+        {%- render 'pcard-color-swatch',
+          product: product,
+          image_sizes: image_sizes,
+          image_widths: image_widths,
+          enable_quick_view: enable_quick_view,
+          quick_view_modal_id: quick_view_modal_id
+        -%}
+      {%- endif -%}
+      {%- if show_price -%}
+        {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
+      {%- endif -%}
 
       {% comment %}ATC Button should go here{% endcomment %}
       {%- if enable_quick_add -%}
