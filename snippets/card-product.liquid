@@ -352,7 +352,7 @@
         -%}
       {%- endif -%}
       {%- if show_price -%}
-        {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
+        {% render 'price', product: product, alignment: settings.pcard_content_alignment, available_min_price_only: template.name == 'collection' %}
       {%- endif -%}
 
       {% comment %}ATC Button should go here{% endcomment %}

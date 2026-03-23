@@ -4,6 +4,7 @@
   @param {object} [product] - Product Liquid object
   @param {boolean} [use_variant] - Renders selected or first variant price instead of overall product pricing
   @param {boolean} [use_price_at_quantity_break_min] - Show variant price instead of quantity break price
+  @param {boolean} [available_min_price_only] - Uses the cheapest available variant for visible non-season pricing
   @param {string} [price_class] - CSS class added to the price element
   @param {string} [price_regular_class] - CSS class added to the price regular element
   @param {string} [price_sale_class] - CSS class added to the price sale element
@@ -36,17 +37,40 @@
     endunless
   endif
 
-  assign available = target.available | default: false
-  assign money_price = price | money
-  assign money_price_min = price_min | money
-  assign money_price_max = price_max | money
-  if settings.currency_code_enabled
-    assign money_price = price | money_with_currency
-    assign money_price_min = price_min | money_with_currency
-    assign money_price_max = price_max | money_with_currency
+  assign display_compare_at_price = compare_at_price
+  assign display_price = price
+  assign display_price_min = price_min
+  assign display_price_max = price_max
+
+  if available_min_price_only and use_variant != true and product.available
+    assign lowest_available_variant = blank
+    for variant in product.variants
+      if variant.available
+        if lowest_available_variant == blank or variant.price < lowest_available_variant.price
+          assign lowest_available_variant = variant
+        endif
+      endif
+    endfor
+
+    if lowest_available_variant != blank
+      assign display_compare_at_price = lowest_available_variant.compare_at_price
+      assign display_price = lowest_available_variant.price | default: 1999
+      assign display_price_min = lowest_available_variant.price
+      assign display_price_max = lowest_available_variant.price
+    endif
   endif
 
-  if target == product and product.price_varies
+  assign available = target.available | default: false
+  assign money_price = display_price | money
+  assign money_price_min = display_price_min | money
+  assign money_price_max = display_price_max | money
+  if settings.currency_code_enabled
+    assign money_price = display_price | money_with_currency
+    assign money_price_min = display_price_min | money_with_currency
+    assign money_price_max = display_price_max | money_with_currency
+  endif
+
+  if target == product and product.price_varies and available_min_price_only != true
     assign money_price = money_price_min
   endif
 -%}
@@ -68,7 +92,7 @@
   endif
   assign season_discount_decimal = season_discount_percentage | divided_by: 100.0
   assign season_multiplier = 1 | minus: season_discount_decimal
-  assign final_season_price = price | times: season_multiplier
+  assign final_season_price = display_price | times: season_multiplier
 
   assign use_season_price_for_discount = false
   if block.settings.show_season_price or product.metafields.custom.use_season_price.value
@@ -85,7 +109,7 @@
     assign hide_from_price = true
   endif
 
-  assign discount_price_source = price
+  assign discount_price_source = display_price
   if use_season_price_for_discount
     assign discount_price_source = final_season_price
   endif
@@ -93,20 +117,20 @@
   assign discount_percentage = 0
   assign show_percentage_discount_tag = false
   assign has_compare_at_price = false
-  if compare_at_price != blank and compare_at_price > 0
+  if display_compare_at_price != blank and display_compare_at_price > 0
     assign has_compare_at_price = true
   endif
 
   if has_compare_at_price
-    if compare_at_price > discount_price_source
-      assign difference = compare_at_price | minus: discount_price_source
-      assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
+    if display_compare_at_price > discount_price_source
+      assign difference = display_compare_at_price | minus: discount_price_source
+      assign discount_percentage = difference | times: 100 | divided_by: display_compare_at_price
       assign show_percentage_discount_tag = true
     endif
   elsif use_season_price_for_discount
-    if price > final_season_price and price > 0
-      assign difference = price | minus: final_season_price
-      assign discount_percentage = difference | times: 100 | divided_by: price
+    if display_price > final_season_price and display_price > 0
+      assign difference = display_price | minus: final_season_price
+      assign discount_percentage = difference | times: 100 | divided_by: display_price
       assign show_percentage_discount_tag = true
     endif
   endif
@@ -128,7 +152,7 @@
     {%- if alignment %} f-price--{{ alignment }}{% endif -%}
     {%- if price_class %} {{ price_class }}{% endif -%}
     {%- if available == false %} f-price--sold-out {% endif -%}
-    {%- if compare_at_price > price %} f-price--on-sale {% endif -%}
+    {%- if display_compare_at_price > display_price %} f-price--on-sale {% endif -%}
     {%- if target.price_varies == false and target.compare_at_price_varies %} f-price--no-compare{% endif -%}
   "
 >
@@ -186,9 +210,9 @@
             "
           >
             {% if settings.currency_code_enabled %}
-              {{ compare_at_price | money_with_currency }}
+              {{ display_compare_at_price | money_with_currency }}
             {% else %}
-              {{ compare_at_price | money }}
+              {{ display_compare_at_price | money }}
             {% endif %}
           </s>
         </span>
@@ -218,9 +242,9 @@
           "
         >
           {%- if settings.currency_code_enabled -%}
-            {{ compare_at_price | money_with_currency }}
+            {{ display_compare_at_price | money_with_currency }}
           {%- else -%}
-            {{ compare_at_price | money }}
+            {{ display_compare_at_price | money }}
           {%- endif -%}
         </s>
       </span>
