@@ -9314,3 +9314,50 @@ div:has(> .product__title) {
   vertical-align: middle;
   margin-right: 8px;
 }
+
+
+/* Solving spacing issues mar 23rd - spacing for shop categories on home page */
+.collection-list__items.f-grid {
+  row-gap: 12px;
+  column-gap: 12px;
+}
+
+@media screen and (max-width: 749px){
+  .collection-list__items.f-grid{
+  row-gap: 8px;
+  column-gap: 8px;
+}
+}
+
+
+/* Font issues on main hero home page */
+.dc_tag-line_text{
+  font-weight:500 !important;
+}
+
+.dc_h2{
+  font-weight:500 !important;
+}
+
+.btn__text{
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+}
+
+.dc_score-text{
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+}
+
+/* spacing issue son collection grid */
+#ProductGridContainer > #ProductsList {
+  row-gap:40px !important;
+  column-gap:24px !important;
+}
+
+@media screen and (max-width: 749px){
+  #ProductGridContainer > #ProductsList {
+  row-gap:20px !important;
+  column-gap:8px !important;
+}
+}
