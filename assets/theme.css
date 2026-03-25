@@ -9080,6 +9080,13 @@ body.search-template #MainContent,
     gap: 8px;
   }
 
+  .facet-drawer-button-wrap .facet-drawer-button:hover .btn__text {
+  color: #fff !important;
+}
+
+.facet-drawer-button-wrap .facet-drawer-button:hover svg path {
+  stroke: #fff !important;
+}
   /* Icon sizing */
   .facet-drawer-button-wrap .facet-drawer-button svg {
     width: 18px;

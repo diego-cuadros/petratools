@@ -125,7 +125,7 @@
         "@media only screen and (max-width: 768px) {button, .btn {padding: 0px; }}",
         ".product-card__atc-icon {display: none;}",
         ".f-price__regular .f-price-item--regular {font-weight: 600; letter-spacing: 1px;}",
-        ".btn__text:hover {color: #222222 !important;}",
+        ".facets-active .btn__text {padding-left: 10px; padding-right: 10px;}",
         ".form-control:focus {background: none !important;}"
       ],
       "settings": {
