@@ -7,7 +7,7 @@
   endif
 %}
 
-{% if show_section %}
+{% if show_section or template.name != 'product' %}
   <div
     class="section section--padding page-width page-width--{{ section.settings.container }} color-{{ section.settings.color_scheme }}"
     style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
