@@ -1,66 +1,75 @@
-{% style %}
-  #section-{{ section.id }} {
-     padding-top: {{ section.settings.padding_top }}px;
-     padding-bottom: {{ section.settings.padding_bottom }}px;
-     background-color: {{ section.settings.bg-color }};
-     color: {{ section.settings.text-color }};
-  }
-  #section-{{ section.id }} .title{
-     color: {{ section.settings.text-color }};
-  }
-  #section-{{ section.id }} .box-color {
-     background-color: {{ section.settings.box-bg-color }};
-     color: {{ section.settings.box-text-color }};
-  }
-  @media (max-width: 768px) {
-     #section-{{ section.id }} {
-         padding-top: {{ section.settings.mobile_padding_top }}px;
-         padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
-     }
-  }
-{% endstyle %}
+{% liquid
+  if template.name == 'product' and product.metafields.custom.pdp_image_with_text_show_section
+    assign show_section = true
+  else
+    assign show_section = false
+  endif
+%}
+{% if show_section or template.name != 'product' %}
+  {% style %}
+    #section-{{ section.id }} {
+       padding-top: {{ section.settings.padding_top }}px;
+       padding-bottom: {{ section.settings.padding_bottom }}px;
+       background-color: {{ section.settings.bg-color }};
+       color: {{ section.settings.text-color }};
+    }
+    #section-{{ section.id }} .title{
+       color: {{ section.settings.text-color }};
+    }
+    #section-{{ section.id }} .box-color {
+       background-color: {{ section.settings.box-bg-color }};
+       color: {{ section.settings.box-text-color }};
+    }
+    @media (max-width: 768px) {
+       #section-{{ section.id }} {
+           padding-top: {{ section.settings.mobile_padding_top }}px;
+           padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+       }
+    }
+  {% endstyle %}
 
-{{ 'sc-pdp-img-text.css' | asset_url | stylesheet_tag }}
-<div class="sc-pdp-image-text" id="section-{{ section.id }}">
-  {% if section.settings.heading != blank %}
-    <h2 class="sc-pdp-heading title">{{ section.settings.heading }}</h2>
-  {% endif %}
+  {{ 'sc-pdp-img-text.css' | asset_url | stylesheet_tag }}
+  <div class="sc-pdp-image-text" id="section-{{ section.id }}">
+    {% if section.settings.heading != blank %}
+      <h2 class="sc-pdp-heading title">{{ section.settings.heading }}</h2>
+    {% endif %}
 
-  <div class="sc-pdp-grid">
-    {% for block in section.blocks %}
-      <div class="sc-pdp-card box-color">
-        <div class="sc-pdp-card-wrapper" onclick="toggleMobileCard(this)">
-          {% if block.settings.image != blank %}
-            <img
-              src="{{ block.settings.image | img_url: '400x400' }}"
-              alt="{{ block.settings.title }}"
-              class="sc-pdp-card-image"
-              loading="lazy"
-              width="{{ img.width }}"
-              height="{{ img.height }}"
-            >
-          {% endif %}
-
-          <div class="sc-pdp-card-content">
-            {% if block.settings.title != blank %}
-              <h3 class="sc-pdp-card-title">{{ block.settings.title }}</h3>
+    <div class="sc-pdp-grid">
+      {% for block in section.blocks %}
+        <div class="sc-pdp-card box-color">
+          <div class="sc-pdp-card-wrapper" onclick="toggleMobileCard(this)">
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | img_url: '400x400' }}"
+                alt="{{ block.settings.title }}"
+                class="sc-pdp-card-image"
+                loading="lazy"
+                width="{{ img.width }}"
+                height="{{ img.height }}"
+              >
             {% endif %}
 
-            {% if block.settings.description != blank %}
-              <p class="sc-pdp-card-text">{{ block.settings.description }}</p>
-            {% endif %}
-          </div>
+            <div class="sc-pdp-card-content">
+              {% if block.settings.title != blank %}
+                <h3 class="sc-pdp-card-title">{{ block.settings.title }}</h3>
+              {% endif %}
 
-          <div class="sc-pdp-card-toggle">
-            {% comment %} <span class="sc-pdp-card-toggle-arrow"></span> {% endcomment %}
+              {% if block.settings.description != blank %}
+                <p class="sc-pdp-card-text">{{ block.settings.description }}</p>
+              {% endif %}
+            </div>
+
+            <div class="sc-pdp-card-toggle">
+              {% comment %} <span class="sc-pdp-card-toggle-arrow"></span> {% endcomment %}
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
+      {% endfor %}
+    </div>
   </div>
-</div>
 
-<script src="{{ 'sc-pdp-img-text.js' | asset_url }}" defer></script>
+  <script src="{{ 'sc-pdp-img-text.js' | asset_url }}" defer></script>
+{% endif %}
 
 {% schema %}
 {
