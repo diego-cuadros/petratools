@@ -40,7 +40,7 @@
   endif
 -%}
 
-{% if show_section %}
+{% if show_section or template.name != 'product' %}
   {{ 'section-collapsible-tabs.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'collapsible-tabs.js' | asset_url }}" defer="defer"></script>
 
