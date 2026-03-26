@@ -42,7 +42,7 @@
   endif
 -%}
 
-{% if show_section %}
+{% if show_section or template.name != 'product' %}
   <section
     class="comparison-section"
     style="--comparison-columns: {{ comparison_columns }};"
