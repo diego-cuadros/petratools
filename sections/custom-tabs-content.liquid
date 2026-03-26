@@ -19,309 +19,322 @@
   assign sidebar = section.blocks | where: 'type', 'sidebar' | first
 
   assign create_tab = false
+
+  if template.name == 'product' and product.metafields.custom.whats_included_show_section
+    assign show_section = true
+  else
+    assign show_section = false
+  endif
 -%}
-{{ 'custom-list-of-images.css' | asset_url | stylesheet_tag }}
-{{ 'component-tabs.css' | asset_url | stylesheet_tag }}
-{%- if sidebar -%}
-  {{ 'component-help-sidebar.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
-{%- if image_with_text_blocks != blank -%}
-  {{ 'section-image-with-text.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
 
-{% render 'divider',
-  show_divider: section.settings.show_section_divider,
-  divider_width: section.settings.divider_width
-%}
+{% if show_section or template.name != 'product' %}
+  {{ 'custom-list-of-images.css' | asset_url | stylesheet_tag }}
+  {{ 'component-tabs.css' | asset_url | stylesheet_tag }}
+  {%- if sidebar -%}
+    {{ 'component-help-sidebar.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
+  {%- if image_with_text_blocks != blank -%}
+    {{ 'section-image-with-text.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
 
-<div
-  class="section section-tabs-content section-{{ section.id }} section--padding page-width page-width--{{ section.settings.container }} color-{{ section.settings.color_scheme }}"
-  style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
-  data-id="{{ section.id }}"
->
-  {%- if section.blocks.size > 0 -%}
-    <div class="flex flex-col md:flex-row{% if sidebar != blank %} help-sidebar__wrapper help-sidebar--{{ sidebar.settings.position }}{% endif %}">
-      <tabs-component class="flex-1 tabs tabs-nav--{{ nav_style }}">
-        {% if section.settings.section_heading %}
-          <h2 class="dc_tabs-content__heading">{{ section.settings.section_heading }}</h2>
-        {% endif %}
-        <div
-          class="tabs__header flex justify-{{ section.settings.navigation_alignment }}"
-          role="tablist"
-        >
-          <div class="tabs__nav-wrap">
-            <div class="tabs__nav tabs__nav-js">
-              {%- liquid
-                assign tab_number = 1
-              -%}
-              {%- for block in section.blocks -%}
+  {% render 'divider',
+    show_divider: section.settings.show_section_divider,
+    divider_width: section.settings.divider_width
+  %}
+
+  <div
+    class="section section-tabs-content section-{{ section.id }} section--padding page-width page-width--{{ section.settings.container }} color-{{ section.settings.color_scheme }}"
+    style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+    data-id="{{ section.id }}"
+  >
+    {%- if section.blocks.size > 0 -%}
+      <div class="flex flex-col md:flex-row{% if sidebar != blank %} help-sidebar__wrapper help-sidebar--{{ sidebar.settings.position }}{% endif %}">
+        <tabs-component class="flex-1 tabs tabs-nav--{{ nav_style }}">
+          {% if section.settings.section_heading %}
+            <h2 class="dc_tabs-content__heading">{{ section.settings.section_heading }}</h2>
+          {% endif %}
+          <div
+            class="tabs__header flex justify-{{ section.settings.navigation_alignment }}"
+            role="tablist"
+          >
+            <div class="tabs__nav-wrap">
+              <div class="tabs__nav tabs__nav-js">
                 {%- liquid
-                  if block.type == 'sidebar'
-                    continue
-                  endif
-                  if block.settings.navigation_title != blank
-                    assign tab_name = block.settings.navigation_title
-                  else
-                    assign tab_name = 'Tab ' | append: tab_number
-                  endif
-
-                  assign tab_number = tab_number | plus: 1
-
-                  assign tab_title_part_1 = 'whats_included_tab' | append: forloop.index
-                  assign tab_title_part_2 = '_images_1_title'
-                  assign tab_title_complete = tab_title_part_1 | append: tab_title_part_2
-                  assign tab_title_metafield = product.metafields.custom[tab_title_complete]
-
-                  if tab_title_metafield.value != blank
-                    assign create_tab = true
-                  else
-                    assign create_tab = false
-                  endif
+                  assign tab_number = 1
                 -%}
+                {%- for block in section.blocks -%}
+                  {%- liquid
+                    if block.type == 'sidebar'
+                      continue
+                    endif
+                    if block.settings.navigation_title != blank
+                      assign tab_name = block.settings.navigation_title
+                    else
+                      assign tab_name = 'Tab ' | append: tab_number
+                    endif
 
-                <button
-                  class="{{ nav_button_class }}"
-                  role="tab"
-                  id="{{- block.id -}}"
-                  {{ block.shopify_attributes }}
-                  {% unless create_tab == true %}
-                    style="display:none;"
-                  {% endunless %}
-                >
-                  <span class="{{ nav_button_text_class }}">{{- tab_name -}}</span>
-                </button>
-              {%- endfor -%}
+                    assign tab_number = tab_number | plus: 1
+
+                    assign tab_title_part_1 = 'whats_included_tab' | append: forloop.index
+                    assign tab_title_part_2 = '_images_1_title'
+                    assign tab_title_complete = tab_title_part_1 | append: tab_title_part_2
+                    assign tab_title_metafield = product.metafields.custom[tab_title_complete]
+
+                    if tab_title_metafield.value != blank
+                      assign create_tab = true
+                    else
+                      assign create_tab = false
+                    endif
+                  -%}
+
+                  <button
+                    class="{{ nav_button_class }}"
+                    role="tab"
+                    id="{{- block.id -}}"
+                    {{ block.shopify_attributes }}
+                    {% unless create_tab == true %}
+                      style="display:none;"
+                    {% endunless %}
+                  >
+                    <span class="{{ nav_button_text_class }}">{{- tab_name -}}</span>
+                  </button>
+                {%- endfor -%}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="tabs__panel">
-          {%- liquid
-            assign tab_index = 0
-          -%}
-          {%- for block in section.blocks -%}
+          <div class="tabs__panel">
             {%- liquid
-              if block.type == 'sidebar'
-                continue
-              endif
-
-              assign tab_title_part_1 = 'whats_included_tab' | append: forloop.index
-              assign tab_title_part_2 = '_images_1_title'
-              assign tab_title_complete = tab_title_part_1 | append: tab_title_part_2
-              assign tab_title_metafield = product.metafields.custom[tab_title_complete]
+              assign tab_index = 0
             -%}
-            <div
-              class="tabs__content"
-              id="tab-{{ block.id }}"
-              data-index="{{ tab_index }}"
-              role="tabpanel"
-              {% unless tab_index == 0 %}
-                hidden
-              {% endunless %}
-            >
-              {%- case block.type -%}
-                {%- when 'image_with_text' -%}
-                  {%- liquid
-                    assign image_position = block.settings.desktop_image_position
+            {%- for block in section.blocks -%}
+              {%- liquid
+                if block.type == 'sidebar'
+                  continue
+                endif
 
-                    assign aspect_ratio = block.settings.image_aspect_ratio | default: '1/1'
-                    if aspect_ratio == 'adapt'
-                      if block.settings.image != blank
-                        assign aspect_ratio = block.settings.image.aspect_ratio
-                      else
-                        assign aspect_ratio = '1/1'
+                assign tab_title_part_1 = 'whats_included_tab' | append: forloop.index
+                assign tab_title_part_2 = '_images_1_title'
+                assign tab_title_complete = tab_title_part_1 | append: tab_title_part_2
+                assign tab_title_metafield = product.metafields.custom[tab_title_complete]
+              -%}
+              <div
+                class="tabs__content"
+                id="tab-{{ block.id }}"
+                data-index="{{ tab_index }}"
+                role="tabpanel"
+                {% unless tab_index == 0 %}
+                  hidden
+                {% endunless %}
+              >
+                {%- case block.type -%}
+                  {%- when 'image_with_text' -%}
+                    {%- liquid
+                      assign image_position = block.settings.desktop_image_position
+
+                      assign aspect_ratio = block.settings.image_aspect_ratio | default: '1/1'
+                      if aspect_ratio == 'adapt'
+                        if block.settings.image != blank
+                          assign aspect_ratio = block.settings.image.aspect_ratio
+                        else
+                          assign aspect_ratio = '1/1'
+                        endif
                       endif
-                    endif
 
-                    assign loading = 'lazy'
-                    assign fetchpriority = 'low'
-                    if section.index < 2 and tab_index == 0
-                      assign loading = 'eager'
-                      assign fetchpriority = 'high'
-                    endif
-                    assign motion_delay = 50
-                  -%}
-                  {% capture sizes %}
+                      assign loading = 'lazy'
+                      assign fetchpriority = 'low'
+                      if section.index < 2 and tab_index == 0
+                        assign loading = 'eager'
+                        assign fetchpriority = 'high'
+                      endif
+                      assign motion_delay = 50
+                    -%}
+                    {% capture sizes %}
                   (min-width: 768px) calc(min({{ settings.page_width }}px, 100vw) / 2), calc(100vw - 3rem)
                   {% endcapture %}
-                  <div
-                    class="image-with-text__wrapper image-with-text--image-{{ image_position }} flex flex-col md:flex-row gap-y-6"
-                    style="--image-width: 50%;"
-                  >
                     <div
-                      class="image-with-text__media self-center{% if image_position == 'right' %} md:order-last{% endif %}"
+                      class="image-with-text__wrapper image-with-text--image-{{ image_position }} flex flex-col md:flex-row gap-y-6"
+                      style="--image-width: 50%;"
                     >
-                      <div class="block overlow-hidden blocks-radius">
-                        <motion-element
-                          data-motion="zoom-out"
-                          data-motion-delay="{{ motion_delay }}"
-                          class="block media-wrapper hover-wrapper blocks-radius{% if block.settings.image == blank %} bg-none{% endif %}"
-                          style="--aspect-ratio: {{ aspect_ratio }};"
-                        >
-                          {%- if block.settings.image != blank -%}
-                            {{
-                              block.settings.image
-                              | image_url: width: block.settings.image.width
-                              | image_tag:
-                                loading: loading,
-                                fetchpriority: fetchpriority,
-                                class: 'motion-reduce hover-scale-up',
-                                widths: '375, 550, 670, 750, 1100, 1340, 1500, 1780, 2000, 3000, 3840',
-                                sizes: sizes,
-                                is: 'image-lazy'
-                            }}
-                          {%- else -%}
-                            {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-full h-full hover-scale-up' }}
-                          {%- endif -%}
-                        </motion-element>
-                        {%- assign motion_delay = motion_delay | plus: 50 -%}
-                      </div>
-                    </div>
-                    <div class="image-with-text__inner flex-1 md:flex items-center">
-                      <div class="image-with-text__content w-full rich-text md:text-left text-left">
-                        {%- if block.settings.subheading != blank -%}
+                      <div
+                        class="image-with-text__media self-center{% if image_position == 'right' %} md:order-last{% endif %}"
+                      >
+                        <div class="block overlow-hidden blocks-radius">
                           <motion-element
-                            data-motion="fade-up"
+                            data-motion="zoom-out"
                             data-motion-delay="{{ motion_delay }}"
-                            class="block rich-text__subheading text-subheading"
+                            class="block media-wrapper hover-wrapper blocks-radius{% if block.settings.image == blank %} bg-none{% endif %}"
+                            style="--aspect-ratio: {{ aspect_ratio }};"
                           >
-                            {{ block.settings.subheading }}
+                            {%- if block.settings.image != blank -%}
+                              {{
+                                block.settings.image
+                                | image_url: width: block.settings.image.width
+                                | image_tag:
+                                  loading: loading,
+                                  fetchpriority: fetchpriority,
+                                  class: 'motion-reduce hover-scale-up',
+                                  widths: '375, 550, 670, 750, 1100, 1340, 1500, 1780, 2000, 3000, 3840',
+                                  sizes: sizes,
+                                  is: 'image-lazy'
+                              }}
+                            {%- else -%}
+                              {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-full h-full hover-scale-up' }}
+                            {%- endif -%}
                           </motion-element>
                           {%- assign motion_delay = motion_delay | plus: 50 -%}
-                        {%- endif -%}
-                        {%- if block.settings.heading != blank -%}
-                          <h2 class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
-                            <motion-element class="block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
-                              {% render 'highlight-text',
-                                hl_text: block.settings.heading,
-                                hl_style: block.settings.highlight_style,
-                                hl_font_style: block.settings.highlight_font_style,
-                                hl_style_color: block.settings.highlight_style_color,
-                                hl_text_color: block.settings.highlight_text_color
+                        </div>
+                      </div>
+                      <div class="image-with-text__inner flex-1 md:flex items-center">
+                        <div class="image-with-text__content w-full rich-text md:text-left text-left">
+                          {%- if block.settings.subheading != blank -%}
+                            <motion-element
+                              data-motion="fade-up"
+                              data-motion-delay="{{ motion_delay }}"
+                              class="block rich-text__subheading text-subheading"
+                            >
+                              {{ block.settings.subheading }}
+                            </motion-element>
+                            {%- assign motion_delay = motion_delay | plus: 50 -%}
+                          {%- endif -%}
+                          {%- if block.settings.heading != blank -%}
+                            <h2 class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
+                              <motion-element
+                                class="block"
+                                data-motion="fade-up"
+                                data-motion-delay="{{ motion_delay }}"
+                              >
+                                {% render 'highlight-text',
+                                  hl_text: block.settings.heading,
+                                  hl_style: block.settings.highlight_style,
+                                  hl_font_style: block.settings.highlight_font_style,
+                                  hl_style_color: block.settings.highlight_style_color,
+                                  hl_text_color: block.settings.highlight_text_color
+                                %}
+                              </motion-element>
+                            </h2>
+                            {%- assign motion_delay = motion_delay | plus: 50 -%}
+                          {%- endif -%}
+                          {%- if block.settings.description != blank -%}
+                            <motion-element
+                              data-motion="fade-up"
+                              data-motion-delay="{{ motion_delay }}"
+                              class="block rich-text__text text-subtext rte {{ block.settings.description_size }}"
+                            >
+                              {{ block.settings.description }}
+                            </motion-element>
+                            {%- assign motion_delay = motion_delay | plus: 50 -%}
+                          {%- endif -%}
+                          {%- if block.settings.button_label != blank -%}
+                            <motion-element
+                              data-motion="fade-up"
+                              data-motion-delay="{{ motion_delay }}"
+                              class="block rich-text__button"
+                            >
+                              {% render 'button',
+                                button_style: block.settings.button_style,
+                                button_link: block.settings.button_link,
+                                button_label: block.settings.button_label,
+                                button_icon: block.settings.button_icon
                               %}
                             </motion-element>
-                          </h2>
-                          {%- assign motion_delay = motion_delay | plus: 50 -%}
-                        {%- endif -%}
-                        {%- if block.settings.description != blank -%}
-                          <motion-element
-                            data-motion="fade-up"
-                            data-motion-delay="{{ motion_delay }}"
-                            class="block rich-text__text text-subtext rte {{ block.settings.description_size }}"
-                          >
-                            {{ block.settings.description }}
-                          </motion-element>
-                          {%- assign motion_delay = motion_delay | plus: 50 -%}
-                        {%- endif -%}
-                        {%- if block.settings.button_label != blank -%}
-                          <motion-element
-                            data-motion="fade-up"
-                            data-motion-delay="{{ motion_delay }}"
-                            class="block rich-text__button"
-                          >
-                            {% render 'button',
-                              button_style: block.settings.button_style,
-                              button_link: block.settings.button_link,
-                              button_label: block.settings.button_label,
-                              button_icon: block.settings.button_icon
-                            %}
-                          </motion-element>
-                          {%- assign motion_delay = motion_delay | plus: 50 -%}
-                        {% endif %}
-                        {% if block.settings.heading_1 != blank
-                          or block.settings.heading_2 != blank
-                          or block.settings.heading_3 != blank
-                        %}
-                          <motion-element
-                            class="block"
-                            data-motion="fade-up"
-                            data-motion-delay="{{ motion_delay }}"
-                          >
-                            {% render 'icon-with-text',
-                              layout: 'vertical',
-                              heading_1: block.settings.heading_1,
-                              image_1: block.settings.image_1,
-                              icon_1: block.settings.icon_1,
-                              heading_2: block.settings.heading_2,
-                              image_2: block.settings.image_2,
-                              icon_2: block.settings.icon_2,
-                              heading_3: block.settings.heading_3,
-                              image_3: block.settings.image_3,
-                              icon_3: block.settings.icon_3
-                            %}
-                          </motion-element>
-                        {% endif %}
+                            {%- assign motion_delay = motion_delay | plus: 50 -%}
+                          {% endif %}
+                          {% if block.settings.heading_1 != blank
+                            or block.settings.heading_2 != blank
+                            or block.settings.heading_3 != blank
+                          %}
+                            <motion-element
+                              class="block"
+                              data-motion="fade-up"
+                              data-motion-delay="{{ motion_delay }}"
+                            >
+                              {% render 'icon-with-text',
+                                layout: 'vertical',
+                                heading_1: block.settings.heading_1,
+                                image_1: block.settings.image_1,
+                                icon_1: block.settings.icon_1,
+                                heading_2: block.settings.heading_2,
+                                image_2: block.settings.image_2,
+                                icon_2: block.settings.icon_2,
+                                heading_3: block.settings.heading_3,
+                                image_3: block.settings.image_3,
+                                icon_3: block.settings.icon_3
+                              %}
+                            </motion-element>
+                          {% endif %}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                {%- when 'tab' -%}
-                  <div class="page__content rte text-subtext">
-                    {{ block.settings.content }}
-                    {{ block.settings.custom_liquid }}
-                    {{ block.settings.page.content }}
-                  </div>
-                {%- when 'list_of_images' -%}
-                  {%- liquid
-                    assign enable_swipe_mobile = block.settings.swipe_on_mobile
+                  {%- when 'tab' -%}
+                    <div class="page__content rte text-subtext">
+                      {{ block.settings.content }}
+                      {{ block.settings.custom_liquid }}
+                      {{ block.settings.page.content }}
+                    </div>
+                  {%- when 'list_of_images' -%}
+                    {%- liquid
+                      assign enable_swipe_mobile = block.settings.swipe_on_mobile
 
-                    assign current_tab_num = tab_index | plus: 1
-                    assign mf_key = 'whats_included_tab' | append: current_tab_num | append: '_labels_1'
-                    assign metafield_string = product.metafields.custom[mf_key]
+                      assign current_tab_num = tab_index | plus: 1
+                      assign mf_key = 'whats_included_tab' | append: current_tab_num | append: '_labels_1'
+                      assign metafield_string = product.metafields.custom[mf_key]
 
-                    assign label_array = metafield_string | split: '_'
-                  -%}
+                      assign label_array = metafield_string | split: '_'
+                    -%}
 
-                  <div class="page__content rte text-subtext">
-                    {{ block.settings.content }}
-                    <div class="dc_tabs-list-images__container {% if enable_swipe_mobile %} swipe-mobile swipe-mobile--1-cols{% endif %}">
-                      <div class="dc_tabs-list-images_inner flex {% if enable_swipe_mobile %} swipe-mobile__inner{% endif %}">
-                        {% for i in (1..3) %}
-                          {%- liquid
-                            assign image_key = 'image_' | append: i
-                            assign manual_label_key = 'label_for_image_' | append: i
+                    <div class="page__content rte text-subtext">
+                      {{ block.settings.content }}
+                      <div class="dc_tabs-list-images__container {% if enable_swipe_mobile %} swipe-mobile swipe-mobile--1-cols{% endif %}">
+                        <div class="dc_tabs-list-images_inner flex {% if enable_swipe_mobile %} swipe-mobile__inner{% endif %}">
+                          {% for i in (1..3) %}
+                            {%- liquid
+                              assign image_key = 'image_' | append: i
+                              assign manual_label_key = 'label_for_image_' | append: i
 
-                            assign array_index = i | minus: 1
-                            assign dynamic_label = label_array[array_index] | strip
+                              assign array_index = i | minus: 1
+                              assign dynamic_label = label_array[array_index] | strip
 
-                            if dynamic_label != blank
-                              assign final_label = dynamic_label
-                            else
-                              assign final_label = block.settings[manual_label_key]
-                            endif
-                          -%}
+                              if dynamic_label != blank
+                                assign final_label = dynamic_label
+                              else
+                                assign final_label = block.settings[manual_label_key]
+                              endif
+                            -%}
 
-                          {%- if block.settings[image_key] != blank -%}
-                            <div class="dc_tabs-list-images__item">
-                              <img
-                                src="{{ block.settings[image_key] | image_url: width: 600 }}"
-                                loading="lazy"
-                                width="600"
-                                height="600"
-                                alt="{{ final_label | escape }}"
-                              >
-                              <div
-                                class="dc_tabs-list_images__label"
-                                style="background-color:{{ block.settings.label_bg_color }}"
-                              >
-                                <p>{{ final_label }}</p>
+                            {%- if block.settings[image_key] != blank -%}
+                              <div class="dc_tabs-list-images__item">
+                                <img
+                                  src="{{ block.settings[image_key] | image_url: width: 600 }}"
+                                  loading="lazy"
+                                  width="600"
+                                  height="600"
+                                  alt="{{ final_label | escape }}"
+                                >
+                                <div
+                                  class="dc_tabs-list_images__label"
+                                  style="background-color:{{ block.settings.label_bg_color }}"
+                                >
+                                  <p>{{ final_label }}</p>
+                                </div>
                               </div>
-                            </div>
-                          {%- endif -%}
-                        {% endfor %}
+                            {%- endif -%}
+                          {% endfor %}
+                        </div>
                       </div>
                     </div>
-                  </div>
-              {%- endcase -%}
-            </div>
-            {%- assign tab_index = tab_index | plus: 1 -%}
-          {%- endfor -%}
-        </div>
-      </tabs-component>
-      {%- if sidebar != blank -%}
-        {% render 'help-sidebar', sidebar: sidebar %}
-      {%- endif -%}
-    </div>
-  {%- endif -%}
-</div>
+                {%- endcase -%}
+              </div>
+              {%- assign tab_index = tab_index | plus: 1 -%}
+            {%- endfor -%}
+          </div>
+        </tabs-component>
+        {%- if sidebar != blank -%}
+          {% render 'help-sidebar', sidebar: sidebar %}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{% endif %}
 {% schema %}
 {
   "name": "🔥Custom tabs content",
