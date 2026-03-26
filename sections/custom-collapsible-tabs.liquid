@@ -32,158 +32,168 @@
   assign item_heading_size = section.settings.item_heading_size | default: 'h6'
   assign item_trigger_class = ' font-' | append: item_font_family | append: ' ' | append: item_heading_size
   assign item_icon_size = section.settings.item_icon_size | default: 'extra-large'
+
+  if template.name == 'product' and product.metafields.custom.faq_show_section
+    assign show_section = true
+  else
+    assign show_section = false
+  endif
 -%}
-{{ 'section-collapsible-tabs.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'collapsible-tabs.js' | asset_url }}" defer="defer"></script>
 
-{% render 'divider',
-  show_divider: section.settings.show_section_divider,
-  divider_width: section.settings.divider_width
-%}
+{% if show_section %}
+  {{ 'section-collapsible-tabs.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'collapsible-tabs.js' | asset_url }}" defer="defer"></script>
 
-<div
-  class="section section-{{ section.id }} section--padding section--collapsible-tabs section-header-{{ section.settings.header_layout }} color-{{ section.settings.color_scheme }}{{ section_css_class }}"
-  style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
-  data-id="{{ section.id }}"
->
-  <div class="section__container page-width page-width--{{ section.settings.container }}">
-    <div class="section__wrapper">
-      {% render 'section-heading',
-        section_settings: section.settings,
-        header_layout: header_layout,
-        button_visible: true,
-        button_link: button_link,
-        button_style: button_style,
-        button_label: button_label,
-        button_icon: button_icon,
-        description_size: section.settings.text_size,
-        side_button: side_button
-      %}
-      <div class="section__content">
-        <div class="collapsible-tabs__wrapper f-flex f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}">
-          {%- if image_block -%}
+  {% render 'divider',
+    show_divider: section.settings.show_section_divider,
+    divider_width: section.settings.divider_width
+  %}
+
+  <div
+    class="section section-{{ section.id }} section--padding section--collapsible-tabs section-header-{{ section.settings.header_layout }} color-{{ section.settings.color_scheme }}{{ section_css_class }}"
+    style="--section-padding-top: {{ section.settings.padding_top }}px;--section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+    data-id="{{ section.id }}"
+  >
+    <div class="section__container page-width page-width--{{ section.settings.container }}">
+      <div class="section__wrapper">
+        {% render 'section-heading',
+          section_settings: section.settings,
+          header_layout: header_layout,
+          button_visible: true,
+          button_link: button_link,
+          button_style: button_style,
+          button_label: button_label,
+          button_icon: button_icon,
+          description_size: section.settings.text_size,
+          side_button: side_button
+        %}
+        <div class="section__content">
+          <div class="collapsible-tabs__wrapper f-flex f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}">
+            {%- if image_block -%}
+              <div
+                class="collapsible-tabs__image-col f-column w-full flex flex-col md:order-{% if image_block.settings.desktop_image_position == 'right' %}last{% else %}first{% endif %}{% if image_block.settings.order_first %} order-first{% else %} order-last{% endif %}{{ col_alignment_class }}"
+                style="--col-width: {{ col_image_width }}%;"
+                {{ image_block.shopify_attributes }}
+              >
+                {% render 'card-image',
+                  color_scheme: image_block.settings.color_scheme,
+                  link: image_block.settings.card_link,
+                  image: image_block.settings.image,
+                  image_mobile: image_block.settings.image_mobile,
+                  image_ratio: image_block.settings.image_ratio,
+                  image_overlay_opacity: image_block.settings.image_overlay_opacity,
+                  heading: image_block.settings.heading,
+                  highlight_style: image_block.settings.highlight_style,
+                  highlight_font_style: image_block.settings.highlight_font_style,
+                  highlight_style_color: image_block.settings.highlight_style_color,
+                  highlight_text_color: image_block.settings.highlight_text_color,
+                  heading_size: image_block.settings.heading_size,
+                  subheading: image_block.settings.subheading,
+                  subheading_style: image_block.settings.subheading_style,
+                  description: image_block.settings.description,
+                  button_label: image_block.settings.button_label,
+                  button_style: image_block.settings.button_style,
+                  button_icon: image_block.settings.button_icon,
+                  rich_text_size: image_block.settings.content_gap,
+                  content_spacing: image_block.settings.content_spacing,
+                  content_position: image_block.settings.content_position,
+                  content_alignment: image_block.settings.content_alignment,
+                  section_index: section.index,
+                  forloop_index: 1,
+                  heading_size_custom: image_block.settings.heading_size_custom,
+                  heading_size_mobile: image_block.settings.heading_size_mobile
+                %}
+              </div>
+            {%- endif -%}
             <div
-              class="collapsible-tabs__image-col f-column w-full flex flex-col md:order-{% if image_block.settings.desktop_image_position == 'right' %}last{% else %}first{% endif %}{% if image_block.settings.order_first %} order-first{% else %} order-last{% endif %}{{ col_alignment_class }}"
-              style="--col-width: {{ col_image_width }}%;"
-              {{ image_block.shopify_attributes }}
+              class="collapsible-tabs__content-col f-column w-full flex flex-col items-center {{ col_alignment_class }}"
+              style="--col-width: {{ col_content_width }}%;"
             >
-              {% render 'card-image',
-                color_scheme: image_block.settings.color_scheme,
-                link: image_block.settings.card_link,
-                image: image_block.settings.image,
-                image_mobile: image_block.settings.image_mobile,
-                image_ratio: image_block.settings.image_ratio,
-                image_overlay_opacity: image_block.settings.image_overlay_opacity,
-                heading: image_block.settings.heading,
-                highlight_style: image_block.settings.highlight_style,
-                highlight_font_style: image_block.settings.highlight_font_style,
-                highlight_style_color: image_block.settings.highlight_style_color,
-                highlight_text_color: image_block.settings.highlight_text_color,
-                heading_size: image_block.settings.heading_size,
-                subheading: image_block.settings.subheading,
-                subheading_style: image_block.settings.subheading_style,
-                description: image_block.settings.description,
-                button_label: image_block.settings.button_label,
-                button_style: image_block.settings.button_style,
-                button_icon: image_block.settings.button_icon,
-                rich_text_size: image_block.settings.content_gap,
-                content_spacing: image_block.settings.content_spacing,
-                content_position: image_block.settings.content_position,
-                content_alignment: image_block.settings.content_alignment,
-                section_index: section.index,
-                forloop_index: 1,
-                heading_size_custom: image_block.settings.heading_size_custom,
-                heading_size_mobile: image_block.settings.heading_size_mobile
-              %}
-            </div>
-          {%- endif -%}
-          <div
-            class="collapsible-tabs__content-col f-column w-full flex flex-col items-center {{ col_alignment_class }}"
-            style="--col-width: {{ col_content_width }}%;"
-          >
-            <div class="dc_internal-heading">
-              <h2>{{ section.settings.internal_heading }}</h2>
-            </div>
-            <collapsible-tabs
-              class="block w-full accordion-parent"
-              data-color-scheme="color-{{ section.settings.item_color_scheme }}"
-            >
-              {%- for block in section.blocks -%}
-                {%- case block.type -%}
-                  {%- when 'collapsible_item' -%}
-                    {% liquid
-                      assign is_info_in_metafield = false
-                      assign metafield_name = 'faq_question_' | append: forloop.index
-                      assign complete_metafield = product.metafields.custom[metafield_name]
-
-                      if complete_metafield != blank
-                        assign is_info_in_metafield = true
-                      else
+              <div class="dc_internal-heading">
+                <h2>{{ section.settings.internal_heading }}</h2>
+              </div>
+              <collapsible-tabs
+                class="block w-full accordion-parent"
+                data-color-scheme="color-{{ section.settings.item_color_scheme }}"
+              >
+                {%- for block in section.blocks -%}
+                  {%- case block.type -%}
+                    {%- when 'collapsible_item' -%}
+                      {% liquid
                         assign is_info_in_metafield = false
-                      endif
-                    %}
+                        assign metafield_name = 'faq_question_' | append: forloop.index
+                        assign complete_metafield = product.metafields.custom[metafield_name]
 
-                    <div
-                      class="accordion-item accordion-{{ section.settings.item_style }}{% if section.settings.item_style == 'card' %} blocks-radius{% endif %}"
-                      {% unless is_info_in_metafield %}
-                        style="display:none;"
-                      {% endunless %}
-                      {{ block.shopify_attributes }}
-                    >
-                      <details
-                        class="accordion-details"
-                        is="accordion-group"
-                        {% if block.settings.open %}
-                          open
-                          aria-expanded="true"
-                        {% else %}
-                          aria-expanded="false"
-                        {% endif %}
+                        if complete_metafield != blank
+                          assign is_info_in_metafield = true
+                        else
+                          assign is_info_in_metafield = false
+                        endif
+                      %}
+
+                      <div
+                        class="accordion-item accordion-{{ section.settings.item_style }}{% if section.settings.item_style == 'card' %} blocks-radius{% endif %}"
+                        {% unless is_info_in_metafield %}
+                          style="display:none;"
+                        {% endunless %}
+                        {{ block.shopify_attributes }}
                       >
-                        <summary class="accordion-details__summary flex items-center justify-between focus-inset gap-2">
-                          <div class="flex items-center gap-2">
-                            {% if block.settings.icon != 'none' %}
-                              {% render 'icons', icon: block.settings.icon, size: item_icon_size %}
-                            {%- endif -%}
-                            <h2 class="{{ item_trigger_class }} inline-richtext">{{ block.settings.heading }}</h2>
+                        <details
+                          class="accordion-details"
+                          is="accordion-group"
+                          {% if block.settings.open %}
+                            open
+                            aria-expanded="true"
+                          {% else %}
+                            aria-expanded="false"
+                          {% endif %}
+                        >
+                          <summary class="accordion-details__summary flex items-center justify-between focus-inset gap-2">
+                            <div class="flex items-center gap-2">
+                              {% if block.settings.icon != 'none' %}
+                                {% render 'icons', icon: block.settings.icon, size: item_icon_size %}
+                              {%- endif -%}
+                              <h2 class="{{ item_trigger_class }} inline-richtext">{{ block.settings.heading }}</h2>
+                            </div>
+                            {%- render 'icon-plus-toggle' -%}
+                          </summary>
+                          <div class="accordion-details__content rte{% if block.settings.use_subtext_color %} text-subtext{% endif %}">
+                            {{ block.settings.content }}
+                            {{ block.settings.custom_liquid }}
+                            {{ block.settings.page.content }}
                           </div>
-                          {%- render 'icon-plus-toggle' -%}
-                        </summary>
-                        <div class="accordion-details__content rte{% if block.settings.use_subtext_color %} text-subtext{% endif %}">
-                          {{ block.settings.content }}
-                          {{ block.settings.custom_liquid }}
-                          {{ block.settings.page.content }}
-                        </div>
-                      </details>
-                    </div>
-                  {%- when 'heading' -%}
-                    {%- if block.settings.sub_heading != blank or block.settings.heading != blank -%}
-                      <div class="block-heading rich-text" {{ block.shopify_attributes }}>
-                        {%- if block.settings.sub_heading != blank -%}
-                          <div class="rich-text__subheading text-subheading">{{ block.settings.sub_heading }}</div>
-                        {%- endif -%}
-                        {%- if block.settings.heading != blank -%}
-                          <h2 class="rich-text__heading {{ block.settings.heading_size }}">
-                            {% render 'highlight-text',
-                              hl_text: block.settings.heading,
-                              hl_style: block.settings.highlight_style,
-                              hl_font_style: block.settings.highlight_font_style,
-                              hl_style_color: block.settings.highlight_style_color,
-                              hl_text_color: block.settings.highlight_text_color
-                            %}
-                          </h2>
-                        {%- endif -%}
+                        </details>
                       </div>
-                    {%- endif -%}
-                {%- endcase -%}
-              {%- endfor -%}
-            </collapsible-tabs>
+                    {%- when 'heading' -%}
+                      {%- if block.settings.sub_heading != blank or block.settings.heading != blank -%}
+                        <div class="block-heading rich-text" {{ block.shopify_attributes }}>
+                          {%- if block.settings.sub_heading != blank -%}
+                            <div class="rich-text__subheading text-subheading">{{ block.settings.sub_heading }}</div>
+                          {%- endif -%}
+                          {%- if block.settings.heading != blank -%}
+                            <h2 class="rich-text__heading {{ block.settings.heading_size }}">
+                              {% render 'highlight-text',
+                                hl_text: block.settings.heading,
+                                hl_style: block.settings.highlight_style,
+                                hl_font_style: block.settings.highlight_font_style,
+                                hl_style_color: block.settings.highlight_style_color,
+                                hl_text_color: block.settings.highlight_text_color
+                              %}
+                            </h2>
+                          {%- endif -%}
+                        </div>
+                      {%- endif -%}
+                  {%- endcase -%}
+                {%- endfor -%}
+              </collapsible-tabs>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+{% endif %}
+
 {% schema %}
 {
   "name": "🔥Custom Collapsible Tabs",
