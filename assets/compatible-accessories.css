@@ -79,10 +79,15 @@
       margin-bottom: 24px;
     }
     .dc_compatible-accessories__grid {
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, auto);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       row-gap: 32px;
       column-gap: 16px;
+    }
+    .dc_compatible-accessories__item {
+      flex: 0 1 calc((100% - 48px) / 4);
+      max-width: calc((100% - 48px) / 4);
     }
     .dc_compatible-accessories__item {
       text-align: center;
