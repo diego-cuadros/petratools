@@ -1,46 +1,56 @@
 {{ 'compatible-accessories.css' | asset_url | stylesheet_tag }}
-<div
-  class="section section--padding page-width page-width--{{ section.settings.container }} color-{{ section.settings.color_scheme }}"
-  style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
->
-  <div class="dc_compatible-accessories">
-    {% if section.settings.title != blank %}
-      <h2 class="dc_compatible-accessories__title">
-        {{ section.settings.title }}
-      </h2>
-    {% endif %}
+{% liquid
+  if template.name == 'product' and product.metafields.custom.compatible_accessories_show_section
+    assign show_section = true
+  else
+    assign show_section = false
+  endif
+%}
 
-    <div class="dc_compatible-accessories__grid">
-      {% for block in section.blocks %}
-        {% assign product = block.settings.product %}
+{% if show_section %}
+  <div
+    class="section section--padding page-width page-width--{{ section.settings.container }} color-{{ section.settings.color_scheme }}"
+    style="--section-padding-top: {{ section.settings.padding_top }}px; --section-padding-bottom: {{ section.settings.padding_bottom }}px;"
+  >
+    <div class="dc_compatible-accessories">
+      {% if section.settings.title != blank %}
+        <h2 class="dc_compatible-accessories__title">
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
 
-        {% if product != blank %}
-          <div class="dc_compatible-accessories__item" {{ block.shopify_attributes }}>
-            <a
-              href="{{ product.url }}"
-              class="dc_compatible-accessorie__product-container"
-              style="background-color: {{ section.settings.card_background_color }};"
-            >
-              <div class="dc_compatible-accessorie__image-wrapper">
-                {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
-                <div class="dc_compatible-accessorie__product-title">{{ product.title }}</div>
-              </div>
+      <div class="dc_compatible-accessories__grid">
+        {% for block in section.blocks %}
+          {% assign product = block.settings.product %}
 
-              <div class="dc_compatible-accessorie__btn-container">
-                <div
-                  class="dc_compatible-accessorie__shop-now-button"
-                  style="background-color: {{ section.settings.button_background_color }}; color: {{ section.settings.button_label_color }};"
-                >
-                  Shop Now
+          {% if product != blank %}
+            <div class="dc_compatible-accessories__item" {{ block.shopify_attributes }}>
+              <a
+                href="{{ product.url }}"
+                class="dc_compatible-accessorie__product-container"
+                style="background-color: {{ section.settings.card_background_color }};"
+              >
+                <div class="dc_compatible-accessorie__image-wrapper">
+                  {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.title }}
+                  <div class="dc_compatible-accessorie__product-title">{{ product.title }}</div>
                 </div>
-              </div>
-            </a>
-          </div>
-        {% endif %}
-      {% endfor %}
+
+                <div class="dc_compatible-accessorie__btn-container">
+                  <div
+                    class="dc_compatible-accessorie__shop-now-button"
+                    style="background-color: {{ section.settings.button_background_color }}; color: {{ section.settings.button_label_color }};"
+                  >
+                    Shop Now
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
-</div>
+{% endif %}
 
 {% schema %}
 {
