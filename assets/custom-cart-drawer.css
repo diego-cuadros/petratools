@@ -285,6 +285,12 @@ cart-item__details:nth-child(1) {
 }
 
 .dc_product-card__btn {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
   background-color: var(--dc_cart-drawer-white-color) !important;
   border: 1px solid var(--dc_cart-drawer-border-color) !important;
   border-radius: 4px;
@@ -293,6 +299,11 @@ cart-item__details:nth-child(1) {
   padding: 8px 16px;
   text-align: center;
   text-transform: uppercase;
+}
+
+.dc_product-card__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .dc_product-card__btn:hover {
