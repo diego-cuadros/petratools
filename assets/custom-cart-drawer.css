@@ -293,12 +293,14 @@ cart-item__details:nth-child(1) {
   text-decoration: none;
   background-color: var(--dc_cart-drawer-white-color) !important;
   border: 1px solid var(--dc_cart-drawer-border-color) !important;
-  border-radius: 4px;
-  color: #4a3a36;
+  border-radius: 100px;
+  color: #222222;
   font-size: 12px;
+  font-weight: 500;
   padding: 8px 16px;
   text-align: center;
   text-transform: uppercase;
+  height: 33px !important;
 }
 
 .dc_product-card__btn:disabled {
