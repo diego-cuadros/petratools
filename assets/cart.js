@@ -880,6 +880,12 @@ class CartDrawerProductsRecommendation extends HTMLElement {
           },
         };
 
+        // Only disable touch/swipe if inside cart drawer
+        if (this.closest('[id*="CartDrawer"]')) {
+          options.allowTouchMove = false;
+          options.simulateTouch = false;
+        }
+
         const paginationEl = this.querySelector('.swiper-pagination');
         if (paginationEl) {
           options = {
