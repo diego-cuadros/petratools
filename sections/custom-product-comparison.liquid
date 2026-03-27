@@ -80,7 +80,9 @@
                   height="200"
                 >
               {% endif %}
-              <span class="product-name">{{ product.title }}</span>
+              <a href="#ComparisonTop"
+                ><span class="product-name">{{ product.title }}</span></a
+              >
             </div>
           </div>
 
@@ -114,7 +116,9 @@
                   height="200"
                 >
               {% endif %}
-              <span class="product-name">{{ p2_name }}</span>
+              <a href="{{ product.url }}"
+                ><span class="product-name">{{ p2_name }}</span></a
+              >
             </div>
           </div>
 
@@ -151,7 +155,9 @@
                     height="200"
                   >
                 {% endif %}
-                <span class="product-name">{{ p3_name }}</span>
+                <a href="{{ product.url }}">
+                  <span class="product-name">{{ p3_name }}</span>
+                </a>
               </div>
             </div>
           {% endif %}
