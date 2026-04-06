@@ -84,6 +84,15 @@
 {%- endstyle -%}
 
 {%- liquid
+  assign use_season_price_from_variants = product.metafields.custom.season_price_use_from_variants.value | default: product.metafields.custom.season_price_use_from_variant.value
+  assign selected_variant_price = selected_variant.price
+  assign selected_variant_compare_at_price = selected_variant.compare_at_price
+
+  assign season_price_from_variant = blank
+  if selected_variant.metafields.custom.season_price_variant.value != blank
+    assign season_price_from_variant = selected_variant.metafields.custom.season_price_variant.value | times: 100
+  endif
+
   assign season_discount_percentage = 0
   if product.metafields.custom.season_price_discount_percentage.value != blank
     assign season_discount_percentage = product.metafields.custom.season_price_discount_percentage.value | plus: 0
@@ -121,7 +130,17 @@
     assign has_compare_at_price = true
   endif
 
-  if has_compare_at_price
+  if use_season_price_from_variants and season_price_from_variant
+    if selected_variant_compare_at_price != blank and selected_variant_compare_at_price > season_price_from_variant
+      assign difference = selected_variant_compare_at_price | minus: season_price_from_variant
+      assign discount_percentage = difference | times: 100 | divided_by: selected_variant_compare_at_price
+      assign show_percentage_discount_tag = true
+    elsif selected_variant_price > season_price_from_variant and season_price_from_variant > 0
+      assign difference = selected_variant_price | minus: season_price_from_variant
+      assign discount_percentage = difference | times: 100 | divided_by: selected_variant_price
+      assign show_percentage_discount_tag = true
+    endif
+  elsif has_compare_at_price
     if display_compare_at_price > discount_price_source
       assign difference = display_compare_at_price | minus: discount_price_source
       assign discount_percentage = difference | times: 100 | divided_by: display_compare_at_price
@@ -133,10 +152,6 @@
       assign discount_percentage = difference | times: 100 | divided_by: display_price
       assign show_percentage_discount_tag = true
     endif
-  endif
-
-  if selected_variant.metafields.custom.season_price_variant.value != blank
-    assign season_price_from_variant = selected_variant.metafields.custom.season_price_variant.value | times: 100
   endif
 -%}
 {% if template.name != 'product' %}
@@ -163,7 +178,7 @@
 >
   {% if template.name == 'product' %}
     <div class="dc_season-row">
-      {% unless product.metafields.custom.season_price_use_from_variants %}
+      {% unless use_season_price_from_variants %}
         {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
           <div class="dc_season-price-box" style="background-color: {{ block.settings.season_price_background }};">
             <span style="color: {{ block.settings.season_price_color }};">{{ final_season_price | money }}</span>
@@ -314,7 +329,7 @@
   %}
     {% if template.name != 'product' %}
       <div class="dc_season-row">
-        {% unless product.metafields.custom.season_price_use_from_variants %}
+        {% unless use_season_price_from_variants %}
           {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
             <div class="dc_season-price-box" style="background-color: #fad6c6; padding: 2px; margin-left:2px;">
               <span style="color: #FF5413; font-size:16px;">{{ final_season_price | money }}</span>
