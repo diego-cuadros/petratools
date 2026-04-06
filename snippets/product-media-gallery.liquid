@@ -16,6 +16,7 @@
   assign compare_at_price = price_variant.compare_at_price
   assign price = price_variant.price | default: 1999
 
+  assign use_season_price_from_variants = product.metafields.custom.season_price_use_from_variants.value | default: product.metafields.custom.season_price_use_from_variant.value
   assign season_discount_percentage = 0
   if product.metafields.custom.season_price_discount_percentage.value != blank
     assign season_discount_percentage = product.metafields.custom.season_price_discount_percentage.value | plus: 0
@@ -25,6 +26,11 @@
   assign season_discount_decimal = season_discount_percentage | divided_by: 100.0
   assign season_multiplier = 1 | minus: season_discount_decimal
   assign final_season_price = price | times: season_multiplier
+
+  assign season_price_from_variant = blank
+  if price_variant.metafields.custom.season_price_variant.value != blank
+    assign season_price_from_variant = price_variant.metafields.custom.season_price_variant.value | times: 100
+  endif
 
   assign use_season_price_for_discount = false
   if price_block.settings.show_season_price or product.metafields.custom.use_season_price.value
@@ -43,7 +49,17 @@
     assign has_compare_at_price = true
   endif
 
-  if has_compare_at_price
+  if use_season_price_from_variants and season_price_from_variant
+    if has_compare_at_price and compare_at_price > season_price_from_variant
+      assign difference = compare_at_price | minus: season_price_from_variant
+      assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
+      assign show_percentage_discount_tag = true
+    elsif price > season_price_from_variant and season_price_from_variant > 0
+      assign difference = price | minus: season_price_from_variant
+      assign discount_percentage = difference | times: 100 | divided_by: price
+      assign show_percentage_discount_tag = true
+    endif
+  elsif has_compare_at_price
     if compare_at_price > discount_price_source
       assign difference = compare_at_price | minus: discount_price_source
       assign discount_percentage = difference | times: 100 | divided_by: compare_at_price
