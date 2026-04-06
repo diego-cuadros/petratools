@@ -307,6 +307,7 @@
       "block_order": [
         "heading_CzCdwL"
       ],
+      "disabled": true,
       "name": "t:sections.rich-text.name",
       "settings": {
         "container": "fixed",
@@ -320,17 +321,17 @@
         "divider_width": "fixed"
       }
     },
-    "17696171177c1b06c9": {
+    "1774636047d0b0a60c": {
       "type": "apps",
       "blocks": {
-        "storista_pdp_UzWeka": {
+        "storista_pdp_yEHUQm": {
           "type": "shopify://apps/storista/blocks/pdp/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
           "settings": {
-            "widget_id": "4V1YMH0Tlv4Bw0V",
-            "heading": "",
+            "widget_id": "gxlhPO6CHp6SEGD",
+            "heading": "Our Customer Videos",
             "heading_tag": "h2",
             "heading_position": "center",
-            "heading_css": "",
+            "heading_css": "dc_storista-title",
             "subtitle": "",
             "subtitle_tag": "h5",
             "subtitle_position": "center",
@@ -339,12 +340,18 @@
         }
       },
       "block_order": [
-        "storista_pdp_UzWeka"
+        "storista_pdp_yEHUQm"
+      ],
+      "custom_css": [
+        ".atTSbW_arrowIcon {border-radius: 100%; border: 1px solid #b5b5b5;}",
+        ".dc_storista-title {font-size: 40px; font-weight: 500;}",
+        "@media only screen and (max-width: 769px) {.dc_storista-title {font-size: 28px; }}",
+        "section .section-app {background-color: red !important;}"
       ],
       "settings": {
         "include_margins": true,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "sc_pdp_img_text_wFMzWk": {
@@ -1092,7 +1099,7 @@
     "breadcrumbs",
     "main",
     "rich_text_XHFmTh",
-    "17696171177c1b06c9",
+    "1774636047d0b0a60c",
     "sc_pdp_img_text_wFMzWk",
     "custom_build_your_kit_bundle_93U7GT",
     "compatible_accesories_cAaBkL",

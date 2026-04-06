@@ -433,75 +433,17 @@
         "padding_bottom": 50
       }
     },
-    "17695409095f380edc": {
-      "type": "apps",
-      "blocks": {
-        "storista_stories_x4eHKi": {
-          "type": "shopify://apps/storista/blocks/stories/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
-          "settings": {
-            "stories_widget_id": "",
-            "heading": "",
-            "heading_tag": "h2",
-            "heading_position": "center",
-            "heading_css": "",
-            "subtitle": "",
-            "subtitle_tag": "h5",
-            "subtitle_position": "center",
-            "suibtitle_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "storista_stories_x4eHKi"
-      ],
-      "settings": {
-        "include_margins": true,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "rich_text_9TPDVA": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_iJ9CEb": {
-          "type": "heading",
-          "settings": {
-            "heading": "Our Customer Videos",
-            "highlight_style": "none",
-            "highlight_font_style": "italic",
-            "highlight_style_color": "",
-            "highlight_text_color": "",
-            "heading_size": "h1"
-          }
-        }
-      },
-      "block_order": [
-        "heading_iJ9CEb"
-      ],
-      "name": "t:sections.rich-text.name",
-      "settings": {
-        "container": "fixed",
-        "color_scheme": "",
-        "use_color_scheme_in_container": false,
-        "content_spacing": "standard",
-        "content_alignment": "center",
-        "padding_top": 50,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed"
-      }
-    },
     "1772461838984342df": {
       "type": "apps",
       "blocks": {
         "storista_stories_cjr88k": {
           "type": "shopify://apps/storista/blocks/stories/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
           "settings": {
-            "stories_widget_id": "4V1YMH0Tlv4Bw0V",
-            "heading": "heading",
+            "stories_widget_id": "OWnlQ0hcHscNWqh",
+            "heading": "Our Customer Videos",
             "heading_tag": "h2",
             "heading_position": "center",
-            "heading_css": "",
+            "heading_css": "dc_storista-title",
             "subtitle": "",
             "subtitle_tag": "h5",
             "subtitle_position": "center",
@@ -513,12 +455,14 @@
         "storista_stories_cjr88k"
       ],
       "custom_css": [
-        ".atTSbW_arrowIcon {border-radius: 100%; border: 1px solid #b5b5b5;}"
+        ".atTSbW_arrowIcon {border-radius: 100%; border: 1px solid #b5b5b5;}",
+        ".dc_storista-title {font-size: 40px; font-weight: 500;}",
+        "@media only screen and (max-width: 769px) {.dc_storista-title {font-size: 28px; }}"
       ],
       "settings": {
         "include_margins": true,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "image_with_text_overlay_e8gK4d": {
@@ -760,8 +704,6 @@
     "featured_collection_fNpBbf",
     "collection_list_8H4MWF",
     "custom_hero_lookbook_banner_YJnKNw",
-    "17695409095f380edc",
-    "rich_text_9TPDVA",
     "1772461838984342df",
     "image_with_text_overlay_e8gK4d",
     "custom_reviews_grid_77yVbd",

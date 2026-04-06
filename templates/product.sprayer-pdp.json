@@ -42,7 +42,7 @@
             "use_same_size_for_compare_at_price": true,
             "regular_price_first": false,
             "price_font_family": "manrope_n6",
-            "use_percentage_discount_tag": false,
+            "use_percentage_discount_tag": true,
             "tag_color": "#ff5413",
             "tag_text_color": "#ffffff",
             "use_season_tag": false,
@@ -312,48 +312,17 @@
         "mobile_padding_bottom": 32
       }
     },
-    "rich_text_BM6dBq": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_AJ37RN": {
-          "type": "heading",
-          "settings": {
-            "heading": "Our Customer Videos",
-            "highlight_style": "none",
-            "highlight_font_style": "italic",
-            "highlight_style_color": "",
-            "highlight_text_color": "",
-            "heading_size": "h1"
-          }
-        }
-      },
-      "block_order": [
-        "heading_AJ37RN"
-      ],
-      "name": "t:sections.rich-text.name",
-      "settings": {
-        "container": "fixed",
-        "color_scheme": "",
-        "use_color_scheme_in_container": false,
-        "content_spacing": "standard",
-        "content_alignment": "center",
-        "padding_top": 50,
-        "padding_bottom": 0,
-        "show_section_divider": false,
-        "divider_width": "fixed"
-      }
-    },
-    "17696171177c1b06c9": {
+    "apps_byAMFK": {
       "type": "apps",
       "blocks": {
-        "storista_pdp_UzWeka": {
+        "storista_pdp_6caeWa": {
           "type": "shopify://apps/storista/blocks/pdp/f115f4d7-a3d3-4324-9eed-5a084ef1bd5a",
           "settings": {
-            "widget_id": "4V1YMH0Tlv4Bw0V",
-            "heading": "",
+            "widget_id": "gxlhPO6CHp6SEGD",
+            "heading": "Our Customer Videos",
             "heading_tag": "h2",
             "heading_position": "center",
-            "heading_css": "",
+            "heading_css": "dc_storista-title",
             "subtitle": "",
             "subtitle_tag": "h5",
             "subtitle_position": "center",
@@ -362,12 +331,18 @@
         }
       },
       "block_order": [
-        "storista_pdp_UzWeka"
+        "storista_pdp_6caeWa"
+      ],
+      "custom_css": [
+        ".atTSbW_arrowIcon {border-radius: 100%; border: 1px solid #b5b5b5;}",
+        ".dc_storista-title {font-size: 40px; font-weight: 500;}",
+        "@media only screen and (max-width: 769px) {.dc_storista-title {font-size: 28px; }}",
+        ".section-app {background-color: #f5f5f5;}"
       ],
       "settings": {
         "include_margins": true,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "collapsible_tabs_eTAhFK": {
@@ -918,8 +893,7 @@
     "breadcrumbs",
     "main",
     "sc_pdp_img_text_wFMzWk",
-    "rich_text_BM6dBq",
-    "17696171177c1b06c9",
+    "apps_byAMFK",
     "collapsible_tabs_eTAhFK",
     "custom_product_comparison_ThMX3w",
     "custom_tabs_content_Kgafe9",

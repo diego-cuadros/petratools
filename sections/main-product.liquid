@@ -95,6 +95,15 @@
     {{ 'custom-template-sprayer-pdp.css' | asset_url | stylesheet_tag }}
   {% endif %}
 
+  {% if template.suffix == 'sprayer-pdp' %}
+    <style>
+      section:has(
+    > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) .dc_storista-title
+) {
+  background-color: #fff !important;
+}
+    </style>
+  {% endif %}
 
   <div id="ComparisonTop" class="product flex flex-wrap {{ product_class }}">
     {%- if product.media.size > 0 -%}
