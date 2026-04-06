@@ -150,6 +150,7 @@
     }
   </style>
 {% endif %}
+
 <div
   class="
     f-price
@@ -160,7 +161,7 @@
     {%- if target.price_varies == false and target.compare_at_price_varies %} f-price--no-compare{% endif -%}
   "
 >
-  {% if template == 'product' %}
+  {% if template.name == 'product' %}
     <div class="dc_season-row">
       {% unless product.metafields.custom.season_price_use_from_variants %}
         {% if block.settings.show_season_price or product.metafields.custom.use_season_price.value %}
@@ -243,7 +244,12 @@
       {%- endunless -%}
     {%- endcapture -%}
 
-      {%- if block.settings.regular_price_first -%}
+      {%- assign regular_price_first = block.settings.regular_price_first -%}
+      {%- if has_compare_at_price -%}
+        {%- assign regular_price_first = true -%}
+      {%- endif -%}
+
+      {%- if regular_price_first -%}
         {{ regular_price_markup }}
         {{ compare_at_markup }}
       {%- else -%}
