@@ -347,7 +347,11 @@
       <div class="dc_season-row">
         {% if block.settings.use_season_tag or product.metafields.custom.use_season_price.value %}
           <div class="dc_season-tag" style="color: {{ block.settings.season_tag_color }};">
-            {{ block.settings.season_tag_text | escape }}
+            {% if product.metafields.custom.season_tag_text.value != blank %}
+              {{ product.metafields.custom.season_tag_text.value | escape }}
+            {% else %}
+              {{ block.settings.season_tag_text | escape }}
+            {% endif %}
           </div>
         {% endif %}
       </div>
